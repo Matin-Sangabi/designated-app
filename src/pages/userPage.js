@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
+
 const UserPage = () => {
   return (
-    <div className="container max-w-screen-xl mx-auto pt-20">
+    <div className="container px-4 max-w-screen-xl mx-auto pt-20">
       <div className="flex flex-col gap-y-6">
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-semibold">نام :</h1>
@@ -54,6 +56,12 @@ const UserPage = () => {
                       >
                         عملیات
                       </th>
+                      <th
+                        scope="col"
+                        className="text-sm font-medium  px-6 py-4 text-right"
+                      >
+                        نمایش
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -74,41 +82,8 @@ const UserPage = () => {
                         <button>Edit</button>
                         <button>Delete</button>
                       </td>
-                    </tr>
-                    <tr className="bg-[#edddd4] border-b transition duration-300 ease-in-out hover:bg-gray-300">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900 font-semibold">
-                        1401/02/02
-                      </td>
-                      <td className="text-sm text-gray-900  px-6 py-4 whitespace-nowrap font-semibold">
-                        110,000,000 ريال
-                      </td>
                       <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
-                        نصب شارژر صندلی ...
-                      </td>
-                      <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
-                        تسویه شد
-                      </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap flex items-center gap-x-2">
-                        <button>Edit</button>
-                        <button>Delete</button>
-                      </td>
-                    </tr>
-                    <tr className="bg-[#edddd4] border-b transition duration-300 ease-in-out hover:bg-gray-300">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900 font-semibold">
-                        1401/02/02
-                      </td>
-                      <td className="text-sm text-gray-900  px-6 py-4 whitespace-nowrap font-semibold">
-                        110,000,000 ريال
-                      </td>
-                      <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
-                        نصب شارژر صندلی ...
-                      </td>
-                      <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
-                        بدهکار
-                      </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap flex items-center gap-x-2">
-                        <button>Edit</button>
-                        <button>Delete</button>
+                        <Link to ="/detail">مشاهده</Link>
                       </td>
                     </tr>
                   </tbody>
@@ -116,6 +91,9 @@ const UserPage = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="flex items-center justify-end px-2">
+          <Link to="AddUser" className="p-2 rounded-md bg-[#197278] text-gray-100 hover:ring hover:ring-offset-2 hover:ring-[#197278] transition-all ease-in-out duration-500 text-sm ">اضافه کردن</Link>
         </div>
       </div>
     </div>

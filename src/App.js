@@ -3,6 +3,7 @@ import { Routes , Route } from 'react-router-dom';
 import AddUserPage from './pages/AddUser';
 import Homepage from './pages/Home';
 import UserPage from './pages/userPage';
+import DetailPAge from './pages/Detail';
 function App() {
   return (
     <div className='w-full h-screen bg-gray-200'>
@@ -10,6 +11,7 @@ function App() {
         <Route path='/' element={<Homepage/>} />
         <Route path='addUser' element={<AddUserPage/>} />
         <Route path='userPage' element={<UserPage/>} />
+        <Route path='/detail' element={<DetailPAge/>} />
       </Routes>
     </div>
   );
