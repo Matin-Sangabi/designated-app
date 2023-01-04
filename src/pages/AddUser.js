@@ -1,19 +1,46 @@
-import { createElement, useRef } from "react";
-function generateElement() {
-    
-    return createElement(
-        'div' , 
-        {className : 'bg-red-500'},
-        
-    )
-  }
-const AddUserPage = () => {
-  const parentElement = useRef();
+import { useState } from "react";
+import AddElement from "../components/AddUser/AddElement";
+import { Link } from "react-router-dom";
+import { useFormik } from "formik";
+// import uuid from "react-uuid"; 
+const initialValues = {
+  name: "",
+  phone: "",
+  plate: "",
+  desc: [{ title: "", price: "" }],
+};
+const Element = [
+  { name: "", price: "" },
+  { name: "", price: "" },
+];
 
-  
+const onSubmit = (values) => {
+  console.log(values);
+};
+const AddUserPage = () => {
+  const [children, setChildren] = useState(Element);
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+  });
+  function generateElement() {
+    const temp = [...children];
+    temp.push(1);
+    setChildren(temp);
+  }
+
   return (
     <div className="container mx-auto max-w-screen-xl pt-10">
-      <form className="w-full p-2 rounded-md ring ring-gray-500">
+      <Link
+        to="/"
+        className="flex items-end justify-end mb-4 text-sm text-sky-500"
+      >
+        بازگشت به خانه
+      </Link>
+      <form
+        onSubmit={formik.handleSubmit}
+        className="w-full p-4 rounded-md ring-2 ring-gray-500"
+      >
         <div className="flex flex-col gap-y-4">
           <div className="flex items-center justify-between">
             <label className="flex items-center gap-x-2">
@@ -21,6 +48,8 @@ const AddUserPage = () => {
               <input
                 type="text"
                 placeholder="نام"
+                name="name"
+                {...formik.getFieldProps("name")}
                 className="p-2 rounded-md bg-gray-100 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 border-none outline-none transition-all ease-in-out duration-300"
               />
             </label>
@@ -29,6 +58,8 @@ const AddUserPage = () => {
               <input
                 type="tel"
                 placeholder="تلفن"
+                name="phone"
+                {...formik.getFieldProps("phone")}
                 className="p-2 rounded-md bg-gray-100 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 border-none outline-none transition-all ease-in-out duration-300"
               />
             </label>
@@ -37,6 +68,8 @@ const AddUserPage = () => {
               <input
                 type="text"
                 placeholder="پلاک"
+                name="plate"
+                {...formik.getFieldProps("plate")}
                 className="p-2 rounded-md bg-gray-100 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 border-none outline-none transition-all ease-in-out duration-300"
               />
             </label>
@@ -44,38 +77,16 @@ const AddUserPage = () => {
           <div className="">
             <label className="flex items-center gap-x-2">
               تاریخ :
-              <input
-                type="text"
-                placeholder="نام"
-                className="p-2 rounded-md bg-gray-100 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 border-none outline-none transition-all ease-in-out duration-300"
-              />
+              <span className="px-2 py-2 rounded-md bg-gray-100 w-48 text-center">
+                {new Date().toLocaleDateString("fa")}
+              </span>
             </label>
           </div>
-          <div className="flex flex-col gap-y-2 relative" ref={parentElement}>
+          <div className="flex flex-col gap-y-2 relative">
             <h1>شرح کار : </h1>
-            <div className="flex items-center justify-between gap-x-2 w-full relative">
-              <textarea
-                placeholder="شرح کالا 1"
-                className="h-10 resize-none rounded-md p-2 bg-gray-100 flex-1 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 border-none outline-none transition-all ease-in-out duration-300"
-              ></textarea>
-              <input
-                type="text"
-                placeholder="قیمت"
-                className=" h-10 px-2 rounded-md bg-gray-100 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 border-none outline-none transition-all ease-in-out duration-300"
-              />
-            </div>
-            <div className="flex items-center justify-between gap-x-2 w-full relative">
-              <textarea
-                placeholder="شرح کالا 1"
-                className="h-10 resize-none rounded-md p-2 bg-gray-100 flex-1 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 border-none outline-none transition-all ease-in-out duration-300"
-              ></textarea>
-              <input
-                type="text"
-                placeholder="قیمت"
-                className=" h-10 px-2 rounded-md bg-gray-100 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 border-none outline-none transition-all ease-in-out duration-300"
-              />
-            </div>
-            {<Element />}
+            {children.map((_, index) => (
+              <AddElement key={index} index={index} formik={formik} name={'desc'}/>
+            ))}
             <button
               type="button"
               onClick={generateElement}
@@ -118,12 +129,4 @@ const AddUserPage = () => {
   );
 };
 
-function Element () {
-    console.log('run');
-    return createElement(
-        generateElement
-    )
-}
-
 export default AddUserPage;
-/*https://stackoverflow.com/questions/57000027/how-to-create-element-on-button-click*/
