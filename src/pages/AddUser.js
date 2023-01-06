@@ -1,27 +1,53 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddElement from "../components/AddUser/AddElement";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-// import uuid from "react-uuid"; 
+import * as yup from "yup";
+import InputsTag from "../components/AddUser/Inputs";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+// import uuid from "react-uuid";
 const initialValues = {
   name: "",
   phone: "",
   plate: "",
-  desc: [{ title: "", price: "" }],
+  desc: [],
 };
 const Element = [
   { name: "", price: "" },
   { name: "", price: "" },
 ];
+const Inputs = [
+  { name: "name", type: "text", placeholder: "نام" },
+  { name: "phone", type: "tel", placeholder: "تلفن " },
+  { name: "plate", type: "text", placeholder: "پلاک" },
+];
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
+const validationSchema = yup.object().shape({
+  name: yup.string().required("لطفا نام را وارد کنید"),
+  phone: yup
+    .string()
+    .matches(phoneRegExp, "شماره تلفن صحیح نمی باشد")
+    .required("شماره تلفن را وارد کنید"),
+  plate: yup.string().required("شماره پلاک را وارد کنید"),
+  // desc: yup.array().of(
+  //   yup.object().shape({
+  //     price: yup.string().required("قیمت را به عدد باید وارد کنید"),
+  //   })
+  // ),
+});
 
 const onSubmit = (values) => {
   console.log(values);
 };
 const AddUserPage = () => {
   const [children, setChildren] = useState(Element);
+  const [totalPrice, setTotalPrice] = useState(0);
   const formik = useFormik({
     initialValues,
     onSubmit,
+    validationSchema,
   });
   function generateElement() {
     const temp = [...children];
@@ -29,8 +55,15 @@ const AddUserPage = () => {
     setChildren(temp);
   }
 
+  useEffect(() => {
+    const total = formik.values.desc.reduce((arc, curr) => {
+      return curr.price && arc + Number(curr.price.split(",").join(""));
+    }, 0);
+    setTotalPrice(total);
+  }, [formik.values.desc]);
+  
   return (
-    <div className="container mx-auto max-w-screen-xl pt-10">
+    <div className="container mx-auto max-w-screen-xl pt-10 px-4">
       <Link
         to="/"
         className="flex items-end justify-end mb-4 text-sm text-sky-500"
@@ -43,36 +76,9 @@ const AddUserPage = () => {
       >
         <div className="flex flex-col gap-y-4">
           <div className="flex items-center justify-between">
-            <label className="flex items-center gap-x-2">
-              نام :
-              <input
-                type="text"
-                placeholder="نام"
-                name="name"
-                {...formik.getFieldProps("name")}
-                className="p-2 rounded-md bg-gray-100 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 border-none outline-none transition-all ease-in-out duration-300"
-              />
-            </label>
-            <label className="flex items-center gap-x-2">
-              تلفن :
-              <input
-                type="tel"
-                placeholder="تلفن"
-                name="phone"
-                {...formik.getFieldProps("phone")}
-                className="p-2 rounded-md bg-gray-100 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 border-none outline-none transition-all ease-in-out duration-300"
-              />
-            </label>
-            <label className="flex items-center gap-x-2">
-              پلاک :
-              <input
-                type="text"
-                placeholder="پلاک"
-                name="plate"
-                {...formik.getFieldProps("plate")}
-                className="p-2 rounded-md bg-gray-100 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 border-none outline-none transition-all ease-in-out duration-300"
-              />
-            </label>
+            {Inputs.map((item, i) => {
+              return <InputsTag key={i} {...item} formik={formik} />;
+            })}
           </div>
           <div className="">
             <label className="flex items-center gap-x-2">
@@ -85,7 +91,12 @@ const AddUserPage = () => {
           <div className="flex flex-col gap-y-2 relative">
             <h1>شرح کار : </h1>
             {children.map((_, index) => (
-              <AddElement key={index} index={index} formik={formik} name={'desc'}/>
+              <AddElement
+                key={index}
+                index={index}
+                formik={formik}
+                name={"desc"}
+              />
             ))}
             <button
               type="button"
@@ -98,8 +109,9 @@ const AddUserPage = () => {
           <div className="flex flex-col gap-y-4 pt-4">
             <div className="flex items-center gap-x-2 ">
               <h1 className="text-lg font-semibold">جمع کل : </h1>
-              <div className="p-2 block bg-gray-100 w-36 h-10 rounded-md">
-                100,000,000 ريال
+              <div className="p-2 bg-gray-100 w-36 h-10 rounded-md flex items-center">
+                {totalPrice === undefined  ? <span className="text-[#197278] text-xl text-center"><AiOutlineLoading3Quarters className=" animate-spin"/></span> : `${Number(totalPrice).toLocaleString()} ريال`}
+                 
               </div>
             </div>
             <div className="flex items-center gap-x-2 ">
