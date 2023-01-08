@@ -6,6 +6,8 @@ import * as yup from "yup";
 import InputsTag from "../components/AddUser/Inputs";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { format } from "../utils/degitInputs";
+import { useDispatch } from "react-redux";
+import { addDesignated } from "../redux/designated/designatedSlice";
 // import uuid from "react-uuid";
 const initialValues = {
   name: "",
@@ -35,21 +37,33 @@ const validationSchema = yup.object().shape({
   plate: yup.string().required("شماره پلاک را وارد کنید"),
 });
 
-const onSubmit = (values) => {
-  console.log(values);
-};
 const AddUserPage = () => {
   const [children, setChildren] = useState(Element);
   const [totalPrice, setTotalPrice] = useState(0);
   const [remaining, setRemaining] = useState(0);
   const [typeInput, setTypeInput] = useState(false);
-  const [maxLength , setMaxLength] = useState(0);
-
+  const [maxLength, setMaxLength] = useState(0);
+  const dispatch = useDispatch();
+  const onSubmit = (values) => {
+    const designated = {
+      createdAt: new Date().toISOString(),
+      id: Date.now(),
+      name: values.name,
+      phone: values.phone,
+      plate: values.plate,
+      desc: values.desc,
+      payment: [{ createdAt: new Date().toISOString(), pay: values.payment }],
+      totalPrice,
+      remaining,
+    };
+    dispatch(addDesignated(designated));
+  };
   const formik = useFormik({
     initialValues,
     onSubmit,
     validationSchema,
   });
+
   function generateElement() {
     const temp = [...children];
     temp.push(1);
@@ -57,30 +71,37 @@ const AddUserPage = () => {
   }
   const changeHandler = (e) => {
     format(e.target);
-    if(Number(e.target.value.split(",").join("") > totalPrice)){
-      
-      format(e.target)
+    if (Number(e.target.value.split(",").join("") > totalPrice)) {
+      format(e.target);
       formik.values.payment = e.target.value;
     }
     e.target.value.length > 1 ? setTypeInput(true) : setTypeInput(false);
   };
   const keyHandler = (e) => {
-    if(Number(e.target.value.split(",").join("") > totalPrice)){
-      let position =  e.target.selectionStart;
-      e.target.value = e.target.value.substring(0 , position -1) + e.target.value.substring(position +1)
-      format(e.target)
+    if (Number(e.target.value.split(",").join("") > totalPrice)) {
+      let position = e.target.selectionStart;
+      e.target.value =
+        e.target.value.substring(0, position - 1) +
+        e.target.value.substring(position + 1);
+      format(e.target);
       formik.values.payment = e.target.value;
     }
-  }
+  };
   useEffect(() => {
     const total = formik.values.desc.reduce((arc, curr) => {
       return curr.price && arc + Number(curr.price.split(",").join(""));
     }, 0);
     setTotalPrice(total);
-    if(totalPrice > 1) {
-      const totalPriceLength = totalPrice.toLocaleString().toString(10).replace(/\D/g, '0').split('').map(Number);
+    if (totalPrice > 1) {
+      const totalPriceLength = totalPrice
+        .toLocaleString()
+        .toString(10)
+        .replace(/\D/g, "0")
+        .split("")
+        .map(Number);
       setMaxLength(totalPriceLength);
-      const remain = totalPrice - Number(formik.values.payment.split(",").join(""));
+      const remain =
+        totalPrice - Number(formik.values.payment.split(",").join(""));
       setRemaining(remain);
     }
   }, [formik.values, totalPrice]);
