@@ -16,9 +16,19 @@ const designatedSlice = createSlice({
       state.designated.push(payload);
       designatedSaveToStorage(state.designated);
     },
+    addDesignatedPayment: (state, { payload }) => {
+      const findUser = state.designated.find(
+        (item) => item.id === parseInt(payload.id)
+      );
+      const salesInVoice = findUser.salesInvoices.find(
+        (item) => item.id === payload.factorId
+      );
+      salesInVoice.payment.push(payload.payment);
+      designatedSaveToStorage(state.designated);
+    },
   },
 });
 
-export const { addDesignated } = designatedSlice.actions;
+export const { addDesignated, addDesignatedPayment } = designatedSlice.actions;
 
 export default designatedSlice.reducer;

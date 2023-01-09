@@ -8,6 +8,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { format } from "../utils/degitInputs";
 import { useDispatch } from "react-redux";
 import { addDesignated } from "../redux/designated/designatedSlice";
+import uuid from "react-uuid";
 // import uuid from "react-uuid";
 const initialValues = {
   name: "",
@@ -46,15 +47,22 @@ const AddUserPage = () => {
   const dispatch = useDispatch();
   const onSubmit = (values) => {
     const designated = {
-      createdAt: new Date().toISOString(),
       id: Date.now(),
       name: values.name,
       phone: values.phone,
       plate: values.plate,
-      desc: values.desc,
-      payment: [{ createdAt: new Date().toISOString(), pay: values.payment }],
-      totalPrice,
-      remaining,
+      salesInvoices: [
+        {
+          id: uuid(),
+          createdAt : new Date().toISOString(),
+          desc: values.desc,
+          payment: [
+            { createdAt: new Date().toISOString(), pay: values.payment },
+          ],
+          totalPrice,
+          remaining,
+        },
+      ],
     };
     dispatch(addDesignated(designated));
   };

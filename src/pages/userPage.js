@@ -11,14 +11,20 @@ const UserPage = () => {
     const findUser = designated.find((u) => u.id === parseInt(id));
     setDesignatedUser(findUser);
   }, [id, designated]);
-  if(designatedUser) {
+  if (designatedUser) {
     return (
       <div className="container px-4 max-w-screen-xl mx-auto pt-20">
         <div className="flex flex-col gap-y-6">
           <div className="flex items-center justify-between">
-            <h1 className="text-xl font-semibold">نام : {designatedUser.name}</h1>
-            <h1 className="text-xl font-semibold">شماره :{designatedUser.phone}</h1>
-            <h1 className="text-xl font-semibold">پلاک :{designatedUser.plate}</h1>
+            <h1 className="text-xl font-semibold">
+              نام : {designatedUser.name}
+            </h1>
+            <h1 className="text-xl font-semibold">
+              شماره :{designatedUser.phone}
+            </h1>
+            <h1 className="text-xl font-semibold">
+              پلاک :{designatedUser.plate}
+            </h1>
           </div>
           <hr className="bg-gray-600 h-[2px]" />
           <h1 className="text-2xl font-semibold text-cyan-900">لیست : </h1>
@@ -47,7 +53,7 @@ const UserPage = () => {
                           scope="col"
                           className="text-sm font-medium  px-6 py-4 text-right"
                         >
-                          مبلغ
+                          مانده حساب
                         </th>
                         <th
                           scope="col"
@@ -76,27 +82,38 @@ const UserPage = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr className="bg-[#edddd4] border-b transition duration-300 ease-in-out hover:bg-gray-300">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900 font-semibold">
-                          {new Date(designatedUser.createdAt).toLocaleDateString("fa")}
-                        </td>
-                        <td className="text-sm text-gray-900  px-6 py-4 whitespace-nowrap font-semibold">
-                          {Number(designatedUser.remaining).toLocaleString()} ريال
-                        </td>
-                        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
-                          {designatedUser.desc[0].title}...
-                        </td>
-                        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
-                          {designatedUser.remaining === 0 ? 'تسویه شد' : 'بدهکار'}
-                        </td>
-                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap flex items-center gap-x-2">
-                          <button>Edit</button>
-                          <button>Delete</button>
-                        </td>
-                        <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
-                          <Link to="/detail">مشاهده</Link>
-                        </td>
-                      </tr>
+                      {designatedUser.salesInvoices.map((item) => {
+                        return (
+                          <tr key={item.id} className="bg-[#edddd4] border-b transition duration-300 ease-in-out hover:bg-gray-300">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900 font-semibold">
+                              {new Date(
+                                item.createdAt
+                              ).toLocaleDateString("fa")}
+                            </td>
+                            <td className="text-sm text-gray-900  px-6 py-4 whitespace-nowrap font-semibold">
+                              {Number(
+                                item.remaining
+                              ).toLocaleString()}{" "}
+                              ريال
+                            </td>
+                            <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
+                              {item.desc[0].title}...
+                            </td>
+                            <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
+                              {item.remaining === 0
+                                ? "تسویه شد"
+                                : "بدهکار"}
+                            </td>
+                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap flex items-center gap-x-2">
+                              <button>Edit</button>
+                              <button>Delete</button>
+                            </td>
+                            <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
+                              <Link to="/detail" state={{designatedUser : item , id : designatedUser.id}}>مشاهده</Link>
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>
