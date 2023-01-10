@@ -1,26 +1,30 @@
 import { Fragment, useEffect, useState } from "react";
-import { useSelector , useDispatch } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { addDesignatedPayment } from "../redux/designated/designatedSlice";
 import { format } from "../utils/degitInputs";
 
 const DetailPAge = () => {
   const { state } = useLocation();
-  const { designatedUser, id } = state;
+  const { id } = state;
+  const location = useParams();
+  const detailId = location.id;
+  const { designated } = useSelector((state) => state.designated);
   const [salesInvoices, setSalesInvoice] = useState(null);
+  const [designatedUser, setDesignatedUser] = useState();
   const [value, setValue] = useState("");
   const [TypeInput, setTypeInput] = useState("");
-  const { designated } = useSelector((state) => state.designated);
   const [maxLength, setMaxLength] = useState();
-  const [remaining, setRemaining] = useState(designatedUser.remaining);
+  const [remaining, setRemaining] = useState(null);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log('run');
     const findUser = designated.find((item) => item.id === parseInt(id));
     setSalesInvoice(findUser);
-    
-    if (designatedUser.totalPrice > 1) {
-      const totalPriceLength = designatedUser.remaining
+    const sales = findUser.salesInvoices.find((item) => item.id === detailId);
+    setDesignatedUser(sales);
+    setRemaining(sales.remaining);
+    if (sales.totalPrice > 1) {
+      const totalPriceLength = sales.remaining
         .toLocaleString()
         .toString(10)
         .replace(/\D/g, "0")
@@ -28,12 +32,14 @@ const DetailPAge = () => {
         .map(Number);
       setMaxLength(totalPriceLength);
     }
-  }, [id, designated, designatedUser]);
-  
+  }, [id, designated, detailId]);
   useEffect(() => {
-    const remain = designatedUser.remaining - Number(value.split(",").join(""));
-    setRemaining(remain);
-  }, [designatedUser.remaining, value]);
+    if (designatedUser) {
+      const remain =
+        designatedUser.remaining - Number(value.split(",").join(""));
+      setRemaining(remain);
+    }
+  }, [designatedUser, value]);
   const changeHandler = (e) => {
     setValue(e.target.value);
   };
@@ -57,9 +63,17 @@ const DetailPAge = () => {
   };
   const paymentHandler = () => {
     const payment = { createdAt: new Date().toISOString(), pay: value };
-    dispatch(addDesignatedPayment({id : salesInvoices.id , payment , factorId : designatedUser.id}))
+    dispatch(
+      addDesignatedPayment({
+        id: salesInvoices.id,
+        payment,
+        factorId: designatedUser.id,
+        remaining,
+      })
+    );
+    setValue("");
   };
-  console.log(salesInvoices , designatedUser);
+
   if (salesInvoices) {
     return (
       <div className="container mx-auto max-w-screen-xl px-4 pt-10">

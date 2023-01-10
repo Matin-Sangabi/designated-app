@@ -109,7 +109,7 @@ const UserPage = () => {
                               <button>Delete</button>
                             </td>
                             <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
-                              <Link to="/detail" state={{designatedUser : item , id : designatedUser.id}}>مشاهده</Link>
+                              <Link to={`/detail/${item.id}`} state={{ id : designatedUser.id}}>مشاهده</Link>
                             </td>
                           </tr>
                         );

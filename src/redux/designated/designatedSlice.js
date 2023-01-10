@@ -24,6 +24,7 @@ const designatedSlice = createSlice({
         (item) => item.id === payload.factorId
       );
       salesInVoice.payment.push(payload.payment);
+      salesInVoice.remaining = payload.remaining;
       designatedSaveToStorage(state.designated);
     },
   },
