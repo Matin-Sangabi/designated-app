@@ -5,6 +5,7 @@ import UserPage from "./pages/userPage";
 import DetailPAge from "./pages/Detail";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+
 function App() {
   return (
     <Provider store={store}>
@@ -14,6 +15,7 @@ function App() {
           <Route path="addUser" element={<AddUserPage />} />
           <Route path="/userPage/:id" element={<UserPage />} />
           <Route path="/detail/:id" element={<DetailPAge />} />
+          {/* <Route path="/AddDesignated/:id" element={<AddDesignated />} /> */}
         </Routes>
       </div>
     </Provider>

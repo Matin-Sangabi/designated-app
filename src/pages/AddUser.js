@@ -1,22 +1,15 @@
 import { useEffect, useState } from "react";
 import AddElement from "../components/AddUser/AddElement";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import InputsTag from "../components/AddUser/Inputs";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { format } from "../utils/degitInputs";
-import { useDispatch } from "react-redux";
-import { addDesignated } from "../redux/designated/designatedSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addDesignated, addNewDesignatedSalesInVoice } from "../redux/designated/designatedSlice";
 import uuid from "react-uuid";
-// import uuid from "react-uuid";
-const initialValues = {
-  name: "",
-  phone: "",
-  plate: "",
-  desc: [],
-  payment: "",
-};
+
 const Element = [
   { name: "", price: "" },
   { name: "", price: "" },
@@ -44,34 +37,75 @@ const AddUserPage = () => {
   const [remaining, setRemaining] = useState(0);
   const [typeInput, setTypeInput] = useState(false);
   const [maxLength, setMaxLength] = useState(0);
+  const [userInitialValues, setUserInitalValues] = useState(null);
+  const { designated } = useSelector((state) => state.designated);
+  const [searchParams] = useSearchParams();
+  const userId = searchParams.get("id");
   const dispatch = useDispatch();
+  useEffect(() => {
+    if (userId) {
+      const findUser = designated.find((item) => item.id === Number(userId));
+      const userInit = {
+        name: findUser.name,
+        phone: findUser.phone,
+        plate: findUser.plate,
+        desc: [],
+        payment: "",
+      };
+      setUserInitalValues(userInit);
+    }
+  }, [userId, designated]);
+  const initialValues = {
+    name: "",
+    phone: "",
+    plate: "",
+    desc: [],
+    payment: "",
+  };
+
   const onSubmit = (values) => {
-    const designated = {
-      id: Date.now(),
-      name: values.name,
-      phone: values.phone,
-      plate: values.plate,
-      salesInvoices: [
-        {
+    if (userId) {
+      const salesInvoices = {
           id: uuid(),
-          createdAt : new Date().toISOString(),
+          createdAt: new Date().toISOString(),
           desc: values.desc,
           payment: [
             { createdAt: new Date().toISOString(), pay: values.payment },
           ],
           totalPrice,
           remaining,
-        },
-      ],
-    };
-    dispatch(addDesignated(designated));
+        }
+      ;
+      dispatch(addNewDesignatedSalesInVoice({id : userId , salesInvoices}))
+    } else {
+      const designated = {
+        id: Date.now(),
+        name: values.name,
+        phone: values.phone,
+        plate: values.plate,
+        salesInvoices: [
+          {
+            id: uuid(),
+            createdAt: new Date().toISOString(),
+            desc: values.desc,
+            payment: [
+              { createdAt: new Date().toISOString(), pay: values.payment },
+            ],
+            totalPrice,
+            remaining,
+          },
+        ],
+      };
+
+      dispatch(addDesignated(designated));
+    }
   };
   const formik = useFormik({
-    initialValues,
+    initialValues: userInitialValues ? userInitialValues : initialValues,
     onSubmit,
     validationSchema,
+    enableReinitialize: true,
   });
-
   function generateElement() {
     const temp = [...children];
     temp.push(1);

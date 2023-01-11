@@ -122,7 +122,7 @@ const UserPage = () => {
           </div>
           <div className="flex items-center justify-end px-2">
             <Link
-              to="AddUser"
+              to={`/addUser?id=${designatedUser.id}`}
               className="p-2 rounded-md bg-[#197278] text-gray-100 hover:ring hover:ring-offset-2 hover:ring-[#197278] transition-all ease-in-out duration-500 text-sm "
             >
               اضافه کردن
