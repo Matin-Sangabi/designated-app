@@ -34,6 +34,14 @@ const designatedSlice = createSlice({
       findUser.salesInvoices.push(payload.salesInvoices);
       designatedSaveToStorage(state.designated);
     },
+    deleteDesignatedSalesInVoices : (state , {payload}) => {
+      const findUser = state.designated.find((item) => item.id === parseInt(payload.id));
+      console.log(findUser);
+      const userSalesInVoices = findUser.salesInvoices.filter((item) => item.id !== payload.salesInVoicesId);
+      findUser.salesInvoices = userSalesInVoices;
+      designatedSaveToStorage(state.designated); 
+
+    }
   },
 });
 
@@ -41,6 +49,7 @@ export const {
   addDesignated,
   addDesignatedPayment,
   addNewDesignatedSalesInVoice,
+  deleteDesignatedSalesInVoices
 } = designatedSlice.actions;
 
 export default designatedSlice.reducer;
