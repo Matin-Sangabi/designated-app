@@ -5,4 +5,8 @@
 *{
   direction: rtl;
   font-family:  IRANSansXNum , IRANSansX ;
+  print-color-adjust: exact;
+}
+@page{
+  size: auto; margin: 0mm;
 }
