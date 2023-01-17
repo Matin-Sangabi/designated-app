@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import RegisterInputs from "../components/Rejister/inputs";
+import axios from "axios";
 const inputs = [
   { name: "name", type: "text", placeholder: "نام" },
   { name: "email", type: "email", placeholder: "ایمیل" },
@@ -7,12 +8,15 @@ const inputs = [
 ];
 const initialValues = {
   name: "",
-  email: " ",
-  password: " ",
+  email: "",
+  password: "",
 };
 const SignIn = () => {
   const onSubmit = (values) => {
-    console.log(values);
+    axios
+      .post("http://localhost/PHP_TRAINING/Designated-app/rejister.php" , values)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
   };
   const formik = useFormik({
     initialValues,
