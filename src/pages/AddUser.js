@@ -7,7 +7,11 @@ import InputsTag from "../components/AddUser/Inputs";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { format } from "../utils/degitInputs";
 import { useDispatch, useSelector } from "react-redux";
-import { addDesignated, addNewDesignatedSalesInVoice } from "../redux/designated/designatedSlice";
+import {
+  AddDesignated,
+  addDesignated,
+  addNewDesignatedSalesInVoice,
+} from "../redux/designated/designatedSlice";
 import uuid from "react-uuid";
 
 const Element = [
@@ -66,17 +70,14 @@ const AddUserPage = () => {
   const onSubmit = (values) => {
     if (userId) {
       const salesInvoices = {
-          id: uuid(),
-          createdAt: new Date().toISOString(),
-          desc: values.desc,
-          payment: [
-            { createdAt: new Date().toISOString(), pay: values.payment },
-          ],
-          totalPrice,
-          remaining,
-        }
-      ;
-      dispatch(addNewDesignatedSalesInVoice({id : userId , salesInvoices}))
+        id: uuid(),
+        createdAt: new Date().toISOString(),
+        desc: values.desc,
+        payment: [{ createdAt: new Date().toISOString(), pay: values.payment }],
+        totalPrice,
+        remaining,
+      };
+      dispatch(addNewDesignatedSalesInVoice({ id: userId, salesInvoices }));
     } else {
       const designated = {
         id: Date.now(),
@@ -97,7 +98,7 @@ const AddUserPage = () => {
         ],
       };
 
-      dispatch(addDesignated(designated));
+      dispatch(AddDesignated({ values: designated }));
     }
   };
   const formik = useFormik({

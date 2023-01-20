@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
 const BASE_URL = "http://localhost/PHP_TRAINING/Designated-app";
 const SAVE_USERS = "DESIGNATED_USERS";
 
@@ -34,9 +33,38 @@ export const LoginUser = createAsyncThunk(
     }
   }
 );
+export const AddDesignated = createAsyncThunk(
+  "designated/AddDesignated",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/AddDesignated.php`,
+        payload.values
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue([], error);
+    }
+  }
+);
+export const GetDesignated = createAsyncThunk(
+  "designated/GetDesignated",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/GetDesignated.php`
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue([], error);
+    }
+  }
+);
 
 const initialState = {
-  designated: JSON.parse(localStorage.getItem("DESIGNATED")) || [],
+  designated: [],
+  designated_loading: false,
+  designated_error: null,
   users: JSON.parse(localStorage.getItem(SAVE_USERS)) || [],
   users_loading: false,
   users_error: null,
@@ -63,7 +91,7 @@ const designatedSlice = createSlice({
       );
       salesInVoice.payment.push(payload.payment);
       salesInVoice.remaining = payload.remaining;
-      designatedSaveToStorage(state.designated);
+      // designatedSaveToStorage(state.designated);
     },
     addNewDesignatedSalesInVoice: (state, { payload }) => {
       const findUser = state.designated.find(
@@ -117,6 +145,53 @@ const designatedSlice = createSlice({
         users_loading: false,
         users_error: null,
         users: actions.payload.userList,
+      };
+    },
+    [AddDesignated.fulfilled]: (state, actions) => {
+      return {
+        ...state,
+        designated_loading: false,
+        designated_error: null,
+      };
+    },
+    [AddDesignated.rejected]: (state, actions) => {
+      return {
+        ...state,
+        designated_loading: false,
+        designated_error: actions.meta.response,
+        designated: [],
+      };
+    },
+    [AddDesignated.pending]: (state, actions) => {
+      return {
+        ...state,
+        designated_loading: true,
+        designated_error: null,
+        designated: [],
+      };
+    },
+    [GetDesignated.fulfilled]: (state, actions) => {
+      return {
+        ...state,
+        designated_loading: false,
+        designated_error: actions.meta.response,
+        designated: actions.payload,
+      };
+    },
+    [GetDesignated.rejected]: (state, actions) => {
+      return {
+        ...state,
+        designated_loading: false,
+        designated_error: actions.meta.response,
+        designated: [],
+      };
+    },
+    [GetDesignated.pending]: (state, actions) => {
+      return {
+        ...state,
+        designated_loading: true,
+        designated_error: null,
+        designated: [],
       };
     },
   },

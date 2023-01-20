@@ -7,6 +7,9 @@ import PopUp from "../components/popUp/popUp";
 const UserPage = () => {
   const location = useParams();
   const { id } = location;
+  useEffect(() => {
+    
+  } , [id])
   const [isOpen, setIsOpen] = useState(false);
   const [selectDesiganted , setSelectDesignated] = useState(null);
   const { designated } = useSelector((state) => state.designated);
