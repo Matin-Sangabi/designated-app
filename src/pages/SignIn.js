@@ -1,5 +1,7 @@
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import RegisterInputs from "../components/Rejister/inputs";
 import { registerUser } from "../redux/designated/designatedSlice";
@@ -17,10 +19,16 @@ const initialValues = {
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { users_error, users } = useSelector((state) => state.designated);
+  useEffect(() => {
+    if (users.length !== 0) {
+      navigate("/");
+    }
+  }, [users, navigate]);
   const onSubmit = (values) => {
     dispatch(registerUser({ values }));
-    setTimeout(() => navigate("/"), 1000);
   };
+
   const formik = useFormik({
     initialValues,
     onSubmit,
@@ -41,6 +49,11 @@ const SignIn = () => {
           >
             ثبت نام{" "}
           </button>
+          {users_error && (
+            <span className="animate-pulse text-rose-800 text-center pt-4 text-sm relative">
+              {users_error.data}
+            </span>
+          )}
         </form>
       </div>
     </div>

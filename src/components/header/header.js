@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { HiUser } from "react-icons/hi2";
 const Header = () => {
   const { users } = useSelector((state) => state.designated);
-  console.log(users);
   return (
     <header className="w-full py-4 bg-gray-100 shadow-lg">
       <div className="max-w-screen-xl mx-auto flex items-center justify-between">

@@ -92,6 +92,14 @@ const designatedSlice = createSlice({
         users: actions.payload.userList,
       };
     },
+    [registerUser.rejected]: (state, actions) => {
+      return {
+        ...state,
+        users_loading: false,
+        users: [],
+        users_error: actions.meta.response,
+      };
+    },
     [LoginUser.pending]: (state, actions) => {
       return { ...state, users_loading: true, users_error: null, users: [] };
     },

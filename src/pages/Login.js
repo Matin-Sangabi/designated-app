@@ -15,18 +15,19 @@ const initialValues = {
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { users, users_loading, users_error } = useSelector(
+  const { users, users_error } = useSelector(
     (state) => state.designated
   );
+  useEffect(() => {
+    if (users.length !== 0) {
+      navigate("/");
+    }
+  }, [users, navigate]);
 
   const onSubmit = (values) => {
     dispatch(LoginUser({ values }));
-    setTimeout(() => {
-      navigate("/");
-    }, 1000);
   };
-  
-  console.log(users , users_error , users_loading);
+
   const formik = useFormik({
     initialValues,
     onSubmit,
@@ -48,6 +49,11 @@ const LoginPage = () => {
             >
               ثبت نام{" "}
             </button>
+            {users_error && (
+              <span className="animate-pulse text-rose-800 text-center pt-4 text-sm relative">
+                {users_error.response.data}
+              </span>
+            )}
           </form>
         </div>
       </div>
