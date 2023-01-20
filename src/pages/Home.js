@@ -1,9 +1,12 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Layout from "../layout/layout";
 const Homepage = () => {
-  const { designated } = useSelector((state) => state.designated);
-
+  const { designated , users} = useSelector((state) => state.designated);
+  useEffect(() => {
+    localStorage.setItem("DESIGNATED_USERS", JSON.stringify(users));
+  }, [users]);
   return (
     <Layout>
       <div className="max-w-screen-xl mx-auto container relative h-[93vh] px-2 ">

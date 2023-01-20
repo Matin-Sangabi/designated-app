@@ -1,6 +1,9 @@
 import { useFormik } from "formik";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import RegisterInputs from "../components/Rejister/inputs";
-import axios from "axios";
+import { registerUser } from "../redux/designated/designatedSlice";
+
 const inputs = [
   { name: "name", type: "text", placeholder: "نام" },
   { name: "email", type: "email", placeholder: "ایمیل" },
@@ -12,11 +15,11 @@ const initialValues = {
   password: "",
 };
 const SignIn = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const onSubmit = (values) => {
-    axios
-      .post("http://localhost/PHP_TRAINING/Designated-app/rejister.php" , values)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
+    dispatch(registerUser({ values }));
+    setTimeout(() => navigate("/"), 1000);
   };
   const formik = useFormik({
     initialValues,
