@@ -80,7 +80,6 @@ const AddUserPage = () => {
       dispatch(addNewDesignatedSalesInVoice({ id: userId, salesInvoices }));
     } else {
       const designated = {
-        id: Date.now(),
         name: values.name,
         phone: values.phone,
         plate: values.plate,
@@ -98,7 +97,7 @@ const AddUserPage = () => {
         ],
       };
 
-      dispatch(AddDesignated({ values: designated }));
+      dispatch(AddDesignated({id : Date.now() , designated} ));
     }
   };
   const formik = useFormik({

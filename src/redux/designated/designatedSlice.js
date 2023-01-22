@@ -39,7 +39,7 @@ export const AddDesignated = createAsyncThunk(
     try {
       const response = await axios.post(
         `${BASE_URL}/AddDesignated.php`,
-        payload.values
+        payload
       );
       return response.data;
     } catch (error) {
@@ -175,7 +175,7 @@ const designatedSlice = createSlice({
         ...state,
         designated_loading: false,
         designated_error: actions.meta.response,
-        designated: actions.payload,
+        designated: actions.payload
       };
     },
     [GetDesignated.rejected]: (state, actions) => {
