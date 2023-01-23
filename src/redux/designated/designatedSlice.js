@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const BASE_URL = "http://localhost/PHP_TRAINING/Designated-app";
+const BASE_URL = "http://localhost/php_training/React/Desiganated_app/backend-designated-app";
 const SAVE_USERS = "DESIGNATED_USERS";
 
 export const registerUser = createAsyncThunk(
@@ -60,7 +60,34 @@ export const GetDesignated = createAsyncThunk(
     }
   }
 );
-
+export const UpdateDesignated = createAsyncThunk(
+  "designated/UpdateDesignated",
+  async (payload, { rejectWithValue }) => {
+    console.log(payload)
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/AddDesignated.php/${payload.id}` , payload
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue([], error);
+    }
+  }
+);
+export const GetONeDesignated = createAsyncThunk(
+  "designated/GetOneDesignated",
+  async (payload, { rejectWithValue }) => {
+    
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/GetDesignated.php/${payload.id}`
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue([], error);
+    }
+  }
+);
 const initialState = {
   designated: [],
   designated_loading: false,
@@ -68,6 +95,7 @@ const initialState = {
   users: JSON.parse(localStorage.getItem(SAVE_USERS)) || [],
   users_loading: false,
   users_error: null,
+  salesInvoice : [],
 };
 
 function designatedSaveToStorage(values) {
@@ -194,6 +222,15 @@ const designatedSlice = createSlice({
         designated: [],
       };
     },
+    [GetONeDesignated.fulfilled]: (state, actions) => {
+        return {
+          ...state , 
+          salesInVoice : actions.payload,
+        }
+    },
+    [UpdateDesignated.fulfilled]: (state, actions) => {
+      console.log(actions)
+  },
   },
 });
 

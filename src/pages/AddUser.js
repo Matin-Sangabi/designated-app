@@ -9,7 +9,8 @@ import { format } from "../utils/degitInputs";
 import { useDispatch, useSelector } from "react-redux";
 import {
   AddDesignated,
-  addDesignated,
+  GetONeDesignated,
+  UpdateDesignated,
   addNewDesignatedSalesInVoice,
 } from "../redux/designated/designatedSlice";
 import uuid from "react-uuid";
@@ -42,23 +43,26 @@ const AddUserPage = () => {
   const [typeInput, setTypeInput] = useState(false);
   const [maxLength, setMaxLength] = useState(0);
   const [userInitialValues, setUserInitalValues] = useState(null);
-  const { designated } = useSelector((state) => state.designated);
+  const { salesInVoice } = useSelector((state) => state.designated);
   const [searchParams] = useSearchParams();
   const userId = searchParams.get("id");
   const dispatch = useDispatch();
   useEffect(() => {
     if (userId) {
-      const findUser = designated.find((item) => item.id === Number(userId));
-      const userInit = {
-        name: findUser.name,
-        phone: findUser.phone,
-        plate: findUser.plate,
-        desc: [],
-        payment: "",
-      };
-      setUserInitalValues(userInit);
+      dispatch(GetONeDesignated({ id: userId }));
+      if (salesInVoice) {
+        const userInit = {
+          name: salesInVoice.designated.name,
+          phone: salesInVoice.designated.phone,
+          plate: salesInVoice.designated.plate,
+          desc: [],
+          payment: "",
+        };
+        setUserInitalValues(userInit);
+      }
     }
-  }, [userId, designated]);
+  }, [userId, salesInVoice, dispatch]);
+
   const initialValues = {
     name: "",
     phone: "",
@@ -77,7 +81,12 @@ const AddUserPage = () => {
         totalPrice,
         remaining,
       };
-      dispatch(addNewDesignatedSalesInVoice({ id: userId, salesInvoices }));
+      const sales = [...salesInVoice.designated.salesInvoices, salesInvoices];
+      const salesInVoiceAdded = {
+        ...salesInVoice.designated,
+        salesInvoices: sales,
+      };
+      dispatch(UpdateDesignated({ id : userId, designated : salesInVoiceAdded }));
     } else {
       const designated = {
         name: values.name,
@@ -97,7 +106,7 @@ const AddUserPage = () => {
         ],
       };
 
-      dispatch(AddDesignated({id : Date.now() , designated} ));
+      dispatch(AddDesignated({ id: Date.now(), designated }));
     }
   };
   const formik = useFormik({

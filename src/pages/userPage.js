@@ -1,42 +1,47 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { HiOutlineTrash } from "react-icons/hi2";
 import PopUp from "../components/popUp/popUp";
+import { GetONeDesignated } from "../redux/designated/designatedSlice";
 const UserPage = () => {
   const location = useParams();
   const { id } = location;
-  useEffect(() => {
-    
-  } , [id])
+  const dispatch = useDispatch();
+
   const [isOpen, setIsOpen] = useState(false);
-  const [selectDesiganted , setSelectDesignated] = useState(null);
-  const { designated } = useSelector((state) => state.designated);
+  const [selectDesiganted, setSelectDesignated] = useState(null);
+  const {  salesInVoice } = useSelector((state) => state.designated);
   const [designatedUser, setDesignatedUser] = useState(null);
   useEffect(() => {
-    const findUser = designated.find((u) => u.id === parseInt(id));
-    setDesignatedUser(findUser);
-  }, [id, designated]);
+    dispatch(GetONeDesignated({id}));
+  }, [id, dispatch]);
+  useEffect(() => {
+    setDesignatedUser(salesInVoice);
+  } , [salesInVoice])
   const deleteHandler = (designated) => {
     setIsOpen(true);
     setSelectDesignated(designated);
   };
+  console.log(designatedUser);
   if (designatedUser) {
     return (
       <>
-        {isOpen && <PopUp designated={selectDesiganted} setIsOpen={setIsOpen} id={id} />}
+        {isOpen && (
+          <PopUp designated={selectDesiganted} setIsOpen={setIsOpen} id={id} />
+        )}
         <div className="container px-4 max-w-screen-xl mx-auto pt-20">
           <div className="flex flex-col gap-y-6">
             <div className="flex items-center justify-between">
               <h1 className="text-xl font-semibold">
-                نام : {designatedUser.name}
+                نام : {designatedUser.designated.name}
               </h1>
               <h1 className="text-xl font-semibold">
-                شماره :{designatedUser.phone}
+                شماره :{designatedUser.designated.phone}
               </h1>
               <h1 className="text-xl font-semibold">
-                پلاک :{designatedUser.plate}
+                پلاک :{designatedUser.designated.plate}
               </h1>
             </div>
             <hr className="bg-gray-600 h-[2px]" />
@@ -95,7 +100,7 @@ const UserPage = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {designatedUser.salesInvoices.map((item) => {
+                        {designatedUser.designated.salesInvoices.map((item) => {
                           return (
                             <tr
                               key={item.id}
