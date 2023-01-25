@@ -12,19 +12,16 @@ const UserPage = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectDesiganted, setSelectDesignated] = useState(null);
-  const {  salesInVoice } = useSelector((state) => state.designated);
+  const { salesInVoice } = useSelector((state) => state.designated);
   const [designatedUser, setDesignatedUser] = useState(null);
   useEffect(() => {
-    dispatch(GetONeDesignated({id}));
-  }, [id, dispatch]);
-  useEffect(() => {
+    dispatch(GetONeDesignated({ id }));
     setDesignatedUser(salesInVoice);
-  } , [salesInVoice])
+  }, [salesInVoice, id, dispatch]);
   const deleteHandler = (designated) => {
     setIsOpen(true);
     setSelectDesignated(designated);
   };
-  console.log(designatedUser);
   if (designatedUser) {
     return (
       <>

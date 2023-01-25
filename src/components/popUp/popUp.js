@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { deleteDesignatedSalesInVoices } from "../../redux/designated/designatedSlice";
+import { DeleteDesignatedFactor, deleteDesignatedSalesInVoices } from "../../redux/designated/designatedSlice";
 const PopUp = ({ designated, setIsOpen, id }) => {
   const dispatch = useDispatch();
   const deleteHandler = () => {
@@ -7,10 +7,10 @@ const PopUp = ({ designated, setIsOpen, id }) => {
       alert("شما نمیتوانید این آیتم را پاک کنید زیرا  هنوز بده کار میباشد.");
       setIsOpen(false);
     } else {
-      const designatedId = id;
+      // const designatedId = id;
       const salesInVoicesId = designated.id;
       dispatch(
-        deleteDesignatedSalesInVoices({ id: designatedId, salesInVoicesId })
+        DeleteDesignatedFactor({id , uid : salesInVoicesId})
       );
       setIsOpen(false);
     }

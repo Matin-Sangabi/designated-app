@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const BASE_URL = "http://localhost/php_training/React/Desiganated_app/backend-designated-app";
+// const BASE_URL = "http://localhost/php_training/React/Desiganated_app/backend-designated-app";
+const BASE_URL = "http://localhost/pHP_TRAINING/Designated-app/";
 const SAVE_USERS = "DESIGNATED_USERS";
 
 export const registerUser = createAsyncThunk(
@@ -67,6 +68,20 @@ export const UpdateDesignated = createAsyncThunk(
     try {
       const response = await axios.post(
         `${BASE_URL}/AddDesignated.php/${payload.id}` , payload
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue([], error);
+    }
+  }
+);
+export const DeleteDesignatedFactor= createAsyncThunk(
+  "designated/DeleteDesignatedFactor",
+  async (payload, { rejectWithValue }) => {
+    console.log(payload)
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/DeleteDesignated.php/${payload.id}?id=${payload.uid}` , payload
       );
       return response.data;
     } catch (error) {
