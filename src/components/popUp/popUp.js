@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { DeleteDesignatedFactor, deleteDesignatedSalesInVoices } from "../../redux/designated/designatedSlice";
+import { DeleteDesignatedFactor } from "../../redux/designated/designatedSlice";
 const PopUp = ({ designated, setIsOpen, id }) => {
   const dispatch = useDispatch();
   const deleteHandler = () => {

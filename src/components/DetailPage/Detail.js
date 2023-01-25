@@ -1,7 +1,10 @@
 import { Fragment, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
-import { addDesignatedPayment } from "../../redux/designated/designatedSlice";
+import {
+  GetONeDesignated,
+  UpdateDesignated,
+} from "../../redux/designated/designatedSlice";
 import { format } from "../../utils/degitInputs";
 
 const Detail = () => {
@@ -10,8 +13,8 @@ const Detail = () => {
   const { id } = state;
   const location = useParams();
   const detailId = location.id;
-  const { designated } = useSelector((state) => state.designated);
-  const [salesInvoices, setSalesInvoice] = useState(null);
+  const { salesInVoice } = useSelector((state) => state.designated);
+  const [salesInvoicesItem, setSalesInvoiceItem] = useState(null);
   const [designatedUser, setDesignatedUser] = useState();
   const [value, setValue] = useState("");
   const [TypeInput, setTypeInput] = useState("");
@@ -19,21 +22,27 @@ const Detail = () => {
   const [remaining, setRemaining] = useState(null);
   const dispatch = useDispatch();
   useEffect(() => {
-    const findUser = designated.find((item) => item.id === parseInt(id));
-    setSalesInvoice(findUser);
-    const sales = findUser.salesInvoices.find((item) => item.id === detailId);
-    setDesignatedUser(sales);
-    setRemaining(sales.remaining);
-    if (sales.totalPrice > 1) {
-      const totalPriceLength = sales.remaining
-        .toLocaleString()
-        .toString(10)
-        .replace(/\D/g, "0")
-        .split("")
-        .map(Number);
-      setMaxLength(totalPriceLength);
+    dispatch(GetONeDesignated({ id }));
+  }, [id,salesInVoice, dispatch]);
+  useEffect(() => {
+    if (salesInVoice !== undefined) {
+      setSalesInvoiceItem(salesInVoice);
+      const findItem = salesInVoice.designated.salesInvoices.find(
+        (item) => item.id === detailId
+      );
+      setDesignatedUser(findItem);
+      setRemaining(findItem.remain);
+      if (findItem.totalPrice > 1) {
+        const totalPriceLength = findItem.remaining
+          .toLocaleString()
+          .toString(10)
+          .replace(/\D/g, "0")
+          .split("")
+          .map(Number);
+        setMaxLength(totalPriceLength);
+      }
     }
-  }, [id, designated, detailId]);
+  }, [salesInVoice, detailId]);
   useEffect(() => {
     if (designatedUser) {
       const remain =
@@ -63,21 +72,20 @@ const Detail = () => {
     }
   };
   const paymentHandler = () => {
+    // console.log(designatedUser);
     const payment = { createdAt: new Date().toISOString(), pay: value };
-    dispatch(
-      addDesignatedPayment({
-        id: salesInvoices.id,
-        payment,
-        factorId: designatedUser.id,
-        remaining,
-      })
-    );
+    const sales = [...designatedUser.payment, payment];
+    const des = { ...designatedUser, payment: sales, remaining };
+    const filters =  salesInvoicesItem.designated.salesInvoices.filter((item) => item.id !== detailId);    
+    const array= [...filters , des];
+    const designated = {...salesInvoicesItem.designated , salesInvoices : array};
+    dispatch(UpdateDesignated({id , designated}));
     setValue("");
   };
 
-  if (salesInvoices) {
+  if (salesInvoicesItem) {
     return (
-      <div className="flex flex-col" >
+      <div className="flex flex-col">
         <div className="flex flex-col gap-2 rounded-md bg-[#197278] text-gray-100 py-2  px-2 print:text-gray-200 print:bg-gray-500">
           <h1 className="text-2xl font-bold">سر رسید :</h1>
           <div className="flex items-center w-full justify-between pt-2">
@@ -85,10 +93,12 @@ const Detail = () => {
               تاریخ :{" "}
               {new Date(designatedUser.createdAt).toLocaleDateString("fa")}
             </h1>
-            <h1 className="text-lg font-semibold">نام:{salesInvoices.name}</h1>
+            <h1 className="text-lg font-semibold">
+              نام:{salesInvoicesItem.name}
+            </h1>
             <h1 className="text-lg font-semibold">
               {" "}
-              شماره:{salesInvoices.phone}
+              شماره:{salesInvoicesItem.phone}
             </h1>
           </div>
         </div>

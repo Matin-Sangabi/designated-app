@@ -16,8 +16,10 @@ const UserPage = () => {
   const [designatedUser, setDesignatedUser] = useState(null);
   useEffect(() => {
     dispatch(GetONeDesignated({ id }));
-    setDesignatedUser(salesInVoice);
   }, [salesInVoice, id, dispatch]);
+  useEffect(() => {
+    setDesignatedUser(salesInVoice);
+  }, [salesInVoice]);
   const deleteHandler = (designated) => {
     setIsOpen(true);
     setSelectDesignated(designated);
