@@ -11,7 +11,6 @@ import {
   AddDesignated,
   GetONeDesignated,
   UpdateDesignated,
-  addNewDesignatedSalesInVoice,
 } from "../redux/designated/designatedSlice";
 import uuid from "react-uuid";
 

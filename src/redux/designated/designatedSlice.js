@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 // const BASE_URL = "http://localhost/php_training/React/Desiganated_app/backend-designated-app";
-const BASE_URL = "http://localhost/pHP_TRAINING/Designated-app/";
-const SAVE_USERS = "DESIGNATED_USERS";
+const BASE_URL = "http://localhost/backend-designated-app/";
+const SAVE_USERS = "DESIGNATED_USERS";  
 
 export const registerUser = createAsyncThunk(
   "designated/registerUser",

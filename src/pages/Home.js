@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { json, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../layout/layout";
 import { GetDesignated } from "../redux/designated/designatedSlice";
@@ -9,6 +9,7 @@ const Homepage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(GetDesignated());
+    localStorage.setItem("DESIGNATED_USERS" , JSON.stringify(users));
   }, [users, dispatch]);
   if (designated_loading) {
     return <p className="text-center">Loading...</p>;
