@@ -17,7 +17,6 @@ const Homepage = () => {
   if (designated_error) {
     return <p>Error</p>;
   }
-  console.log(designated);
   if (!designated_loading && !designated_error) {
     return (
       <Layout>
@@ -33,7 +32,6 @@ const Homepage = () => {
           <div className="grid grid-cols-12 pt-6 gap-6">
             {designated &&
               designated.map((item) => {
-                console.log(item);
                 return (
                   <Link
                     to={`userPage/${item.id}`}

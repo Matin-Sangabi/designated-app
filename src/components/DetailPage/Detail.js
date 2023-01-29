@@ -23,7 +23,7 @@ const Detail = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(GetONeDesignated({ id }));
-  }, [id,salesInVoice, dispatch]);
+  }, [id, dispatch]);
   useEffect(() => {
     if (salesInVoice !== undefined) {
       setSalesInvoiceItem(salesInVoice);
@@ -72,7 +72,6 @@ const Detail = () => {
     }
   };
   const paymentHandler = () => {
-    // console.log(designatedUser);
     const payment = { createdAt: new Date().toISOString(), pay: value };
     const sales = [...designatedUser.payment, payment];
     const des = { ...designatedUser, payment: sales, remaining };
@@ -82,7 +81,6 @@ const Detail = () => {
     dispatch(UpdateDesignated({id , designated}));
     setValue("");
   };
-
   if (salesInvoicesItem) {
     return (
       <div className="flex flex-col">
@@ -94,11 +92,11 @@ const Detail = () => {
               {new Date(designatedUser.createdAt).toLocaleDateString("fa")}
             </h1>
             <h1 className="text-lg font-semibold">
-              نام:{salesInvoicesItem.name}
+              نام: {salesInvoicesItem.designated.name}
             </h1>
             <h1 className="text-lg font-semibold">
               {" "}
-              شماره:{salesInvoicesItem.phone}
+              شماره: {salesInvoicesItem.designated.phone}
             </h1>
           </div>
         </div>

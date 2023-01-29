@@ -49,19 +49,20 @@ const AddUserPage = () => {
   useEffect(() => {
     if (userId) {
       dispatch(GetONeDesignated({ id: userId }));
-      if (salesInVoice) {
-        const userInit = {
-          name: salesInVoice.designated.name,
-          phone: salesInVoice.designated.phone,
-          plate: salesInVoice.designated.plate,
-          desc: [],
-          payment: "",
-        };
-        setUserInitalValues(userInit);
-      }
     }
-  }, [userId, salesInVoice, dispatch]);
-
+  }, [userId, dispatch]);
+  useEffect(() => {
+    if (salesInVoice) {
+      const userInit = {
+        name: salesInVoice.designated.name,
+        phone: salesInVoice.designated.phone,
+        plate: salesInVoice.designated.plate,
+        desc: [],
+        payment: "",
+      };
+      setUserInitalValues(userInit);
+    }
+  }, [salesInVoice]);
   const initialValues = {
     name: "",
     phone: "",
@@ -85,7 +86,7 @@ const AddUserPage = () => {
         ...salesInVoice.designated,
         salesInvoices: sales,
       };
-      dispatch(UpdateDesignated({ id : userId, designated : salesInVoiceAdded }));
+      dispatch(UpdateDesignated({ id: userId, designated: salesInVoiceAdded }));
     } else {
       const designated = {
         name: values.name,
@@ -155,7 +156,7 @@ const AddUserPage = () => {
       setRemaining(remain);
     }
   }, [formik.values, totalPrice]);
-
+  console.log("helo");
   return (
     <div className="container mx-auto max-w-screen-xl pt-10 px-4">
       <Link

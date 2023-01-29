@@ -16,7 +16,7 @@ const UserPage = () => {
   const [designatedUser, setDesignatedUser] = useState(null);
   useEffect(() => {
     dispatch(GetONeDesignated({ id }));
-  }, [salesInVoice, id, dispatch]);
+  }, [id, dispatch]);
   useEffect(() => {
     setDesignatedUser(salesInVoice);
   }, [salesInVoice]);
