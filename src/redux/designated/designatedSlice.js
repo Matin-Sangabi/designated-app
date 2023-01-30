@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 // const BASE_URL = "http://localhost/php_training/React/Desiganated_app/backend-designated-app";
 const BASE_URL = "http://localhost/PHP_TRAINING/Designated-app";
-const SAVE_USERS = "DESIGNATED_USERS";  
+const SAVE_USERS = "DESIGNATED_USERS";
 
 export const registerUser = createAsyncThunk(
   "designated/registerUser",
@@ -52,9 +52,7 @@ export const GetDesignated = createAsyncThunk(
   "designated/GetDesignated",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `${BASE_URL}/GetDesignated.php`
-      );
+      const response = await axios.get(`${BASE_URL}/GetDesignated.php`);
       return response.data;
     } catch (error) {
       return rejectWithValue([], error);
@@ -64,10 +62,10 @@ export const GetDesignated = createAsyncThunk(
 export const UpdateDesignated = createAsyncThunk(
   "designated/UpdateDesignated",
   async (payload, { rejectWithValue }) => {
-    console.log(payload)
     try {
       const response = await axios.post(
-        `${BASE_URL}/AddDesignated.php/${payload.id}` , payload
+        `${BASE_URL}/AddDesignated.php/${payload.id}`,
+        payload
       );
       return response.data;
     } catch (error) {
@@ -75,13 +73,14 @@ export const UpdateDesignated = createAsyncThunk(
     }
   }
 );
-export const DeleteDesignatedFactor= createAsyncThunk(
+export const DeleteDesignatedFactor = createAsyncThunk(
   "designated/DeleteDesignatedFactor",
   async (payload, { rejectWithValue }) => {
-    console.log(payload)
+    console.log(payload);
     try {
       const response = await axios.post(
-        `${BASE_URL}/DeleteDesignated.php/${payload.id}?id=${payload.uid}` , payload
+        `${BASE_URL}/DeleteDesignated.php/${payload.id}?id=${payload.uid}`,
+        payload
       );
       return response.data;
     } catch (error) {
@@ -92,7 +91,6 @@ export const DeleteDesignatedFactor= createAsyncThunk(
 export const GetONeDesignated = createAsyncThunk(
   "designated/GetOneDesignated",
   async (payload, { rejectWithValue }) => {
-    
     try {
       const response = await axios.get(
         `${BASE_URL}/GetDesignated.php/${payload.id}`
@@ -110,50 +108,12 @@ const initialState = {
   users: JSON.parse(localStorage.getItem(SAVE_USERS)) || [],
   users_loading: false,
   users_error: null,
-  salesInvoice : [],
+  salesInvoice: [],
 };
-
-function designatedSaveToStorage(values) {
-  localStorage.setItem("DESIGNATED", JSON.stringify(values));
-}
 
 const designatedSlice = createSlice({
   name: "designated",
   initialState,
-  reducers: {
-    addDesignated: (state, { payload }) => {
-      state.designated.push(payload);
-      designatedSaveToStorage(state.designated);
-    },
-    addDesignatedPayment: (state, { payload }) => {
-      const findUser = state.designated.find(
-        (item) => item.id === parseInt(payload.id)
-      );
-      const salesInVoice = findUser.salesInvoices.find(
-        (item) => item.id === payload.factorId
-      );
-      salesInVoice.payment.push(payload.payment);
-      salesInVoice.remaining = payload.remaining;
-      // designatedSaveToStorage(state.designated);
-    },
-    addNewDesignatedSalesInVoice: (state, { payload }) => {
-      const findUser = state.designated.find(
-        (item) => item.id === parseInt(payload.id)
-      );
-      findUser.salesInvoices.push(payload.salesInvoices);
-      designatedSaveToStorage(state.designated);
-    },
-    deleteDesignatedSalesInVoices: (state, { payload }) => {
-      const findUser = state.designated.find(
-        (item) => item.id === parseInt(payload.id)
-      );
-      const userSalesInVoices = findUser.salesInvoices.filter(
-        (item) => item.id !== payload.salesInVoicesId
-      );
-      findUser.salesInvoices = userSalesInVoices;
-      designatedSaveToStorage(state.designated);
-    },
-  },
   extraReducers: {
     [registerUser.fulfilled]: (state, actions) => {
       return {
@@ -218,7 +178,7 @@ const designatedSlice = createSlice({
         ...state,
         designated_loading: false,
         designated_error: actions.meta.response,
-        designated: actions.payload
+        designated: actions.payload,
       };
     },
     [GetDesignated.rejected]: (state, actions) => {
@@ -238,22 +198,12 @@ const designatedSlice = createSlice({
       };
     },
     [GetONeDesignated.fulfilled]: (state, actions) => {
-        return {
-          ...state , 
-          salesInVoice : actions.payload,
-        }
+      return {
+        ...state,
+        salesInVoice: actions.payload,
+      };
     },
-    [UpdateDesignated.fulfilled]: (state, actions) => {
-      console.log(actions)
-  },
   },
 });
-
-export const {
-  addDesignated,
-  addDesignatedPayment,
-  addNewDesignatedSalesInVoice,
-  deleteDesignatedSalesInVoices,
-} = designatedSlice.actions;
 
 export default designatedSlice.reducer;

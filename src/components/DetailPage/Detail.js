@@ -14,8 +14,9 @@ const Detail = () => {
   const location = useParams();
   const detailId = location.id;
   const { salesInVoice } = useSelector((state) => state.designated);
-  const [salesInvoicesItem, setSalesInvoiceItem] = useState(null);
+  const [salesInvoicesItem, setSalesInvoiceItem] = useState();
   const [designatedUser, setDesignatedUser] = useState();
+  const [user, setUser] = useState();
   const [value, setValue] = useState("");
   const [TypeInput, setTypeInput] = useState("");
   const [maxLength, setMaxLength] = useState();
@@ -27,7 +28,11 @@ const Detail = () => {
   useEffect(() => {
     if (salesInVoice !== undefined) {
       setSalesInvoiceItem(salesInVoice);
-      const findItem = salesInVoice.designated.salesInvoices.find(
+    }
+  }, [salesInVoice]);
+  useEffect(() => {
+    if (salesInvoicesItem) {
+      const findItem = salesInvoicesItem.designated.salesInvoices.find(
         (item) => item.id === detailId
       );
       setDesignatedUser(findItem);
@@ -42,7 +47,7 @@ const Detail = () => {
         setMaxLength(totalPriceLength);
       }
     }
-  }, [salesInVoice, detailId]);
+  } , [salesInvoicesItem , detailId])
   useEffect(() => {
     if (designatedUser) {
       const remain =
@@ -75,13 +80,19 @@ const Detail = () => {
     const payment = { createdAt: new Date().toISOString(), pay: value };
     const sales = [...designatedUser.payment, payment];
     const des = { ...designatedUser, payment: sales, remaining };
-    const filters =  salesInvoicesItem.designated.salesInvoices.filter((item) => item.id !== detailId);    
-    const array= [...filters , des];
-    const designated = {...salesInvoicesItem.designated , salesInvoices : array};
-    dispatch(UpdateDesignated({id , designated}));
+    const filters = salesInvoicesItem.designated.salesInvoices.filter(
+      (item) => item.id !== detailId
+    );
+    const array = [...filters, des];
+    const designated = {
+      ...salesInvoicesItem.designated,
+      salesInvoices: array,
+    };
+    setSalesInvoiceItem({ id, designated });
+    dispatch(UpdateDesignated({ id, designated }));
     setValue("");
   };
-  if (salesInvoicesItem) {
+  if (salesInvoicesItem && designatedUser) {
     return (
       <div className="flex flex-col">
         <div className="flex flex-col gap-2 rounded-md bg-[#197278] text-gray-100 py-2  px-2 print:text-gray-200 print:bg-gray-500">

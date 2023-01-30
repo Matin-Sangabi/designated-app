@@ -9,7 +9,7 @@ const Homepage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(GetDesignated());
-    localStorage.setItem("DESIGNATED_USERS" , JSON.stringify(users));
+    localStorage.setItem("DESIGNATED_USERS", JSON.stringify(users));
   }, [users, dispatch]);
   if (designated_loading) {
     return <p className="text-center">Loading...</p>;
@@ -36,22 +36,22 @@ const Homepage = () => {
                   <Link
                     to={`userPage/${item.id}`}
                     key={item.id}
-                    className="col-span-12 md:col-span-6 py-4 px-3 hover:ring hover:ring-offset-2 cursor-pointer hover:ring-[#197278] transition-all ease-in-out duration-300 bg-[#197278] rounded-md shadow-md gap-y-4 text-gray-200 flex flex-col"
+                    className="relative col-span-12 md:col-span-6 py-4 px-3 hover:ring hover:ring-offset-2 cursor-pointer hover:ring-[#197278] transition-all ease-in-out duration-300 bg-[#197278] rounded-md shadow-md gap-y-4 text-gray-200 flex flex-col"
                   >
-                    <div className="flex items-center gap-x-2 justify-between">
-                          <h1 className="font-semibold hover:text-[#edddd4] transition-all ease-in-out duration-300 ">
-                            {" "}
-                            نام : {item.designated.name}
-                          </h1>
-                          <h1 className="font-semibold hover:text-[#edddd4] transition-all ease-in-out duration-300 ">
-                            {" "}
-                            تلفن :{item.designated.phone}
-                          </h1>
-                          <h1 className="font-semibold hover:text-[#edddd4] transition-all ease-in-out duration-300 ">
-                            {" "}
-                            شماره پلاک : {item.designated.plate}
-                          </h1>
-                        </div>
+                  <span className="absolute bg-opacity-20 bg-blue-100 w-14 h-14 rounded-full "></span>
+                    <div className="flex flex-col  gap-y-2 justify-between">
+                      <h1 className="font-semibold text-lg hover:text-[#edddd4] transition-all ease-in-out duration-300 ">
+                        نام : {item.designated.name}
+                      </h1>
+                      <div className="flex items-center justify-between ">
+                        <h1 className="font-semibold text-sm hover:text-[#edddd4] transition-all ease-in-out duration-300 ">
+                          تلفن :{item.designated.phone}
+                        </h1>
+                        <h1 className="font-semibold text-sm hover:text-[#edddd4] transition-all ease-in-out duration-300 ">
+                          شماره پلاک : {item.designated.plate}
+                        </h1>
+                      </div>
+                    </div>
                   </Link>
                 );
               })}

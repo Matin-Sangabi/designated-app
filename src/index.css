@@ -7,6 +7,9 @@
   font-family:  IRANSansXNum , IRANSansX ;
   print-color-adjust: exact;
 }
+body{
+  background-color: #e5e7eb;
+}
 @page{
   size: auto; margin: 0mm;
 }

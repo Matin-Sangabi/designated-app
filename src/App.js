@@ -11,7 +11,7 @@ import LoginPage from "./pages/Login";
 function App() {
   return (
     <Provider store={store}>
-      <div className="w-full h-screen bg-gray-200">
+      <div className="w-full">
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="addUser" element={<AddUserPage />} />
