@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { json, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../layout/layout";
 import { GetDesignated } from "../redux/designated/designatedSlice";
