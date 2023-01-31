@@ -20,7 +20,7 @@ const Homepage = () => {
   if (!designated_loading && !designated_error) {
     return (
       <Layout>
-        <div className="max-w-screen-xl mx-auto container relative h-[93vh] px-2 ">
+        <div className="max-w-screen-lg mx-auto container relative h-[93vh] px-2 ">
           <div className="w-full flex items-center justify-between pt-10">
             <input
               type="search"
