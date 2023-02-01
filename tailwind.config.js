@@ -8,7 +8,7 @@ module.exports = {
     colors :{
       transparent: 'transparent',
       current: 'currentColor',
-      'white': '#ffffff',
+      'white': '#f8fafc',
       'primary': '#645CBB',
       'secondary': '#A084DC',
       'metal': '#BFACE2',
@@ -16,6 +16,7 @@ module.exports = {
       'silver': '#ecebff',
       'bubble-gum': '#ff77e9',
       'bermuda': '#78dcca',
+      'slate' : '#1f2937'
     }
   },
   plugins: [],
