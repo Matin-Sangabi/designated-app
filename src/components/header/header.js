@@ -33,7 +33,7 @@ const Header = () => {
           </div>
         </div>
       </header>
-      <header className="w-full hidden md:block px-4 xl:px-0 relative overflow-hidden  after:bg-secondary md:after:right-[68%] lg:after:right-[55%] xl:after:right-[40%] 2xl:after:right-[33%] after:-z-10  after:top-0 md:after:-skew-y-[29deg]  md:after:p-44 after:w-[150%] after:fixed before:fixed before:bg-secondary before:p-44 before:bottom-0 before:w-[150%] before:-skew-y-[29deg] 2xl:before:left-[33%] xl:before:left-[40%] lg:before:left-[55%] md:before:left-[68%]">
+      <header className="w-full hidden md:block px-4 xl:px-0 relative overflow-hidden  after:bg-gradient-to-b after:from-primary after:via-secondary after:to-metal md:after:right-[68%] lg:after:right-[55%] xl:after:right-[40%] 2xl:after:right-[38%] after:-z-10 md:after:-top-8 lg:after:top-0 md:after:-skew-y-[29deg]  md:after:p-44 after:w-[150%] after:fixed before:fixed before:bg-gradient-to-t from-primary before:via-secondary before:to-metal before:p-44 lg:before:bottom-0 md:before:-bottom-9  before:w-[150%] before:-skew-y-[29deg] 2xl:before:left-[50%]  xl:before:left-[55%] lg:before:left-[60%] md:before:left-[80%] before:-z-10">
         <div className="max-w-screen-xl mt-4 top-8 bg-silver p-4 rounded-md  shadow-md shadow-tahiti mx-auto xl:mx-auto flex items-center justify-between">
           <div className="px-2 flex gap-x-10 flex-1">
             <span>LOGO</span>
