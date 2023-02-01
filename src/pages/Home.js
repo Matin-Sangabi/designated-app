@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../layout/layout";
 import { GetDesignated } from "../redux/designated/designatedSlice";
+import { HiMagnifyingGlass ,HiFunnel ,HiPlus} from "react-icons/hi2";
 const Homepage = () => {
   const [searchBox, setSearchBox] = useState(false);
   const { designated, users, designated_loading, designated_error } =
@@ -25,28 +26,31 @@ const Homepage = () => {
         <div className="max-w-screen-xl mx-auto container relative h-[93vh] px-2 pt-4 ">
           <div className="flex md:hidden   items-center md:hidfen overflow-hidden">
             <span
-              className={`transition-all ease-in-out duration-300 z-10 ${
-                searchBox ? "-translate-x-52" : "translate-x-0"
+              className={`transition-all ease-in-out duration-300 z-10 text-primary ${
+                searchBox ? "-translate-x-48" : "translate-x-0"
               }`}
               onClick={() => setSearchBox(!searchBox)}
             >
-              search
+              <HiMagnifyingGlass className="stroke-2" />
             </span>
             <input
               type="text"
               placeholder="جستجو"
-              className={`placeholder:text-xs p-1 rounded-lg transition-all ease-in-out duration-300 z-0 translate-x-9 ${
+              className={`placeholder:text-xs p-1  outline-none text-slate focus:border-2 focus:border-primary  rounded-lg transition-all ease-in-out duration-300 z-0  ${
                 searchBox ? "translate-y-0 " : "-translate-y-full"
               }`}
             />
           </div>
           <div className="w-full hidden md:flex items-center gap-x-10 pt-10">
-            <input
-              type="search"
-              placeholder="جستجو"
-              className="p-1 rounded-md border-none outline-none ring-1 focus:ring-offset-2 ring-gray-500 transition-all ease-in-out duration-500"
-            />
-            <div className="p-2 text-primary">فیلتر </div>
+            <div className="flex relative">
+              <input
+                type="text"
+                placeholder="جستجو"
+                className="p-1 text-slate placeholder:text-sm rounded-md border-none outline-none ring-1 focus:ring-2 focus:ring-offset-2 ring-primary transition-all ease-in-out duration-300"
+              />
+              <span className="absolute left-2 top-[6px] text-primary stroke-2 text-xl"><HiMagnifyingGlass/></span>
+            </div>
+            <div className="p-2 cursor-pointer text-primary text-2xl flex items-center"><HiFunnel/></div>
           </div>
           <div className="grid grid-cols-12 pt-6 gap-6 px-2">
             {designated &&
@@ -59,12 +63,16 @@ const Homepage = () => {
                   >
                     <div className=" flex flex-col  gap-y-4 justify-between">
                       <div className="flex items-center gap-x-4">
-                      <span className="w-8 h-8 rounded-full flex items-center justify-center text-white bg-primary">{item.designated.name.substring(0 , 1)}</span>
+                        <span className="w-8 h-8 rounded-full flex items-center justify-center text-white bg-primary">
+                          {item.designated.name.substring(0, 1)}
+                        </span>
                         <h1 className="font-semibold text-slate hover:text-secondary transition-all ease-in-out duration-300 ">
                           {item.designated.name}
                         </h1>
                       </div>
-                      <span className="absolute -left-[0.9rem] text-primary  bg-tahiti rounded-r-md w-16  text-xs px-1 py-[3px] after:absolute after:bg-tahiti after:left-[0.5px] after:-top-[4px] after:p-2 after:-skew-y-[30deg] after:-z-10">بدهکار</span>
+                      <span className="absolute -left-[0.9rem] text-primary  bg-tahiti rounded-r-md w-16  text-xs px-1 py-[3px] after:absolute after:bg-tahiti after:left-[0.5px] after:-top-[4px] after:p-2 after:-skew-y-[30deg] after:-z-10">
+                        بدهکار
+                      </span>
                       <div className="flex items-center px-2 justify-between ">
                         <h1 className="font-semibold text-xs hover:text-primary transition-all ease-in-out duration-300 ">
                           تلفن :{item.designated.phone}
@@ -74,7 +82,9 @@ const Homepage = () => {
                         </h1>
                       </div>
                       <div className="flex px-2">
-                        <span className="text-primary text-xs">بدهی : 150000ريال</span>
+                        <span className="text-primary text-xs">
+                          بدهی : 150000ريال
+                        </span>
                       </div>
                     </div>
                   </Link>
@@ -84,9 +94,9 @@ const Homepage = () => {
           <div className="absolute bottom-10 left-2">
             <Link
               to="addUser"
-              className="p-2 rounded-md bg-[#82AAE3] text-[#0A2647] font-semibold hover:ring hover:ring-offset-2 hover:ring-[#82aae3] transition-all ease-in-out duration-300 hover:text-gray-100"
+              className="w-8 h-8 flex items-center justify-center text-xl text-white rounded-full bg-primary hover:ring hover:ring-primary hover:ring-offset-2 group transition-all ease-in-out duration-300"
             >
-              اضافه کردن{" "}
+              <HiPlus className="group-hover:rotate-90 transition-all ease-in-out duration-300"/>
             </Link>
           </div>
         </div>
