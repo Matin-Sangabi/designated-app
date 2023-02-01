@@ -3,7 +3,14 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../layout/layout";
 import { GetDesignated } from "../redux/designated/designatedSlice";
-import { HiMagnifyingGlass ,HiFunnel ,HiPlus} from "react-icons/hi2";
+import {
+  HiMagnifyingGlass,
+  HiFunnel,
+  HiPlus,
+  HiDevicePhoneMobile,
+  HiRectangleGroup,
+  HiCurrencyDollar,
+} from "react-icons/hi2";
 const Homepage = () => {
   const [searchBox, setSearchBox] = useState(false);
   const { designated, users, designated_loading, designated_error } =
@@ -48,9 +55,13 @@ const Homepage = () => {
                 placeholder="جستجو"
                 className="p-1 text-slate placeholder:text-sm rounded-md border-none outline-none ring-1 focus:ring-2 focus:ring-offset-2 ring-primary transition-all ease-in-out duration-300"
               />
-              <span className="absolute left-2 top-[6px] text-primary stroke-2 text-xl"><HiMagnifyingGlass/></span>
+              <span className="absolute left-2 top-[6px] text-primary stroke-2 text-xl">
+                <HiMagnifyingGlass />
+              </span>
             </div>
-            <div className="p-2 cursor-pointer text-primary text-2xl flex items-center"><HiFunnel/></div>
+            <div className="p-2 cursor-pointer text-primary text-2xl flex items-center">
+              <HiFunnel />
+            </div>
           </div>
           <div className="grid grid-cols-12 pt-6 gap-6 px-2">
             {designated &&
@@ -59,7 +70,7 @@ const Homepage = () => {
                   <Link
                     to={`userPage/${item.id}`}
                     key={item.id}
-                    className="relative pb-10 col-span-12 md:col-span-4 lg:col-span-3 py-4  px-3 gap-x-2 hover:ring hover:ring-offset-2 cursor-pointer hover:ring-secondary transition-all ease-in-out duration-300 bg-white rounded-md shadow-xl gap-y-4 flex flex-col"
+                    className="relative pb-6 col-span-12 md:col-span-4 lg:col-span-3 py-4  px-3 gap-x-2 hover:ring hover:ring-offset-2 cursor-pointer hover:ring-secondary transition-all ease-in-out duration-300 bg-white rounded-md shadow-xl gap-y-4 flex flex-col"
                   >
                     <div className=" flex flex-col  gap-y-4 justify-between">
                       <div className="flex items-center gap-x-4">
@@ -73,18 +84,29 @@ const Homepage = () => {
                       <span className="absolute -left-[0.9rem] text-primary  bg-tahiti rounded-r-md w-16  text-xs px-1 py-[3px] after:absolute after:bg-tahiti after:left-[0.5px] after:-top-[4px] after:p-2 after:-skew-y-[30deg] after:-z-10">
                         بدهکار
                       </span>
-                      <div className="flex items-center px-2 justify-between ">
-                        <h1 className="font-semibold text-xs hover:text-primary transition-all ease-in-out duration-300 ">
-                          تلفن :{item.designated.phone}
-                        </h1>
-                        <h1 className="font-semibold text-xs hover:text-primary transition-all ease-in-out duration-300 ">
-                          شماره پلاک : {item.designated.plate}
-                        </h1>
+                      <div className="flex w-full items-center  px-2 justify-between ">
+                        <div className="flex items-center gap-x-2">
+                          <span className="block text-xl text-primary stroke-2">
+                            <HiDevicePhoneMobile />
+                          </span>
+                          <span className="text-xs block">
+                            {item.designated.phone}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-center  gap-x-2">
+                          <span className="block text-xl text-primary stroke-2">
+                            <HiRectangleGroup />
+                          </span>
+                          <span className="text-xs block">
+                            {item.designated.plate}
+                          </span>
+                        </div>
                       </div>
-                      <div className="flex px-2">
-                        <span className="text-primary text-xs">
-                          بدهی : 150000ريال
+                      <div className="flex items-center gap-x-4 px-2 ">
+                        <span className="text-primary text-2xl">
+                          <HiCurrencyDollar />
                         </span>
+                        <span className="text-xs md:text-sm text-primary font-semibold">1500000ريال</span>
                       </div>
                     </div>
                   </Link>
@@ -96,7 +118,7 @@ const Homepage = () => {
               to="addUser"
               className="w-8 h-8 flex items-center justify-center text-xl text-white rounded-full bg-primary hover:ring hover:ring-primary hover:ring-offset-2 group transition-all ease-in-out duration-300"
             >
-              <HiPlus className="group-hover:rotate-90 transition-all ease-in-out duration-300"/>
+              <HiPlus className="group-hover:rotate-90 transition-all ease-in-out duration-300" />
             </Link>
           </div>
         </div>

@@ -16,27 +16,27 @@ const PopUp = ({ designated, setIsOpen, id }) => {
     }
   };
   return (
-    <div className="fixed w-full h-screen bg-gray-800 bg-opacity-50 flex items-center justify-center">
-      <div className="bg-gray-100 p-4 rounded-lg shadow-xl flex flex-col">
+    <div className="fixed w-full top-0 h-screen bg-slate bg-opacity-50 flex items-center justify-center">
+      <div className="bg-silver p-4 rounded-lg shadow-xl flex flex-col">
         <div className="flex flex-col text-slate-800  gap-y-2">
           <h1>آیا مطمئن هستید که میخواهید این اطلاعات : </h1>
           <p className="">
-            در تاریخ : {new Date(designated.createdAt).toLocaleDateString("fa")}
+            در تاریخ : <small className="text-slate">{new Date(designated.createdAt).toLocaleDateString("fa")}</small>
           </p>
-          <p>شرح بابت : {designated.desc[0].title} ...</p>
-          <p>مانده حساب : {Number(designated.remaining).toLocaleString("")}</p>
+          <p>شرح بابت : <small className="text-slate">{designated.desc[0].title} .</small>..</p>
+          <p>مانده حساب : <small className="text-slate">{Number(designated.remaining).toLocaleString("")}</small></p>
           <h1 className="text-lg text-slate-800"> را حذف کنید ؟</h1>
         </div>
-        <div className="flex items-center w-full gap-x-2">
+        <div className="flex items-center w-full gap-x-2 pt-4">
           <button
             onClick={deleteHandler}
-            className="rounded-md flex-1 ring-slate-800 ring-2  py-2 hover:ring-2 hover:ring-offset-2 hover:ring-slate-800 transition-all ease-in-out duration-500"
+            className="rounded-md flex-1 ring-primary ring-2  py-2 hover:ring-2 hover:ring-offset-2 hover:ring-primary text-primary transition-all ease-in-out duration-500"
           >
             بله
           </button>
           <button
             onClick={() => setIsOpen(false)}
-            className="bg-[#198278] flex-auto text-slate-100 py-2 rounded-md hover:ring-2 hover:ring-offset-2 hover:ring-[#198278] transition-all ease-in-out duration-500"
+            className="bg-primary flex-auto text-white text-slate-100 py-2 rounded-md hover:ring-2 hover:ring-offset-2 hover:ring-primary transition-all ease-in-out duration-500"
           >
             خیر
           </button>
