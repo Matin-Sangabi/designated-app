@@ -6,13 +6,12 @@ import {
   HiOutlineTrash,
   HiOutlineArrowLeft,
   HiUser,
-  HiDevicePhoneMobile,
   HiRectangleGroup,
-  HiCurrencyDollar
+  HiCurrencyDollar,
 } from "react-icons/hi2";
 import PopUp from "../components/popUp/popUp";
 import { GetONeDesignated } from "../redux/designated/designatedSlice";
-import Layout from "../layout/layout";
+
 const UserPage = () => {
   const location = useParams();
   const { id } = location;
@@ -34,69 +33,62 @@ const UserPage = () => {
   };
   if (designatedUser) {
     return (
-      <Layout>
-        {isOpen && (
-          <PopUp designated={selectDesiganted} setIsOpen={setIsOpen} id={id} />
-        )}
-        <div className="container px-4 max-w-screen-xl mx-auto pt-10">
-          <div className="flex items-center justify-end pt-4">
-            <span
-              className="text-primary text-xl block md:hidden"
+      <>
+        <div className="w-full flex flex-col overflow-hidden pt-44  md:pt-64 bg-gradient-to-r from-primary via-secondary to-secondary  relative  after:absolute after:top-[12rem] md:after:top-[11rem] after:bg-gray after:w-[297%] md:after:w-[138%] after:skew-y-[9deg] md:after:skew-y-[4deg]  after:p-28 after:left-0  before:bg-gray before:absolute before:top-[11rem] before:p-20 before:w-[16rem] md:before:w-[20rem] before:-skew-y-[27deg] md:before:-skew-y-[20deg] ">
+          <div className="absolute top-0 left-0 flex justify-end p-4">
+            <div
+              className="text-silver text-lg block cursor-pointer "
               onClick={() => navigate("/")}
             >
               <HiOutlineArrowLeft />
-            </span>
-            <Link to={"/"} className="text-primary text-xs">
-              بازکشت به خانه
-            </Link>
+            </div>
           </div>
-          <div className="flex flex-col gap-y-6 ">
-            <div className="flex gap-4 md:gap-6 flex-col justify-between text-base border-b-2 py-6 border-primary">
-              <div className="flex items-center gap-x-2">
-                <span className="text-xl text-primary">
+          <div className="absolute top-14 right-4 left-4 md:right-20 xl:right-32 xl:top-10 2xl:right-56  container max-w-screen-lg">
+            <div className="flex items-center justify-around lg:justify-start">
+              <div className="flex  gap-x-2 md:gap-x-4">
+                <span className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-primary text-silver flex items-center justify-center text-lg md:text-2xl">
                   <HiUser />
                 </span>
-                <h1 className="font-semibold text-slate">
-                  {designatedUser.designated.name}
-                </h1>
-              </div>
-              <div className="flex items-center justify-between  md:gap-x-44 text-sm">
-              
-                <div className="flex items-center gap-x-2">
-                  <span className="text-primary text-2xl block">
-                    <HiDevicePhoneMobile />
-                  </span>
-                  <h1 className="font-semibold text-slate">
+                <div className="flex flex-col text-center text-silver gap-y-1 md:gap-y-2">
+                  <h1 className="md:text-lg font-medium">
+                    {designatedUser.designated.name}
+                  </h1>
+                  <span className="text-xs text-silver">
                     {designatedUser.designated.phone}
-                  </h1>
-                </div>
-                
-                <div className="flex items-center gap-x-2">
-                  <span className="text-primary text-2xl flex">
-                    <HiRectangleGroup />
                   </span>
-                  <h1 className="font-semibold text-slate">
-                    {designatedUser.designated.plate}
-                  </h1>
                 </div>
-                <div className="flex items-center gap-x-2">
-                  <span className="text-primary text-2xl flex">
-                    <HiCurrencyDollar />
-                  </span>
-                  <h1 className="font-semibold text-slate">
-                    15000000 ريال
-                  </h1>
-                </div>
+              </div>
+              <div className="p-2 rounded-lg bg-silver text-primary text-xs lg:hidden">
+                1500000ريال
               </div>
             </div>
-            {/* <hr className="bg-gray-600 h-[2px]" /> */}
-            {/* <h1 className="text-2xl font-semibold text-secondary">لیست : </h1> */}
+            <div className="hidden lg:flex items-center gap-x-28 pt-3 xl:pt-8 px-4">
+              <div className="flex items-center gap-x-2 justify-center">
+                <span className="text-primary text-2xl block">
+                  <HiCurrencyDollar/>
+                </span>
+                <span className="text-xs block text-silver">15000000ريال</span>
+              </div>
+              <div className="flex items-center gap-x-2 justify-center">
+                <span className="text-primary text-2xl block">
+                  <HiRectangleGroup/>
+                </span>
+                <span className="text-xs block text-silver">{designatedUser.designated.plate}</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
+        {isOpen && (
+          <PopUp designated={selectDesiganted} setIsOpen={setIsOpen} id={id} />
+        )}
+        <div className="container px-4 max-w-screen-xl mx-auto pt-4">
+          <div className="flex flex-col gap-y-6 ">
             <div className="flex flex-col pt-10">
-              <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div className="overflow-x-auto sm:-mx-6 md:mx-4 lg:mx-8">
                 <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                   <div className="overflow-hidden">
-                    <table className="min-w-full">
+                    <table className="min-w-full rounded-lg">
                       <thead className="bg-gradient-to-t from-primary to-secondary text-white border-b">
                         <tr>
                           <th
@@ -142,7 +134,7 @@ const UserPage = () => {
                           return (
                             <tr
                               key={item.id}
-                              className="bg-white border-b border-primary transition duration-300 ease-in-out hover:bg-gray-300"
+                              className="bg-white border-b border-primary transition duration-300 ease-in-out hover:bg-silver"
                             >
                               <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900 font-semibold">
                                 {new Date(item.createdAt).toLocaleDateString(
@@ -194,7 +186,7 @@ const UserPage = () => {
             </div>
           </div>
         </div>
-      </Layout>
+      </>
     );
   }
 };
