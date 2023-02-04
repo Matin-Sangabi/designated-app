@@ -90,7 +90,13 @@ const AddUserPage = () => {
         ...salesInVoice.designated,
         salesInvoices: sales,
       };
-      dispatch(UpdateDesignated({ id: userId, designated: salesInVoiceAdded }));
+      const totalAcc = salesInVoiceAdded.salesInvoices.reduce((acc, curr) => {
+        return Number(acc) + Number(curr.remaining);
+      }, 0);
+      const designated = {
+        ...salesInVoiceAdded , totalAccount : totalAcc
+     }
+      dispatch(UpdateDesignated({ id: userId, designated }));
       navigate(-1);
     } else {
       const designated = {
@@ -109,6 +115,7 @@ const AddUserPage = () => {
             remaining,
           },
         ],
+        totalAccount: remaining,
       };
       const id = Date.now();
       dispatch(AddDesignated({ id, designated }));

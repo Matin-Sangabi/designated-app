@@ -18,7 +18,6 @@ const Homepage = () => {
     useSelector((state) => state.designated);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log('run');
     dispatch(GetDesignated());
   }, [dispatch]);
   useEffect(() =>  {
@@ -114,7 +113,7 @@ const Homepage = () => {
                           <HiCurrencyDollar />
                         </span>
                         <span className="text-xs md:text-sm text-primary font-semibold">
-                          1500000ريال
+                          {Number(item.designated.totalAccount).toLocaleString()}ريال
                         </span>
                       </div>
                     </div>

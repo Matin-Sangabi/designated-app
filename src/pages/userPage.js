@@ -63,7 +63,7 @@ const UserPage = () => {
                 </div>
               </div>
               <div className="p-2 rounded-lg bg-silver text-primary text-xs lg:hidden">
-                1500000ريال
+                {Number(designatedUser.designated.totalAccount).toLocaleString()}ريال
               </div>
             </div>
             <div className="hidden lg:flex items-center gap-x-28 pt-3 xl:pt-8 px-4">
@@ -71,7 +71,9 @@ const UserPage = () => {
                 <span className="text-primary text-2xl block">
                   <HiCurrencyDollar />
                 </span>
-                <span className="text-xs block text-silver">15000000ريال</span>
+                <span className="text-xs block text-silver">
+                {Number(designatedUser.designated.totalAccount).toLocaleString()}ريال
+                </span>
               </div>
               <div className="flex items-center gap-x-2 justify-center">
                 <span className="text-primary text-2xl block">

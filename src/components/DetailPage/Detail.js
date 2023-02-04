@@ -46,7 +46,7 @@ const Detail = () => {
         setMaxLength(totalPriceLength);
       }
     }
-  } , [salesInvoicesItem , detailId])
+  }, [salesInvoicesItem, detailId]);
   useEffect(() => {
     if (designatedUser) {
       const remain =
@@ -83,10 +83,15 @@ const Detail = () => {
       (item) => item.id !== detailId
     );
     const array = [...filters, des];
-    const designated = {
+    const designatedItem = {
       ...salesInvoicesItem.designated,
       salesInvoices: array,
     };
+    const totalAcc = designatedItem.salesInvoices.reduce((acc, curr) => {
+      return acc + Number(curr.remaining);
+    }, 0);
+    const designated = { ...designatedItem, totalAccount: totalAcc };
+    console.log(totalAcc);
     setSalesInvoiceItem({ id, designated });
     dispatch(UpdateDesignated({ id, designated }));
     setValue("");
