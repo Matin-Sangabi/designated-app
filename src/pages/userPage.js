@@ -8,6 +8,8 @@ import {
   HiUser,
   HiRectangleGroup,
   HiCurrencyDollar,
+  HiPencil,
+  HiEye,
 } from "react-icons/hi2";
 import PopUp from "../components/popUp/popUp";
 import { GetONeDesignated } from "../redux/designated/designatedSlice";
@@ -21,6 +23,7 @@ const UserPage = () => {
   const [selectDesiganted, setSelectDesignated] = useState(null);
   const { salesInVoice } = useSelector((state) => state.designated);
   const [designatedUser, setDesignatedUser] = useState(null);
+
   useEffect(() => {
     dispatch(GetONeDesignated({ id }));
   }, [id, dispatch]);
@@ -31,6 +34,7 @@ const UserPage = () => {
     setIsOpen(true);
     setSelectDesignated(designated);
   };
+  
   if (designatedUser) {
     return (
       <>
@@ -65,35 +69,43 @@ const UserPage = () => {
             <div className="hidden lg:flex items-center gap-x-28 pt-3 xl:pt-8 px-4">
               <div className="flex items-center gap-x-2 justify-center">
                 <span className="text-primary text-2xl block">
-                  <HiCurrencyDollar/>
+                  <HiCurrencyDollar />
                 </span>
                 <span className="text-xs block text-silver">15000000ريال</span>
               </div>
               <div className="flex items-center gap-x-2 justify-center">
                 <span className="text-primary text-2xl block">
-                  <HiRectangleGroup/>
+                  <HiRectangleGroup />
                 </span>
-                <span className="text-xs block text-silver">{designatedUser.designated.plate}</span>
+                <span className="text-xs block text-silver">
+                  {designatedUser.designated.plate}
+                </span>
               </div>
             </div>
           </div>
         </div>
 
         {isOpen && (
-          <PopUp designated={selectDesiganted} setIsOpen={setIsOpen} id={id} />
+          <PopUp
+            designated={selectDesiganted}
+            setDesignatedUser={setDesignatedUser}
+            designatedUser
+            setIsOpen={setIsOpen}
+            id={id}
+          />
         )}
-        <div className="container px-4 max-w-screen-xl mx-auto pt-4">
-          <div className="flex flex-col gap-y-6 ">
-            <div className="flex flex-col pt-10">
-              <div className="overflow-x-auto sm:-mx-6 md:mx-4 lg:mx-8">
+        <div className="container px-4 max-w-screen-xl mx-auto ">
+          {designatedUser.designated.salesInvoices ? (<div className="flex flex-col gap-y-6 ">
+            <div className="flex flex-col">
+              <div className="overflow-x-auto">
                 <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                   <div className="overflow-hidden">
                     <table className="min-w-full rounded-lg">
                       <thead className="bg-gradient-to-t from-primary to-secondary text-white border-b">
-                        <tr>
+                        <tr className="rounded-md">
                           <th
                             scope="col"
-                            className="text-sm font-medium  px-6 py-4 text-right"
+                            className="text-sm font-medium px-6 py-4 text-right rounded-tr-xl"
                           >
                             تاریخ
                           </th>
@@ -123,7 +135,7 @@ const UserPage = () => {
                           </th>
                           <th
                             scope="col"
-                            className="text-sm font-medium  px-6 py-4 text-right"
+                            className="text-sm font-medium  px-6 py-4 text-right rounded-tl-xl"
                           >
                             نمایش
                           </th>
@@ -134,37 +146,40 @@ const UserPage = () => {
                           return (
                             <tr
                               key={item.id}
-                              className="bg-white border-b border-primary transition duration-300 ease-in-out hover:bg-silver"
+                              className="bg-white border-b border-primary transition duration-300 ease-in-out  even:bg-silver odd:bg-white  "
                             >
-                              <td className="px-6 py-4 whitespace-nowrap text-sm  text-gray-900 font-semibold">
+                              <td className="px-6 py-4 whitespace-nowrap text-sm  text-slate font-semibold">
                                 {new Date(item.createdAt).toLocaleDateString(
                                   "fa"
                                 )}
                               </td>
-                              <td className="text-sm text-gray-900  px-6 py-4 whitespace-nowrap font-semibold">
+                              <td className="text-sm text-slate  px-6 py-4 whitespace-nowrap font-semibold">
                                 {Number(item.remaining).toLocaleString()} ريال
                               </td>
-                              <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
+                              <td className="text-sm text-slate font-normal px-6 py-4 whitespace-nowrap">
                                 {item.desc[0].title}...
                               </td>
-                              <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
+                              <td className="text-sm text-slate font-normal px-6 py-4 whitespace-nowrap">
                                 {item.remaining === 0 ? "تسویه شد" : "بدهکار"}
                               </td>
-                              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap flex items-center gap-x-2">
-                                <button>Edit</button>
+                              <td className="text-sm text-slate font-light px-6 py-4 whitespace-nowrap flex items-center gap-x-2">
+                                <button className="hover:text-green text-lg">
+                                  <HiPencil />
+                                </button>
                                 <button
                                   onClick={() => deleteHandler(item)}
-                                  className="text-lg text-slate-800 hover:text-rose-600"
+                                  className="text-lg hover:text-rose"
                                 >
                                   <HiOutlineTrash className="stroke-2" />
                                 </button>
                               </td>
-                              <td className="text-sm text-gray-900 font-normal px-6 py-4 whitespace-nowrap">
+                              <td className="text-xl hover:text-bubble-gum mx-auto text-slate text-center font-normal px-8 py-4 whitespace-nowrap">
                                 <Link
                                   to={`/detail/${item.id}`}
                                   state={{ id: designatedUser.id }}
+                                  className=""
                                 >
-                                  مشاهده
+                                  <HiEye />
                                 </Link>
                               </td>
                             </tr>
@@ -176,15 +191,16 @@ const UserPage = () => {
                 </div>
               </div>
             </div>
-            <div className="flex items-center justify-end px-2">
+            
+          </div>) : <div className="text-center">چیزی برای نمایش وجود ندارد</div>}
+          <div className="flex items-center justify-end px-8">
               <Link
                 to={`/addUser?id=${designatedUser.id}`}
-                className="p-2 rounded-md bg-primary text-white hover:ring hover:ring-offset-2 hover:ring-[#197278] transition-all ease-in-out duration-500 text-sm "
+                className="p-2 rounded-md bg-primary text-white hover:ring hover:ring-offset-2 hover:ring-primary transition-all ease-in-out duration-500 text-sm "
               >
                 اضافه کردن
               </Link>
             </div>
-          </div>
         </div>
       </>
     );

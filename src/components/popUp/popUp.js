@@ -7,24 +7,32 @@ const PopUp = ({ designated, setIsOpen, id }) => {
       alert("شما نمیتوانید این آیتم را پاک کنید زیرا  هنوز بده کار میباشد.");
       setIsOpen(false);
     } else {
-      // const designatedId = id;
       const salesInVoicesId = designated.id;
-      dispatch(
-        DeleteDesignatedFactor({id , uid : salesInVoicesId})
-      );
+      dispatch(DeleteDesignatedFactor({ id, uid: salesInVoicesId }));
       setIsOpen(false);
     }
   };
   return (
     <div className="fixed w-full top-0 h-screen bg-slate bg-opacity-50 flex items-center justify-center">
-      <div className="bg-silver p-4 rounded-lg shadow-xl flex flex-col">
+      <div className="bg-white p-4 rounded-lg shadow-xl flex flex-col">
         <div className="flex flex-col text-slate-800  gap-y-2">
           <h1>آیا مطمئن هستید که میخواهید این اطلاعات : </h1>
           <p className="">
-            در تاریخ : <small className="text-slate">{new Date(designated.createdAt).toLocaleDateString("fa")}</small>
+            در تاریخ :{" "}
+            <small className="text-slate">
+              {new Date(designated.createdAt).toLocaleDateString("fa")}
+            </small>
           </p>
-          <p>شرح بابت : <small className="text-slate">{designated.desc[0].title} .</small>..</p>
-          <p>مانده حساب : <small className="text-slate">{Number(designated.remaining).toLocaleString("")}</small></p>
+          <p>
+            شرح بابت :{" "}
+            <small className="text-slate">{designated.desc[0].title} .</small>..
+          </p>
+          <p>
+            مانده حساب :{" "}
+            <small className="text-slate">
+              {Number(designated.remaining).toLocaleString("")}
+            </small>
+          </p>
           <h1 className="text-lg text-slate-800"> را حذف کنید ؟</h1>
         </div>
         <div className="flex items-center w-full gap-x-2 pt-4">

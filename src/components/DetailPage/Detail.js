@@ -16,7 +16,6 @@ const Detail = () => {
   const { salesInVoice } = useSelector((state) => state.designated);
   const [salesInvoicesItem, setSalesInvoiceItem] = useState();
   const [designatedUser, setDesignatedUser] = useState();
-  const [user, setUser] = useState();
   const [value, setValue] = useState("");
   const [TypeInput, setTypeInput] = useState("");
   const [maxLength, setMaxLength] = useState();

@@ -14,10 +14,12 @@ module.exports = {
       'metal': '#BFACE2',
       'tahiti': '#EBC7E6',
       'silver': '#ecebff',
-      'bubble-gum': '#ff77e9',
+      'bubble-gum': ' #6366f1',
       'bermuda': '#78dcca',
       'slate' : '#1f2937',
       'gray' : '#e5e7eb',
+      'green' : '#15803d',
+      'rose' : '#e11d48'
     }
   },
   plugins: [],

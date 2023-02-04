@@ -156,7 +156,6 @@ const AddUserPage = () => {
       setRemaining(remain);
     }
   }, [formik.values, totalPrice]);
-  console.log("helo");
   return (
     <div className="container mx-auto max-w-screen-xl pt-10 px-4">
       <Link

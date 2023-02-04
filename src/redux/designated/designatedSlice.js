@@ -76,7 +76,6 @@ export const UpdateDesignated = createAsyncThunk(
 export const DeleteDesignatedFactor = createAsyncThunk(
   "designated/DeleteDesignatedFactor",
   async (payload, { rejectWithValue }) => {
-    console.log(payload);
     try {
       const response = await axios.post(
         `${BASE_URL}/DeleteDesignated.php/${payload.id}?id=${payload.uid}`,
@@ -198,6 +197,13 @@ const designatedSlice = createSlice({
       };
     },
     [GetONeDesignated.fulfilled]: (state, actions) => {
+      return {
+        ...state,
+        salesInVoice: actions.payload,
+      };
+    },
+    [DeleteDesignatedFactor.fulfilled]: (state, actions) => {
+      console.log(actions.payload);
       return {
         ...state,
         salesInVoice: actions.payload,
