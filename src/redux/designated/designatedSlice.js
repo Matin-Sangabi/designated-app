@@ -154,6 +154,7 @@ const designatedSlice = createSlice({
         ...state,
         designated_loading: false,
         designated_error: null,
+        designated : actions.payload
       };
     },
     [AddDesignated.rejected]: (state, actions) => {

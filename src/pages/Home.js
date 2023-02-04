@@ -13,13 +13,20 @@ import {
 } from "react-icons/hi2";
 const Homepage = () => {
   const [searchBox, setSearchBox] = useState(false);
+  const [designatedUser , setDesignatedUser] = useState([]);
   const { designated, users, designated_loading, designated_error } =
     useSelector((state) => state.designated);
   const dispatch = useDispatch();
   useEffect(() => {
+    console.log('run');
     dispatch(GetDesignated());
+  }, [dispatch]);
+  useEffect(() =>  {
+    setDesignatedUser(designated);
+  }, [designated])
+  useEffect(() => {
     localStorage.setItem("DESIGNATED_USERS", JSON.stringify(users));
-  }, [users, dispatch]);
+  }, [users]);
 
   if (designated_loading) {
     return <p className="text-center">Loading...</p>;
@@ -64,8 +71,8 @@ const Homepage = () => {
             </div>
           </div>
           <div className="grid grid-cols-12 pt-6 gap-6 px-2">
-            {designated &&
-              designated.map((item) => {
+            {designatedUser &&
+              designatedUser.map((item) => {
                 return (
                   <Link
                     to={`userPage/${item.id}`}
@@ -106,7 +113,9 @@ const Homepage = () => {
                         <span className="text-primary text-2xl">
                           <HiCurrencyDollar />
                         </span>
-                        <span className="text-xs md:text-sm text-primary font-semibold">1500000ريال</span>
+                        <span className="text-xs md:text-sm text-primary font-semibold">
+                          1500000ريال
+                        </span>
                       </div>
                     </div>
                   </Link>

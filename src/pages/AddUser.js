@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import AddElement from "../components/AddUser/AddElement";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import InputsTag from "../components/AddUser/Inputs";
@@ -11,6 +11,7 @@ import { HiPlusSm } from "react-icons/hi";
 
 import {
   AddDesignated,
+  GetDesignated,
   GetONeDesignated,
   UpdateDesignated,
 } from "../redux/designated/designatedSlice";
@@ -48,7 +49,7 @@ const AddUserPage = () => {
   const [searchParams] = useSearchParams();
   const userId = searchParams.get("id");
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (userId) {
       dispatch(GetONeDesignated({ id: userId }));
@@ -90,6 +91,7 @@ const AddUserPage = () => {
         salesInvoices: sales,
       };
       dispatch(UpdateDesignated({ id: userId, designated: salesInVoiceAdded }));
+      navigate(-1);
     } else {
       const designated = {
         name: values.name,
@@ -108,8 +110,10 @@ const AddUserPage = () => {
           },
         ],
       };
-
-      dispatch(AddDesignated({ id: Date.now(), designated }));
+      const id = Date.now();
+      dispatch(AddDesignated({ id, designated }));
+      dispatch(GetDesignated());
+      navigate("/");
     }
   };
   const formik = useFormik({
@@ -163,20 +167,19 @@ const AddUserPage = () => {
     <>
       <header className="w-full hidden md:block px-4 xl:px-0 relative overflow-hidden  after:bg-gradient-to-b after:from-primary after:via-secondary after:to-metal md:after:right-[68%] lg:after:right-[55%] xl:after:right-[45%] 2xl:after:right-[45%] after:-z-10 md:after:-top-8 lg:after:top-0 md:after:-skew-y-[29deg]  md:after:p-44 after:w-[150%] after:fixed before:fixed before:bg-gradient-to-t from-primary before:via-secondary before:to-metal before:p-44 lg:before:bottom-0 md:before:-bottom-9  before:w-[150%] before:-skew-y-[29deg] 2xl:before:left-[50%]  xl:before:left-[55%] lg:before:left-[60%] md:before:left-[80%] before:-z-10"></header>
       <div className="container mx-auto md:flex  md:items-center md:justify-center md:h-screen max-w-screen-xl my-10 md:my-0  px-4">
-        
         <form
           onSubmit={formik.handleSubmit}
           className="w-full relative p-4 rounded-xl ring-2 ring-secondary "
         >
           <span className="absolute -top-3 right-10 bg-gray text-primary px-2">
-            {userId ? 'افزودن فاکتور' : 'افزودن مشتری'}
+            {userId ? "افزودن فاکتور" : "افزودن مشتری"}
           </span>
           <Link
-          to="/"
-          className="flex items-end justify-end mb-4 text-xs text-primary "
-        >
-          بازگشت به خانه
-        </Link>
+            to="/"
+            className="flex items-end justify-end mb-4 text-xs text-primary "
+          >
+            بازگشت به خانه
+          </Link>
           <h1 className="text-primary">اطلاعات : </h1>
           <div className="flex flex-col gap-y-4 md:gap-y-6 pt-4">
             <div className="flex flex-col gap-4 md:flex-row md:items-center justify-between">
@@ -209,7 +212,7 @@ const AddUserPage = () => {
                 onClick={generateElement}
                 className="w-8 h-8 text-xl  hover:ring-2 hover:ring-primary hover:ring-offset-2 transition-all ease-in-out duration-300 rounded-full bg-primary flex items-center justify-center text-white absolute left-6 -bottom-6"
               >
-                <HiPlusSm/>
+                <HiPlusSm />
               </button>
             </div>
             <h1 className="text-primary">صورت حساب :</h1>
