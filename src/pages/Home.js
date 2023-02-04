@@ -70,8 +70,8 @@ const Homepage = () => {
             </div>
           </div>
           <div className="grid grid-cols-12 pt-6 gap-6 px-2">
-            {designatedUser &&
-              designatedUser.map((item) => {
+            {designated &&
+              designated.map((item) => {
                 return (
                   <Link
                     to={`userPage/${item.id}`}

@@ -210,6 +210,12 @@ const designatedSlice = createSlice({
         salesInVoice: actions.payload,
       };
     },
+    [UpdateDesignated.fulfilled] : (state , actions) => {
+      return {
+        ...state , 
+        salesInVoice : actions.payload
+      }
+    }
   },
 });
 
