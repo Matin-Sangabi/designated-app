@@ -13,16 +13,13 @@ import {
 } from "react-icons/hi2";
 const Homepage = () => {
   const [searchBox, setSearchBox] = useState(false);
-  const [designatedUser , setDesignatedUser] = useState([]);
   const { designated, users, designated_loading, designated_error } =
     useSelector((state) => state.designated);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(GetDesignated());
   }, [dispatch]);
-  useEffect(() =>  {
-    setDesignatedUser(designated);
-  }, [designated])
+
   useEffect(() => {
     localStorage.setItem("DESIGNATED_USERS", JSON.stringify(users));
   }, [users]);

@@ -94,8 +94,9 @@ const AddUserPage = () => {
         return Number(acc) + Number(curr.remaining);
       }, 0);
       const designated = {
-        ...salesInVoiceAdded , totalAccount : totalAcc
-     }
+        ...salesInVoiceAdded,
+        totalAccount: totalAcc,
+      };
       dispatch(UpdateDesignated({ id: userId, designated }));
       navigate(-1);
     } else {
@@ -120,7 +121,7 @@ const AddUserPage = () => {
       const id = Date.now();
       dispatch(AddDesignated({ id, designated }));
       dispatch(GetDesignated());
-      navigate("/");
+      navigate(-1);
     }
   };
   const formik = useFormik({
@@ -173,7 +174,7 @@ const AddUserPage = () => {
   return (
     <>
       <header className="w-full hidden md:block px-4 xl:px-0 relative overflow-hidden  after:bg-gradient-to-b after:from-primary after:via-secondary after:to-metal md:after:right-[68%] lg:after:right-[55%] xl:after:right-[45%] 2xl:after:right-[45%] after:-z-10 md:after:-top-8 lg:after:top-0 md:after:-skew-y-[29deg]  md:after:p-44 after:w-[150%] after:fixed before:fixed before:bg-gradient-to-t from-primary before:via-secondary before:to-metal before:p-44 lg:before:bottom-0 md:before:-bottom-9  before:w-[150%] before:-skew-y-[29deg] 2xl:before:left-[50%]  xl:before:left-[55%] lg:before:left-[60%] md:before:left-[80%] before:-z-10"></header>
-      <div className="container mx-auto md:flex  md:items-center md:justify-center md:h-screen max-w-screen-xl my-10 md:my-0  px-4">
+      <div className="container mx-auto max-w-screen-lg py-10 xl:my-0  px-4">
         <form
           onSubmit={formik.handleSubmit}
           className="w-full relative p-4 rounded-xl ring-2 ring-secondary "

@@ -150,6 +150,7 @@ const designatedSlice = createSlice({
       };
     },
     [AddDesignated.fulfilled]: (state, actions) => {
+
       return {
         ...state,
         designated_loading: false,
@@ -204,7 +205,6 @@ const designatedSlice = createSlice({
       };
     },
     [DeleteDesignatedFactor.fulfilled]: (state, actions) => {
-      console.log(actions.payload);
       return {
         ...state,
         salesInVoice: actions.payload,
