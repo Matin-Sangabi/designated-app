@@ -6,7 +6,15 @@ import {
   UpdateDesignated,
 } from "../../redux/designated/designatedSlice";
 import { format } from "../../utils/degitInputs";
-
+import {
+  HiOutlineTrash,
+  HiOutlineArrowLeft,
+  HiUser,
+  HiRectangleGroup,
+  HiCurrencyDollar,
+  HiPencil,
+  HiEye,
+} from "react-icons/hi2";
 const Detail = () => {
   const { state } = useLocation();
 
@@ -99,22 +107,25 @@ const Detail = () => {
   if (salesInvoicesItem && designatedUser) {
     return (
       <div className="flex flex-col">
-        <div className="flex flex-col gap-2 rounded-md bg-[#197278] text-gray-100 py-2  px-2 print:text-gray-200 print:bg-gray-500">
-          <h1 className="text-2xl font-bold">سر رسید :</h1>
-          <div className="flex items-center w-full justify-between pt-2">
-            <h1 className="text-lg font-semibold">
-              تاریخ :{" "}
-              {new Date(designatedUser.createdAt).toLocaleDateString("fa")}
-            </h1>
-            <h1 className="text-lg font-semibold">
-              نام: {salesInvoicesItem.designated.name}
-            </h1>
-            <h1 className="text-lg font-semibold">
-              {" "}
-              شماره: {salesInvoicesItem.designated.phone}
-            </h1>
+        <div className="grid grid-cols-12  bg-white rounded-lg shadow-md  max-w-screen-lg"> 
+            <div className="col-span-6 md:col-span-3 flex gap-x-2 flex-1 rounded-md md:justify-center md:items-center py-4 px-2 md:hover:shadow-lg group  md:hover:shadow-primary  hover:bg-primary hover:text-silver text-slate transition-all ease-in-out duration-300">
+                <span className="w-6 h-6 ring-1 ring-slate text- flex items-center justify-center rounded-md group-hover:ring-silver"><HiUser/></span>
+                <h1 className="text-sm">{salesInvoicesItem.designated.name}</h1>
+            </div>
+            <div className="col-span-6 md:col-span-3 flex gap-x-2 flex-1 md:justify-center md:items-center py-4 px-2 md:hover:shadow-lg group md:hover:shadow-primary  hover:bg-primary hover:text-silver text-slate transition-all rounded-md  ease-in-out duration-300">
+                <span className="w-6 h-6 ring-1 ring-slate text- flex items-center justify-center rounded-md group-hover:ring-silver"><HiUser/></span>
+                <h1 className="text-sm">{salesInvoicesItem.designated.plate}</h1>
+            </div>
+            <div className="col-span-6 md:col-span-3 flex gap-x-2 flex-1 md:justify-center md:items-center py-4 px-2 md:hover:shadow-lg group md:hover:shadow-primary  hover:bg-primary hover:text-silver rounded-md text-slate transition-all ease-in-out duration-300">
+                <span className="w-6 h-6 ring-1 ring-slate text- flex items-center justify-center rounded-md group-hover:ring-silver"><HiUser/></span>
+                <h1 className="text-sm">{salesInvoicesItem.designated.phone}</h1>
+            </div>
+            <div className="col-span-6 md:col-span-3 flex gap-x-2 flex-1 md:justify-center md:items-center py-4 px-2 hover:shadow-lg group md:hover:shadow-primary rounded-md  hover:bg-primary hover:text-silver text-slate transition-all ease-in-out duration-300">
+                <span className="w-6 h-6 ring-1 ring-slate text- flex items-center justify-center rounded-md group-hover:ring-silver"><HiUser/></span>
+                <h1 className="text-sm"> {new Date(designatedUser.createdAt).toLocaleDateString("fa")}</h1>
+            </div>
+            
           </div>
-        </div>
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-semibold pt-4">شرح کار :</h1>
         </div>
