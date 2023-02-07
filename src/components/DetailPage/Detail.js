@@ -7,13 +7,10 @@ import {
 } from "../../redux/designated/designatedSlice";
 import { format } from "../../utils/degitInputs";
 import {
-  HiOutlineTrash,
-  HiOutlineArrowLeft,
   HiUser,
   HiRectangleGroup,
-  HiCurrencyDollar,
-  HiPencil,
-  HiEye,
+  HiCalendar,
+  HiPhone,
 } from "react-icons/hi2";
 const Detail = () => {
   const { state } = useLocation();
@@ -99,7 +96,6 @@ const Detail = () => {
       return acc + Number(curr.remaining);
     }, 0);
     const designated = { ...designatedItem, totalAccount: totalAcc };
-    console.log(totalAcc);
     setSalesInvoiceItem({ id, designated });
     dispatch(UpdateDesignated({ id, designated }));
     setValue("");
@@ -116,19 +112,19 @@ const Detail = () => {
           </div>
           <div className="col-span-6 md:col-span-3 flex gap-x-2 flex-1 md:justify-center md:items-center py-4 px-2 md:hover:shadow-lg group md:hover:shadow-primary  hover:bg-primary hover:text-silver text-slate transition-all rounded-md  ease-in-out duration-300">
             <span className="w-6 h-6 ring-1 ring-slate text- flex items-center justify-center rounded-md group-hover:ring-silver">
-              <HiUser />
+              <HiRectangleGroup />
             </span>
             <h1 className="text-sm">{salesInvoicesItem.designated.plate}</h1>
           </div>
           <div className="col-span-6 md:col-span-3 flex gap-x-2 flex-1 md:justify-center md:items-center py-4 px-2 md:hover:shadow-lg group md:hover:shadow-primary  hover:bg-primary hover:text-silver rounded-md text-slate transition-all ease-in-out duration-300">
             <span className="w-6 h-6 ring-1 ring-slate text- flex items-center justify-center rounded-md group-hover:ring-silver">
-              <HiUser />
+              <HiPhone />
             </span>
             <h1 className="text-sm">{salesInvoicesItem.designated.phone}</h1>
           </div>
           <div className="col-span-6 md:col-span-3 flex gap-x-2 flex-1 md:justify-center md:items-center py-4 px-2 hover:shadow-lg group md:hover:shadow-primary rounded-md  hover:bg-primary hover:text-silver text-slate transition-all ease-in-out duration-300">
             <span className="w-6 h-6 ring-1 ring-slate text- flex items-center justify-center rounded-md group-hover:ring-silver">
-              <HiUser />
+              <HiCalendar />
             </span>
             <h1 className="text-sm">
               {" "}
@@ -136,8 +132,8 @@ const Detail = () => {
             </h1>
           </div>
         </div>
-        <div className="flex items-center justify-between">
-          <h1 className="text-xl font-semibold pt-4">شرح کار :</h1>
+        <div className="flex items-center justify-between pt-4">
+          <h1 className="text-lg text-primary font-semibold pt-4">شرح کار :</h1>
         </div>
         <div className="grid  grid-cols-12 items-center p-2 bg-gradient-to-tr from-primary to-secondary text-silver rounded-t-md text-gray-800 mt-4 print:bg-gray-500 print:text-gray-100">
           <div className="col-span-1 text-sm ">ردیف</div>

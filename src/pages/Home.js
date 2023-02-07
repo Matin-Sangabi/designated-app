@@ -13,12 +13,29 @@ import {
 } from "react-icons/hi2";
 const Homepage = () => {
   const [searchBox, setSearchBox] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const [sortedDesignated, setSortedDesignated] = useState([]);
   const { designated, users, designated_loading, designated_error } =
     useSelector((state) => state.designated);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(GetDesignated());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (designated) {
+      const searchItem = (result) => {
+        const filters = result.filter((item) =>
+          item.designated.name.toLowerCase().includes(searchValue.toLowerCase())
+        );
+        return filters;
+      };
+      let result = designated;
+      result = searchItem(result);
+      setSortedDesignated(result);
+      
+    }
+  }, [designated, searchValue]);
 
   useEffect(() => {
     localStorage.setItem("DESIGNATED_USERS", JSON.stringify(users));
@@ -49,6 +66,8 @@ const Homepage = () => {
               className={`placeholder:text-xs p-1  outline-none text-slate focus:border-2 focus:border-primary  rounded-lg transition-all ease-in-out duration-300 z-0  ${
                 searchBox ? "translate-y-0 " : "-translate-y-full"
               }`}
+              value={searchValue}
+              onInput={(e) => setSearchValue(e.target.value)}
             />
           </div>
           <div className="w-full hidden md:flex items-center gap-x-10 pt-10">
@@ -56,7 +75,9 @@ const Homepage = () => {
               <input
                 type="text"
                 placeholder="جستجو"
-                className="p-1 text-slate placeholder:text-sm rounded-md border-none outline-none ring-1 focus:ring-2 focus:ring-offset-2 ring-primary transition-all ease-in-out duration-300"
+                className="p-1  text-slate placeholder:text-sm rounded-md border-none outline-none ring-1 focus:ring-2 focus:ring-offset-2 ring-primary transition-all ease-in-out duration-300"
+                value={searchValue}
+                onInput={(e) => setSearchValue(e.target.value)}
               />
               <span className="absolute left-2 top-[6px] text-primary stroke-2 text-xl">
                 <HiMagnifyingGlass />
@@ -67,8 +88,8 @@ const Homepage = () => {
             </div>
           </div>
           <div className="grid grid-cols-12 pt-6 gap-6 px-2">
-            {designated &&
-              designated.map((item) => {
+            {sortedDesignated.length ? (
+              sortedDesignated.map((item) => {
                 return (
                   <Link
                     to={`userPage/${item.id}`}
@@ -85,7 +106,9 @@ const Homepage = () => {
                         </h1>
                       </div>
                       <span className="absolute -left-[0.9rem] text-primary  bg-tahiti rounded-r-md w-16  text-xs px-1 py-[3px] after:absolute after:bg-tahiti after:left-[0.5px] after:-top-[4px] after:p-2 after:-skew-y-[30deg] after:-z-10">
-                        بدهکار
+                        {Number(item.designated.totalAccount) > 0
+                          ? "بدهکار"
+                          : "تسویه شد "}
                       </span>
                       <div className="flex w-full items-center  px-2 justify-between ">
                         <div className="flex items-center gap-x-2">
@@ -110,13 +133,21 @@ const Homepage = () => {
                           <HiCurrencyDollar />
                         </span>
                         <span className="text-xs md:text-sm text-primary font-semibold">
-                          {Number(item.designated.totalAccount).toLocaleString()}ريال
+                          {Number(
+                            item.designated.totalAccount
+                          ).toLocaleString()}
+                          ريال
                         </span>
                       </div>
                     </div>
                   </Link>
                 );
-              })}
+              })
+            ) : (
+              <div className="text-center col-span-12 text-primary">
+                نتیجه ای یافت نشد
+              </div>
+            )}
           </div>
           <div className="absolute bottom-10 left-2">
             <Link

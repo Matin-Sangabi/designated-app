@@ -60,14 +60,14 @@ const Users = ({ users }) => {
         <div className="flex items-center gap-x-2">
           {" "}
           <Link
-            to="SignIn"
+            to="/SignIn"
             className="py-1 px-2 bg-primary text-silver rounded-md text-xs md:text-sm hover:ring-2 hover:ring-primary hover:ring-offset-2  hover:shadow-lg hover:shadow-primary transition-all ease-in-out duration-300"
           >
             ثبت نام
           </Link>
           <span className="">/</span>
           <Link
-            to="Login"
+            to="/Login"
             className="text-xs md:text-sm p-1 hover:text-primary transition-all ease-in-out duration-300 hover:font-bold"
           >
             ورود
