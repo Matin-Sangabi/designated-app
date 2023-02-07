@@ -107,40 +107,50 @@ const Detail = () => {
   if (salesInvoicesItem && designatedUser) {
     return (
       <div className="flex flex-col">
-        <div className="grid grid-cols-12  bg-white rounded-lg shadow-md  max-w-screen-lg"> 
-            <div className="col-span-6 md:col-span-3 flex gap-x-2 flex-1 rounded-md md:justify-center md:items-center py-4 px-2 md:hover:shadow-lg group  md:hover:shadow-primary  hover:bg-primary hover:text-silver text-slate transition-all ease-in-out duration-300">
-                <span className="w-6 h-6 ring-1 ring-slate text- flex items-center justify-center rounded-md group-hover:ring-silver"><HiUser/></span>
-                <h1 className="text-sm">{salesInvoicesItem.designated.name}</h1>
-            </div>
-            <div className="col-span-6 md:col-span-3 flex gap-x-2 flex-1 md:justify-center md:items-center py-4 px-2 md:hover:shadow-lg group md:hover:shadow-primary  hover:bg-primary hover:text-silver text-slate transition-all rounded-md  ease-in-out duration-300">
-                <span className="w-6 h-6 ring-1 ring-slate text- flex items-center justify-center rounded-md group-hover:ring-silver"><HiUser/></span>
-                <h1 className="text-sm">{salesInvoicesItem.designated.plate}</h1>
-            </div>
-            <div className="col-span-6 md:col-span-3 flex gap-x-2 flex-1 md:justify-center md:items-center py-4 px-2 md:hover:shadow-lg group md:hover:shadow-primary  hover:bg-primary hover:text-silver rounded-md text-slate transition-all ease-in-out duration-300">
-                <span className="w-6 h-6 ring-1 ring-slate text- flex items-center justify-center rounded-md group-hover:ring-silver"><HiUser/></span>
-                <h1 className="text-sm">{salesInvoicesItem.designated.phone}</h1>
-            </div>
-            <div className="col-span-6 md:col-span-3 flex gap-x-2 flex-1 md:justify-center md:items-center py-4 px-2 hover:shadow-lg group md:hover:shadow-primary rounded-md  hover:bg-primary hover:text-silver text-slate transition-all ease-in-out duration-300">
-                <span className="w-6 h-6 ring-1 ring-slate text- flex items-center justify-center rounded-md group-hover:ring-silver"><HiUser/></span>
-                <h1 className="text-sm"> {new Date(designatedUser.createdAt).toLocaleDateString("fa")}</h1>
-            </div>
-            
+        <div className="grid grid-cols-12  bg-white rounded-lg shadow-md  max-w-screen-lg">
+          <div className="col-span-6 md:col-span-3 flex gap-x-2 flex-1 rounded-md md:justify-center md:items-center py-4 px-2 md:hover:shadow-lg group  md:hover:shadow-primary  hover:bg-primary hover:text-silver text-slate transition-all ease-in-out duration-300">
+            <span className="w-6 h-6 ring-1 ring-slate text- flex items-center justify-center rounded-md group-hover:ring-silver">
+              <HiUser />
+            </span>
+            <h1 className="text-sm">{salesInvoicesItem.designated.name}</h1>
           </div>
+          <div className="col-span-6 md:col-span-3 flex gap-x-2 flex-1 md:justify-center md:items-center py-4 px-2 md:hover:shadow-lg group md:hover:shadow-primary  hover:bg-primary hover:text-silver text-slate transition-all rounded-md  ease-in-out duration-300">
+            <span className="w-6 h-6 ring-1 ring-slate text- flex items-center justify-center rounded-md group-hover:ring-silver">
+              <HiUser />
+            </span>
+            <h1 className="text-sm">{salesInvoicesItem.designated.plate}</h1>
+          </div>
+          <div className="col-span-6 md:col-span-3 flex gap-x-2 flex-1 md:justify-center md:items-center py-4 px-2 md:hover:shadow-lg group md:hover:shadow-primary  hover:bg-primary hover:text-silver rounded-md text-slate transition-all ease-in-out duration-300">
+            <span className="w-6 h-6 ring-1 ring-slate text- flex items-center justify-center rounded-md group-hover:ring-silver">
+              <HiUser />
+            </span>
+            <h1 className="text-sm">{salesInvoicesItem.designated.phone}</h1>
+          </div>
+          <div className="col-span-6 md:col-span-3 flex gap-x-2 flex-1 md:justify-center md:items-center py-4 px-2 hover:shadow-lg group md:hover:shadow-primary rounded-md  hover:bg-primary hover:text-silver text-slate transition-all ease-in-out duration-300">
+            <span className="w-6 h-6 ring-1 ring-slate text- flex items-center justify-center rounded-md group-hover:ring-silver">
+              <HiUser />
+            </span>
+            <h1 className="text-sm">
+              {" "}
+              {new Date(designatedUser.createdAt).toLocaleDateString("fa")}
+            </h1>
+          </div>
+        </div>
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-semibold pt-4">شرح کار :</h1>
         </div>
-        <div className="grid  grid-cols-12 items-center p-2 bg-[#edddd4] rounded-md text-gray-800 mt-4 print:bg-gray-500 print:text-gray-100">
+        <div className="grid  grid-cols-12 items-center p-2 bg-gradient-to-tr from-primary to-secondary text-silver rounded-t-md text-gray-800 mt-4 print:bg-gray-500 print:text-gray-100">
           <div className="col-span-1 text-sm ">ردیف</div>
           <div className="col-span-8 p-2">
             <p>شرح کالا</p>
           </div>
           <div className="col-span-3">قیمت</div>
         </div>
-        <div className="grid overflow-auto   grid-cols-12 items-center p-2 bg-gray-300 rounded-md text-gray-800 print:bg-gray-300  print:text-gray-900  ">
+        <div className="grid overflow-auto text-slate   grid-cols-12 items-center p-2 bg-white shadow-md rounded-b-md text-gray-800 print:bg-gray-300  print:text-gray-900  ">
           {designatedUser.desc.map((item, i) => {
             return (
               <Fragment key={i}>
-                <div className="col-span-1 p-2">{(i += 1)}</div>
+                <div className="col-span-1 p-2 ">{(i += 1)}</div>
                 <div className="col-span-8 p-2 ">
                   <p>{item.title}</p>
                 </div>
@@ -149,21 +159,15 @@ const Detail = () => {
             );
           })}
         </div>
-        <div className="flex flex-col pt-6 px-2 gap-y-4">
-          <h1 className="font-semibold">
-            جمع کل :{Number(designatedUser.totalPrice).toLocaleString()}ريال
+        <div className="flex mb-8 flex-col pt-6 px-2 gap-y-4">
+          <h1 className="font-semibold text-primary">
+            جمع کل فاکتور :{" "}
+            <span className="text-slate font-bold">
+              {Number(designatedUser.totalPrice).toLocaleString()} ريال
+            </span>
           </h1>
-          <div className="flex flex-col gap-y-3">
-            <h1 className="font-semibold"> پرداختی : </h1>
-            {designatedUser.payment.map((item, i) => {
-              return (
-                <div key={i} className="flex items-center gap-x-10">
-                  <h2>{item.pay}ريال</h2>
-                  <h2>{new Date(item.createdAt).toLocaleDateString("fa")}</h2>
-                </div>
-              );
-            })}
-          </div>
+          
+          <h1 className="font-semibold text-primary"> پرداختی : </h1>
           <div className=" print:hidden flex items-center gap-x-2 relative">
             <input
               type="text"
@@ -172,24 +176,42 @@ const Detail = () => {
               onChange={changeHandler}
               onInput={inputHandler}
               onKeyUp={keyupHnadler}
-              className="p-1 rounded-md bg-transparent ring-1 ring-gray-400"
+              className="py-[6px] px-2 rounded-md bg-white ring-1 ring-primary"
               placeholder="پرداختتی"
             />
             {TypeInput && (
-              <span className="absolute right-40 bottom-1">ريال</span>
+              <span className="absolute right-44 bottom-2 text-sm">ريال</span>
             )}
             <button
               type="button"
               onClick={paymentHandler}
-              className="p-1 rounded-md text-gray-100 bg-[#178278] text-sm"
+              className="py-[6px] px-2 border-none outline-none hover:ring-2 hover:ring-offset-2 hover:ring-primary transition-all ease-in-out duration-300 rounded-md text-gray-100 bg-primary text-white text-sm"
             >
               تایید
             </button>
           </div>
+          <div className="max-w-screen-lg">
+            <div className="grid grid-cols-12  gap-3 items-center">
+              {designatedUser.payment.map((item, i) => {
+                return (
+                  <div
+                    key={i}
+                    className="flex items-center justify-between col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-3 gap-x-10 p-2 bg-white rounded-md "
+                  >
+                    <h2>{item.pay}ريال</h2>
+                    <h2 className="text-sm text-primary">{new Date(item.createdAt).toLocaleDateString("fa")}</h2>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          
 
-          <h1 className="font-semibold">
-            مبلغ بدهی : {Number(remaining).toLocaleString()}
-            ريال
+          <h1 className="font-semibold text-primary">
+            مبلغ بدهی : <span className="text-slate">
+              {Number(remaining).toLocaleString()} ريال
+            </span>
+            
           </h1>
         </div>
         <div className="mt-36 px-4 hidden print:block ">
