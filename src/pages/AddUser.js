@@ -16,6 +16,7 @@ import {
   UpdateDesignated,
 } from "../redux/designated/designatedSlice";
 import uuid from "react-uuid";
+import JalaliDatePicker from "../components/datepicker/DatePicker";
 
 const Element = [
   { name: "", price: "" },
@@ -44,6 +45,7 @@ const AddUserPage = () => {
   const [remaining, setRemaining] = useState(0);
   const [typeInput, setTypeInput] = useState(false);
   const [maxLength, setMaxLength] = useState(0);
+  const [date , setDate] = useState(new Date());
   const [userInitialValues, setUserInitalValues] = useState(null);
   const { salesInVoice } = useSelector((state) => state.designated);
   const [searchParams] = useSearchParams();
@@ -74,14 +76,13 @@ const AddUserPage = () => {
     desc: [],
     payment: "",
   };
-
   const onSubmit = (values) => {
     if (userId) {
       const salesInvoices = {
         id: uuid(),
-        createdAt: new Date().toISOString(),
+        createdAt: date.toISOString(),
         desc: values.desc,
-        payment: [{ createdAt: new Date().toISOString(), pay: values.payment }],
+        payment: [{ createdAt: date.toISOString(), pay: values.payment }],
         totalPrice,
         remaining,
       };
@@ -107,10 +108,10 @@ const AddUserPage = () => {
         salesInvoices: [
           {
             id: uuid(),
-            createdAt: new Date().toISOString(),
+            createdAt: date.toISOString(),
             desc: values.desc,
             payment: [
-              { createdAt: new Date().toISOString(), pay: values.payment },
+              { createdAt: date.toISOString(), pay: values.payment },
             ],
             totalPrice,
             remaining,
@@ -198,9 +199,7 @@ const AddUserPage = () => {
             <div className="">
               <label className="flex items-center gap-x-2">
                 تاریخ :
-                <span className="py-2 rounded-md bg-white text-slate font-semibold  px-10 text-center">
-                  {new Date().toLocaleDateString("fa")}
-                </span>
+                <JalaliDatePicker date={date} setDate={setDate} />
               </label>
             </div>
             <div className="flex flex-col gap-y-2 md:pt-4 relative  mb-4 ">

@@ -4,11 +4,11 @@
 @tailwind utilities;
 *{
   direction: rtl;
-  font-family:  IRANSansXNum , IRANSansX ;
+  font-family:  IRANSansXNum , IRANSansX !important ;
   print-color-adjust: exact;
 }
 body{
-  background-color: #e5e7eb;
+  background-color: #e5e7eb;  
 }
 @page{
   size: auto; margin: 0mm;
