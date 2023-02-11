@@ -45,18 +45,18 @@ const AddUserPage = () => {
   const [remaining, setRemaining] = useState(0);
   const [typeInput, setTypeInput] = useState(false);
   const [maxLength, setMaxLength] = useState(0);
-  const [date , setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date());
   const [userInitialValues, setUserInitalValues] = useState(null);
-  const { salesInVoice } = useSelector((state) => state.designated);
+  const { salesInVoice, users } = useSelector((state) => state.designated);
   const [searchParams] = useSearchParams();
   const userId = searchParams.get("id");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
     if (userId) {
-      dispatch(GetONeDesignated({ id: userId }));
+      dispatch(GetONeDesignated({ id: userId , userName : users.userName }));
     }
-  }, [userId, dispatch]);
+  }, [userId, dispatch , users]);
   useEffect(() => {
     if (salesInVoice && userId) {
       const userInit = {
@@ -98,7 +98,8 @@ const AddUserPage = () => {
         ...salesInVoiceAdded,
         totalAccount: totalAcc,
       };
-      dispatch(UpdateDesignated({ id: userId, designated }));
+      
+      dispatch(UpdateDesignated({ id: userId, designated , userName : users.userName }));
       navigate(-1);
     } else {
       const designated = {
@@ -110,9 +111,7 @@ const AddUserPage = () => {
             id: uuid(),
             createdAt: date.toISOString(),
             desc: values.desc,
-            payment: [
-              { createdAt: date.toISOString(), pay: values.payment },
-            ],
+            payment: [{ createdAt: date.toISOString(), pay: values.payment }],
             totalPrice,
             remaining,
           },
@@ -120,7 +119,7 @@ const AddUserPage = () => {
         totalAccount: remaining,
       };
       const id = Date.now();
-      dispatch(AddDesignated({ id, designated }));
+      dispatch(AddDesignated({ id, designated, userName: users.userName }));
       dispatch(GetDesignated());
       navigate(-1);
     }

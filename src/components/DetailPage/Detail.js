@@ -6,19 +6,14 @@ import {
   UpdateDesignated,
 } from "../../redux/designated/designatedSlice";
 import { format } from "../../utils/degitInputs";
-import {
-  HiUser,
-  HiRectangleGroup,
-  HiCalendar,
-  HiPhone,
-} from "react-icons/hi2";
+import { HiUser, HiRectangleGroup, HiCalendar, HiPhone } from "react-icons/hi2";
 const Detail = () => {
   const { state } = useLocation();
 
   const { id } = state;
   const location = useParams();
   const detailId = location.id;
-  const { salesInVoice } = useSelector((state) => state.designated);
+  const { salesInVoice, users } = useSelector((state) => state.designated);
   const [salesInvoicesItem, setSalesInvoiceItem] = useState();
   const [designatedUser, setDesignatedUser] = useState();
   const [value, setValue] = useState("");
@@ -27,8 +22,8 @@ const Detail = () => {
   const [remaining, setRemaining] = useState(null);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(GetONeDesignated({ id }));
-  }, [id, dispatch]);
+    dispatch(GetONeDesignated({ id, userName: users.userName }));
+  }, [id, users, dispatch]);
   useEffect(() => {
     if (salesInVoice !== undefined) {
       setSalesInvoiceItem(salesInVoice);
@@ -97,7 +92,7 @@ const Detail = () => {
     }, 0);
     const designated = { ...designatedItem, totalAccount: totalAcc };
     setSalesInvoiceItem({ id, designated });
-    dispatch(UpdateDesignated({ id, designated }));
+    dispatch(UpdateDesignated({ id, designated, userName: users.userName }));
     setValue("");
   };
   if (salesInvoicesItem && designatedUser) {
@@ -162,7 +157,7 @@ const Detail = () => {
               {Number(designatedUser.totalPrice).toLocaleString()} ريال
             </span>
           </h1>
-          
+
           <h1 className="font-semibold text-primary"> پرداختی : </h1>
           <div className=" print:hidden flex items-center gap-x-2 relative">
             <input
@@ -195,19 +190,20 @@ const Detail = () => {
                     className="flex items-center justify-between col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-3 gap-x-10 p-2 bg-white rounded-md "
                   >
                     <h2>{item.pay}ريال</h2>
-                    <h2 className="text-sm text-primary">{new Date(item.createdAt).toLocaleDateString("fa")}</h2>
+                    <h2 className="text-sm text-primary">
+                      {new Date(item.createdAt).toLocaleDateString("fa")}
+                    </h2>
                   </div>
                 );
               })}
             </div>
           </div>
-          
 
           <h1 className="font-semibold text-primary">
-            مبلغ بدهی : <span className="text-slate">
+            مبلغ بدهی :{" "}
+            <span className="text-slate">
               {Number(remaining).toLocaleString()} ريال
             </span>
-            
           </h1>
         </div>
         <div className="mt-36 px-4 hidden print:block ">

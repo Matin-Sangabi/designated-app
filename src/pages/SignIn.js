@@ -8,11 +8,13 @@ import { registerUser } from "../redux/designated/designatedSlice";
 
 const inputs = [
   { name: "name", type: "text", placeholder: "نام" },
+  { name: "userName", type: "text", placeholder: "نام کاربری" },
   { name: "email", type: "email", placeholder: "ایمیل" },
   { name: "password", type: "password", placeholder: "رمز" },
 ];
 const initialValues = {
   name: "",
+  userName : "",
   email: "",
   password: "",
 };

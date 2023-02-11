@@ -21,12 +21,12 @@ const UserPage = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [selectDesiganted, setSelectDesignated] = useState(null);
-  const { salesInVoice } = useSelector((state) => state.designated);
+  const { salesInVoice ,users} = useSelector((state) => state.designated);
   const [designatedUser, setDesignatedUser] = useState(null);
 
   useEffect(() => {
-    dispatch(GetONeDesignated({ id }));
-  }, [id, dispatch]);
+    dispatch(GetONeDesignated({ id , userName : users.userName}));
+  }, [id, users,dispatch]);
   useEffect(() => {
     setDesignatedUser(salesInVoice);
   }, [salesInVoice]);

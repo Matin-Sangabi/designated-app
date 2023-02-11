@@ -50,9 +50,9 @@ export const AddDesignated = createAsyncThunk(
 );
 export const GetDesignated = createAsyncThunk(
   "designated/GetDesignated",
-  async (_, { rejectWithValue }) => {
+  async (payload, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${BASE_URL}/GetDesignated.php`);
+      const response = await axios.get(`${BASE_URL}/GetDesignated.php?dbName=${payload.userName}`);
       return response.data;
     } catch (error) {
       return rejectWithValue([], error);
@@ -92,7 +92,7 @@ export const GetONeDesignated = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `${BASE_URL}/GetDesignated.php/${payload.id}`
+        `${BASE_URL}/GetDesignated.php/${payload.id}?dbName=${payload.userName}`
       );
       return response.data;
     } catch (error) {
@@ -211,6 +211,7 @@ const designatedSlice = createSlice({
       };
     },
     [UpdateDesignated.fulfilled] : (state , actions) => {
+      
       return {
         ...state , 
         salesInVoice : actions.payload

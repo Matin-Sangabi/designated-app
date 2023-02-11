@@ -19,9 +19,9 @@ const Homepage = () => {
     useSelector((state) => state.designated);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(GetDesignated());
-  }, [dispatch]);
-
+    dispatch(GetDesignated({userName : users.userName}));
+  }, [dispatch , users]);
+  console.log("hrllo")
   useEffect(() => {
     if (designated) {
       const searchItem = (result) => {
