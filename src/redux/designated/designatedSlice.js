@@ -104,7 +104,7 @@ const initialState = {
   designated: [],
   designated_loading: false,
   designated_error: null,
-  users: JSON.parse(localStorage.getItem(SAVE_USERS)) || [],
+  users: JSON.parse(localStorage.getItem(SAVE_USERS)) || null,
   users_loading: false,
   users_error: null,
   salesInvoice: [],

@@ -18,10 +18,12 @@ const Homepage = () => {
   const { designated, users, designated_loading, designated_error } =
     useSelector((state) => state.designated);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(GetDesignated({userName : users.userName}));
+    if(users) {
+      dispatch(GetDesignated({userName : users.userName}));
+    }
   }, [dispatch , users]);
-  console.log("hrllo")
   useEffect(() => {
     if (designated) {
       const searchItem = (result) => {
@@ -151,7 +153,7 @@ const Homepage = () => {
           </div>
           <div className="absolute bottom-10 left-2">
             <Link
-              to="addUser"
+              to={users  ? '/addUser' : '/login?redirect=addUser'}
               className="w-8 h-8 flex items-center justify-center text-xl text-white rounded-full bg-primary hover:ring hover:ring-primary hover:ring-offset-2 group transition-all ease-in-out duration-300"
             >
               <HiPlus className="group-hover:rotate-90 transition-all ease-in-out duration-300" />

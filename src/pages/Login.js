@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import RegisterInputs from "../components/Rejister/inputs";
 import { useDispatch, useSelector } from "react-redux";
 import { LoginUser } from "../redux/designated/designatedSlice";
@@ -15,17 +15,20 @@ const initialValues = {
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirect = searchParams.get('redirect') || '/';
+  
   const { users, users_error } = useSelector(
     (state) => state.designated
   );
   useEffect(() => {
-    if (users.length !== 0) {
+    if (users) {
       navigate("/");
     }
   }, [users, navigate]);
-
   const onSubmit = (values) => {
     dispatch(LoginUser({ values }));
+    navigate(`/${redirect}`);
   };
 
   const formik = useFormik({

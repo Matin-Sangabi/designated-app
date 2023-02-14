@@ -49,7 +49,7 @@ export default Header;
 const Users = ({ users }) => {
   return (
     <>
-      {users.length !== 0 ? (
+      {users ? (
         <div className="flex items-center gap-x-2">
           <span className="text-sm text-gray-500">{users.name}</span>
           <span className="w-6 h-6 rounded-full bg-silver flex items-center justify-center">
