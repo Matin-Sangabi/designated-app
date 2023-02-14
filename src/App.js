@@ -7,8 +7,12 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import SignIn from "./pages/SignIn";
 import LoginPage from "./pages/Login";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    document.title = "ماهر گروپ";
+  }, []);
   return (
     <Provider store={store}>
       <div className="w-full relative">
