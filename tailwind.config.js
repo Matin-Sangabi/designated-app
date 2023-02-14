@@ -14,7 +14,7 @@ module.exports = {
       'metal': '#BFACE2',
       'tahiti': '#EBC7E6',
       'silver': '#ecebff',
-      'bubble-gum': ' #6366f1',
+      'bubble-gum': ' #94a3b8',
       'bermuda': '#78dcca',
       'slate' : '#1f2937',
       'gray' : '#e5e7eb',

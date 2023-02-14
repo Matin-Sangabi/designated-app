@@ -17,9 +17,8 @@ function App() {
           <Route path="addUser" element={<AddUserPage />} />
           <Route path="/userPage/:id" element={<UserPage />} />
           <Route path="/detail/:id" element={<DetailPAge />} />
-          <Route path="/signIn" element={<SignIn />} />
+          <Route path="/signup" element={<SignIn />} />
           <Route path="/login" element={<LoginPage />} />
-          {/* <Route path="/AddDesignated/:id" element={<AddDesignated />} /> */}
         </Routes>
       </div>
     </Provider>
