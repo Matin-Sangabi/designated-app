@@ -35,16 +35,17 @@ const LoginPage = () => {
     onSubmit,
   });
   return (
-    <div className="grid grid-cols-12">
-      <div className="col-span-12 pt-4 md:pt-0 md:col-span-5  md:h-screen flex items-center justify-center md:bg-transparent bg-white">
-        <div className="relative">
-          <div className="w-20 h-20 md:w-40 md:h-40 rounded-full bg-primary  relative  "></div>
-          <div className="absolute w-32 h-16 md:w-60 md:h-28 rounded-b-full -bottom-7 -left-10   bg-opacity-20 bg-gray  backdrop-blur-md"></div>
-          
+    <div className="grid grid-cols-12 h-screen">
+      <div className="col-span-12 pt-4 md:pt-0 md:col-span-5  md:bg-transparent bg-white">
+        <div className="w-full md:h-4/5 flex items-center justify-center">
+          <div className="relative">
+            <div className="w-24 h-24 md:w-40 md:h-40 rounded-full bg-primary  relative  "></div>
+            <div className="absolute w-28 h-14 md:w-60 md:h-28 -bottom-2 -left-2 rounded-b-full md:-bottom-7 md:-left-10 bg-opacity-20 bg-gray  backdrop-blur-md"></div>
+          </div>
         </div>
       </div>
-      <div className="col-span-12 pt-10 md:pt-0 md:col-span-7  h-screen bg-white flex items-center justify-center">
-        <div className="flex flex-col items-start md:w-[60%]">
+      <div className="col-span-12  md:pt-0 md:col-span-7 max-h-screen w-full  bg-white flex md:items-center justify-center">
+        <div className="flex flex-col items-start md:w-[60%] w-full px-4">
           <div className=" flex flex-col gap-y-4 items-start">
             <h1 className="text-4xl font-semibold text-slate"> خوش برگشتی !</h1>
             <h4 className=" text-bubble-gum">
@@ -69,9 +70,13 @@ const LoginPage = () => {
                 {users_error.data}
               </span>
             )}
-            <Link to={redirect === "addUser" ? '/signup?redirect=adduser' : '/signup'} className="text-sm text-bubble-gum">
-              حساب کاربری ندارید ؟ 
-              <span className="text-primary">ثبت نام</span>
+            <Link
+              to={
+                redirect === "addUser" ? "/signup?redirect=adduser" : "/signup"
+              }
+              className="text-sm text-bubble-gum"
+            >
+              حساب کاربری ندارید ؟<span className="text-primary">ثبت نام</span>
             </Link>
           </form>
         </div>

@@ -20,10 +20,10 @@ const Homepage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(users) {
-      dispatch(GetDesignated({userName : users.userName}));
+    if (users) {
+      dispatch(GetDesignated({ userName: users.userName }));
     }
-  }, [dispatch , users]);
+  }, [dispatch, users]);
   useEffect(() => {
     if (designated) {
       const searchItem = (result) => {
@@ -35,7 +35,6 @@ const Homepage = () => {
       let result = designated;
       result = searchItem(result);
       setSortedDesignated(result);
-      
     }
   }, [designated, searchValue]);
 
@@ -43,24 +42,27 @@ const Homepage = () => {
     localStorage.setItem("DESIGNATED_USERS", JSON.stringify(users));
   }, [users]);
 
-  if (designated_loading) {
-    return <p className="text-center">Loading...</p>;
-  }
+ 
   if (designated_error) {
     return <p>Error</p>;
   }
-  if (!designated_loading && !designated_error) {
-    return (
-      <Layout>
-        <div className="max-w-screen-xl mx-auto container relative h-[93vh] px-2 pt-4 ">
-          <div className="flex md:hidden   items-center md:hidfen overflow-hidden">
+  console.log(designated_loading);
+  return (
+    <Layout>
+      {designated_loading ? (
+        <span className="animate-spin">
+          <img src={require("./../assets/img/icon/icons8-loading-48.png")} alt="loading" />
+        </span>
+      ) : (
+        <div className="max-w-screen-xl mx-auto container relative h-[80vh] md:h-[90vh] px-2 pt-4 ">
+          <div className="flex md:hidden items-center  overflow-hidden">
             <span
               className={`transition-all ease-in-out duration-300 z-10 text-primary ${
                 searchBox ? "-translate-x-48" : "translate-x-0"
               }`}
               onClick={() => setSearchBox(!searchBox)}
             >
-              <HiMagnifyingGlass className="stroke-2" />
+              <HiMagnifyingGlass className="stroke-2 text-xl" />
             </span>
             <input
               type="text"
@@ -151,18 +153,21 @@ const Homepage = () => {
               </div>
             )}
           </div>
-          <div className="absolute bottom-10 left-2">
+          <div className="fixed md:absolute bottom-5 md:bottom-10 left-2">
             <Link
-              to={users  ? '/addUser' : '/login?redirect=addUser'}
-              className="w-8 h-8 flex items-center justify-center text-xl text-white rounded-full bg-primary hover:ring hover:ring-primary hover:ring-offset-2 group transition-all ease-in-out duration-300"
+              to={users ? "/addUser" : "/login?redirect=addUser"}
+              className="w-10 h-10 md:h-10 md:w-10 flex items-center justify-center text-xl text-white rounded-full bg-primary hover:ring hover:ring-primary hover:ring-offset-2 group transition-all ease-in-out duration-300"
             >
-              <HiPlus className="group-hover:rotate-90 transition-all ease-in-out duration-300" />
+              <HiPlus className="text-2xl group-hover:rotate-90 transition-all ease-in-out duration-300" />
             </Link>
           </div>
         </div>
-      </Layout>
-    );
-  }
+      )}
+    </Layout>
+  );
 };
 
 export default Homepage;
+/**
+ *
+ */

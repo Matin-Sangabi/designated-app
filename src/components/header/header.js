@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { HiUser } from "react-icons/hi2";
+import Logo from "./../logo";
 
 const Header = () => {
   const { users } = useSelector((state) => state.designated);
@@ -13,32 +14,12 @@ const Header = () => {
             <Users users={users} />
           </div>
         </div>
-        <div className="flex items-center gap-x-2 w-full  overflow-x-scroll pt-8 px-4">
-          <div className="pl-8  flex-auto">
-            <button
-              to="addUser"
-              className="block text-right py-2 border-b-2 border-silver text-silver w-32 text-base font-semibold"
-            >
-              اضافه کردن
-            </button>
-          </div>
-          <div className="pl-8 flex-auto">
-            <button to="addUser" className="block text-silver w-20 text-sm">
-              اضافه کردن
-            </button>
-          </div>
-          <div className="pl-8 flex-auto">
-            <button to="addUser" className="block text-silver w-20 text-sm">
-              اضافه کردن
-            </button>
-          </div>
-        </div>
+        
       </header>
       <header className="w-full hidden print:hidden md:block px-4 xl:px-0 relative overflow-hidden  after:bg-gradient-to-b after:from-primary after:via-secondary after:to-metal md:after:right-[68%] lg:after:right-[55%] xl:after:right-[40%] 2xl:after:right-[38%] after:-z-10 md:after:-top-8 lg:after:top-0 md:after:-skew-y-[29deg]  md:after:p-44 after:w-[150%] after:fixed before:fixed before:bg-gradient-to-t from-primary before:via-secondary before:to-metal before:p-44 lg:before:bottom-0 md:before:-bottom-9  before:w-[150%] before:-skew-y-[29deg] 2xl:before:left-[50%]  xl:before:left-[55%] lg:before:left-[60%] md:before:left-[80%] before:-z-10">
         <div className="max-w-screen-xl mt-4 top-8 bg-white p-4 rounded-md  shadow-md shadow-tahiti mx-auto xl:mx-auto flex items-center justify-between">
-          <div className="px-2 flex gap-x-10 flex-1">
+          <div className="px-2 flex items-center  gap-x-10 flex-1">
             <Logo />
-            <Link to="addUser">اضافه کردن</Link>
           </div>
           <div className="flex  items-center gap-x-2">
             <Users users={users} />
@@ -82,16 +63,25 @@ const Users = ({ users }) => {
     </>
   );
 };
-const Logo = () => {
-  return (
-    <Link to={"/"}>
-      <div className="w-20 h-auto">
-        <img
-          src={require("./../../assets/img/icon/02.png")}
-          className="max-w-full h-auto object-cover"
-          alt="maher_logo"
-        />
-      </div>
-    </Link>
-  );
-};
+/**
+ * <div className="flex items-center gap-x-2 w-full  overflow-x-scroll pt-8 px-4">
+          <div className="pl-8  flex-auto">
+            <button
+              to="addUser"
+              className="block text-right py-2 border-b-2 border-silver text-silver w-32 text-base font-semibold"
+            >
+              اضافه کردن
+            </button>
+          </div>
+          <div className="pl-8 flex-auto">
+            <button to="addUser" className="block text-silver w-20 text-sm">
+              اضافه کردن
+            </button>
+          </div>
+          <div className="pl-8 flex-auto">
+            <button to="addUser" className="block text-silver w-20 text-sm">
+              اضافه کردن
+            </button>
+          </div>
+        </div>
+ */
