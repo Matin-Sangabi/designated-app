@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-const BASE_URL = "http://localhost/PHP_TRAINING/Designated-app";
+// const BASE_URL = "http://localhost/php_training/React/Desiganated_app/backend-designated-app";
+const BASE_URL = "http://localhost/PHP_TRAINING/designated-app";
 const SAVE_USERS = "DESIGNATED_USERS";
 
 export const registerUser = createAsyncThunk(
@@ -49,10 +50,22 @@ export const AddDesignated = createAsyncThunk(
 );
 export const GetDesignated = createAsyncThunk(
   "designated/GetDesignated",
-  async (_, { rejectWithValue }) => {
+  async (payload, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `${BASE_URL}/GetDesignated.php`
+      const response = await axios.get(`${BASE_URL}/GetDesignated.php?dbName=${payload.userName}`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue([], error);
+    }
+  }
+);
+export const UpdateDesignated = createAsyncThunk(
+  "designated/UpdateDesignated",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/AddDesignated.php/${payload.id}`,
+        payload
       );
       return response.data;
     } catch (error) {
@@ -60,57 +73,46 @@ export const GetDesignated = createAsyncThunk(
     }
   }
 );
-
+export const DeleteDesignatedFactor = createAsyncThunk(
+  "designated/DeleteDesignatedFactor",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/DeleteDesignated.php/${payload.id}?id=${payload.uid}`,
+        payload
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue([], error);
+    }
+  }
+);
+export const GetONeDesignated = createAsyncThunk(
+  "designated/GetOneDesignated",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/GetDesignated.php/${payload.id}?dbName=${payload.userName}`
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue([], error);
+    }
+  }
+);
 const initialState = {
   designated: [],
   designated_loading: false,
   designated_error: null,
-  users: JSON.parse(localStorage.getItem(SAVE_USERS)) || [],
+  users: JSON.parse(localStorage.getItem(SAVE_USERS)) || null,
   users_loading: false,
   users_error: null,
+  salesInvoice: [],
 };
-
-function designatedSaveToStorage(values) {
-  localStorage.setItem("DESIGNATED", JSON.stringify(values));
-}
 
 const designatedSlice = createSlice({
   name: "designated",
   initialState,
-  reducers: {
-    addDesignated: (state, { payload }) => {
-      state.designated.push(payload);
-      designatedSaveToStorage(state.designated);
-    },
-    addDesignatedPayment: (state, { payload }) => {
-      const findUser = state.designated.find(
-        (item) => item.id === parseInt(payload.id)
-      );
-      const salesInVoice = findUser.salesInvoices.find(
-        (item) => item.id === payload.factorId
-      );
-      salesInVoice.payment.push(payload.payment);
-      salesInVoice.remaining = payload.remaining;
-      // designatedSaveToStorage(state.designated);
-    },
-    addNewDesignatedSalesInVoice: (state, { payload }) => {
-      const findUser = state.designated.find(
-        (item) => item.id === parseInt(payload.id)
-      );
-      findUser.salesInvoices.push(payload.salesInvoices);
-      designatedSaveToStorage(state.designated);
-    },
-    deleteDesignatedSalesInVoices: (state, { payload }) => {
-      const findUser = state.designated.find(
-        (item) => item.id === parseInt(payload.id)
-      );
-      const userSalesInVoices = findUser.salesInvoices.filter(
-        (item) => item.id !== payload.salesInVoicesId
-      );
-      findUser.salesInvoices = userSalesInVoices;
-      designatedSaveToStorage(state.designated);
-    },
-  },
   extraReducers: {
     [registerUser.fulfilled]: (state, actions) => {
       return {
@@ -148,10 +150,12 @@ const designatedSlice = createSlice({
       };
     },
     [AddDesignated.fulfilled]: (state, actions) => {
+
       return {
         ...state,
         designated_loading: false,
         designated_error: null,
+        designated : actions.payload
       };
     },
     [AddDesignated.rejected]: (state, actions) => {
@@ -175,7 +179,7 @@ const designatedSlice = createSlice({
         ...state,
         designated_loading: false,
         designated_error: actions.meta.response,
-        designated: actions.payload
+        designated: actions.payload,
       };
     },
     [GetDesignated.rejected]: (state, actions) => {
@@ -194,14 +198,26 @@ const designatedSlice = createSlice({
         designated: [],
       };
     },
+    [GetONeDesignated.fulfilled]: (state, actions) => {
+      return {
+        ...state,
+        salesInVoice: actions.payload,
+      };
+    },
+    [DeleteDesignatedFactor.fulfilled]: (state, actions) => {
+      return {
+        ...state,
+        salesInVoice: actions.payload,
+      };
+    },
+    [UpdateDesignated.fulfilled] : (state , actions) => {
+      
+      return {
+        ...state , 
+        salesInVoice : actions.payload
+      }
+    }
   },
 });
-
-export const {
-  addDesignated,
-  addDesignatedPayment,
-  addNewDesignatedSalesInVoice,
-  deleteDesignatedSalesInVoices,
-} = designatedSlice.actions;
 
 export default designatedSlice.reducer;
