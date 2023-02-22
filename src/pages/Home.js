@@ -51,10 +51,10 @@ const Homepage = () => {
     <Layout>
       {designated_loading ? (
         <span className="animate-spin">
-          <img src={require("./../assets/img/icon/icons8-loading-48.png")} alt="loading" />
+          <img src={require("./../assets/img/icon/icons8-settings.gif")} alt="loading" />
         </span>
       ) : (
-        <div className="max-w-screen-xl mx-auto container relative h-[80vh] md:h-[90vh] px-2 pt-4 ">
+        <div className="max-w-screen-xl mx-auto container relative h-[80vh] md:h-[89vh] px-2 pt-4 ">
           <div className="flex md:hidden items-center  overflow-hidden">
             <span
               className={`transition-all ease-in-out duration-300 z-10 text-primary ${

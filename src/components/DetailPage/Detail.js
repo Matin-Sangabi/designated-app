@@ -98,7 +98,24 @@ const Detail = () => {
   if (salesInvoicesItem && designatedUser) {
     return (
       <div className="flex flex-col">
+        <div className="hidden print:flex w-full items-center justify-between  gap-2 mb-4">
+          <img
+            src={require("./../../assets/img/icon/02.png")}
+            className="max-w-full w-32 h-auto object-cover"
+            alt="logo"
+          />
+          <span className="">MaherBus.ir</span>
+        </div>
         <div className="grid grid-cols-12  bg-white rounded-lg shadow-md  max-w-screen-lg">
+          <div className="col-span-6 md:col-span-3 flex gap-x-2 flex-1 md:justify-center md:items-center py-4 px-2 hover:shadow-lg group md:hover:shadow-primary rounded-md  hover:bg-primary hover:text-silver text-slate transition-all ease-in-out duration-300">
+            <span className="w-6 h-6 ring-1 ring-slate text- flex items-center justify-center rounded-md group-hover:ring-silver">
+              <HiCalendar />
+            </span>
+            <h1 className="text-sm">
+              {" "}
+              {new Date(designatedUser.createdAt).toLocaleDateString("fa")}
+            </h1>
+          </div>
           <div className="col-span-6 md:col-span-3 flex gap-x-2 flex-1 rounded-md md:justify-center md:items-center py-4 px-2 md:hover:shadow-lg group  md:hover:shadow-primary  hover:bg-primary hover:text-silver text-slate transition-all ease-in-out duration-300">
             <span className="w-6 h-6 ring-1 ring-slate text- flex items-center justify-center rounded-md group-hover:ring-silver">
               <HiUser />
@@ -116,15 +133,6 @@ const Detail = () => {
               <HiPhone />
             </span>
             <h1 className="text-sm">{salesInvoicesItem.designated.phone}</h1>
-          </div>
-          <div className="col-span-6 md:col-span-3 flex gap-x-2 flex-1 md:justify-center md:items-center py-4 px-2 hover:shadow-lg group md:hover:shadow-primary rounded-md  hover:bg-primary hover:text-silver text-slate transition-all ease-in-out duration-300">
-            <span className="w-6 h-6 ring-1 ring-slate text- flex items-center justify-center rounded-md group-hover:ring-silver">
-              <HiCalendar />
-            </span>
-            <h1 className="text-sm">
-              {" "}
-              {new Date(designatedUser.createdAt).toLocaleDateString("fa")}
-            </h1>
           </div>
         </div>
         <div className="flex items-center justify-between pt-4">
@@ -206,8 +214,12 @@ const Detail = () => {
             </span>
           </h1>
         </div>
-        <div className="mt-36 px-4 hidden print:block ">
+        <div className="mt-36 px-4 hidden print:flex flex-col gap-2 text-sm ">
           <h1>مهر و امضاء : </h1>
+          <div className="w-full flex items-end justify-between pt-10">
+            <h1>شماره حساب : 6037697535864216 مسعود اسدسنگابی</h1>
+            <h1>شماره تماس : 09173184033</h1>
+          </div>
         </div>
       </div>
     );

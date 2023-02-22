@@ -254,7 +254,7 @@ const AddUserPage = () => {
               </div>
               <div className="flex items-center gap-x-2 ">
                 <h1 className=" font-semibold">مانده : </h1>
-                <div className="p-2 block bg-gra  y-100 w-36 h-10 rounded-md">
+                <div className="p-2 block bg-gra  y-100 w-36 h-10 rounded-md bg-white hover:ring hover:ring-offset-2 hover:ring-primary transition-all ease-in-out duration-300">
                   {remaining === undefined ? (
                     <span className="text-primary text-xl text-center">
                       <AiOutlineLoading3Quarters className=" animate-spin " />

@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   HiOutlineTrash,
-  HiOutlineArrowLeft,
   HiUser,
   HiRectangleGroup,
   HiCurrencyDollar,
@@ -18,7 +17,6 @@ const UserPage = () => {
   const location = useParams();
   const { id } = location;
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [selectDesiganted, setSelectDesignated] = useState(null);
   const { salesInVoice ,users} = useSelector((state) => state.designated);
@@ -39,14 +37,6 @@ const UserPage = () => {
     return (
       <>
         <div className="w-full flex flex-col overflow-hidden pt-44  md:pt-64 bg-gradient-to-r from-primary via-secondary to-secondary  relative  after:absolute after:top-[12rem] md:after:top-[11rem] after:bg-gray after:w-[297%] md:after:w-[138%] after:skew-y-[9deg] md:after:skew-y-[4deg]  after:p-28 after:left-0  before:bg-gray before:absolute before:top-[11rem] before:p-20 before:w-[16rem] md:before:w-[20rem] before:-skew-y-[27deg] md:before:-skew-y-[20deg] ">
-          <div className="absolute top-0 left-0 flex justify-end p-4">
-            <div
-              className="text-silver text-lg block cursor-pointer "
-              onClick={() => navigate("/")}
-            >
-              <HiOutlineArrowLeft />
-            </div>
-          </div>
           <div className="absolute top-14 right-4 left-4 md:right-20 xl:right-32 xl:top-10 2xl:right-56  container max-w-screen-lg">
             <div className="flex items-center justify-around lg:justify-start">
               <div className="flex  gap-x-2 md:gap-x-4">
