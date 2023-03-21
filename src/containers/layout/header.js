@@ -24,7 +24,7 @@ const Header = () => {
             <div className="mt-10 flex flex-col items-center">
               <img src="/images/Logo.png" className="w-16" />
             </div>
-            <ul className="flex flex-col  w-full gap-y-6 pt-10">
+            <ul className="flex flex-col  w-full gap-y-6 pt-6">
               {routes.map((route, i) => {
                 return (
                   <Link
