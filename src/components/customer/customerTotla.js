@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { format } from "../../utils/formatNumber";
 
-const CustomerTotal = ({ formik , remain , setRemain , totalPrice , setTotalPrice }) => {
+const CustomerTotal = ({
+  formik,
+  remain,
+  setRemain,
+  totalPrice,
+  setTotalPrice,
+}) => {
   const [currency, setCurrency] = useState(false);
   const [maxLength, setMaxLength] = useState(0);
   useEffect(() => {
