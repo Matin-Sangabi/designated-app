@@ -44,7 +44,7 @@ const Header = () => {
           </div>
         </div>
       </header>
-      <div className="fixed top-0 left-0 p-2  border-b-[1px] z-10  border-slate-400 w-full">
+      <div className="fixed top-0 left-0 p-2  border-b-[1px] z-10  border-slate-400 w-full bg-gray-100">
         <div className="container max-w-screen-xl mx-auto  flex items-center justify-between relative">
           <div className="flex-1 items-center flex">
             <div className="flex items-center relative w-full">
@@ -53,10 +53,12 @@ const Header = () => {
                 className="py-1 px-2 focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 text-slate-700 ring-1 ring-slate-500 w-full rounded-xl outline-none border-none placeholder:text-xs transition-all ease-in-out duration-300"
                 placeholder="جستجو"
               />
-              <span className="text-2xl text-slate-500 absolute left-2"><HiMagnifyingGlass/></span>
+              <span className="text-2xl text-slate-500 absolute left-2">
+                <HiMagnifyingGlass />
+              </span>
             </div>
           </div>
-          <div className="flex-1 items-center flex justify-end">
+          <div className="flex-1 items-center flex justify-end ">
             <div className="flex gap-x-2 items-center">
               <span className="text-sm text-slate-600">ماهر</span>
               <span className="w-8 h-8 rounded-full bg-slate-500 flex items-center justify-center"></span>

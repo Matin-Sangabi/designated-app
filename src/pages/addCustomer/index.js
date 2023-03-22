@@ -3,13 +3,29 @@ import CustomerDesc from "../../components/customer/customerDesc";
 import CustomersInputs from "../../components/customer/customerForms";
 import CustomerTotal from "../../components/customer/customerTotla";
 import Layout from "../../containers/layout";
-import { format } from "../../utils/formatNumber";
+import { useFormik } from "formik";
+const initialValues = {
+  name: "",
+  plate: "",
+  phone: "",
+  desc: [],
+  payment: "",
+};
 const AddCustomer = () => {
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [remain, setRemain] = useState(0);
+  const onSubmit = (values) => {
+    console.log(values);
+  };
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+  });
   return (
     <Layout>
       <h1 className="text-lg text-slate-700 font-semibold p-2">افزودن مشتری</h1>
-      <div className="pt-5 mx-auto max-w-screen-xl bg-white shadow-md rounded-xl flex flex-col gap-y-4 px-2 py-4">
-        <form className="">
+      <div className="pt-5 mx-auto max-w-screen-xl bg-white shadow-md rounded-xl flex flex-col gap-y-4 px-2 py-4 mb-5">
+        <form onSubmit={formik.handleSubmit}>
           <h1 className="text-slate-800  ">مشخصات مشتری</h1>
           <div className="flex flex-col md:flex-row md:items-center p-2 text-slate-600 md:gap-x-8 gap-y-4">
             <label className="flex flex-col gap-y-2 flex-1">
@@ -18,6 +34,7 @@ const AddCustomer = () => {
                 type={"text"}
                 name={"name"}
                 placeholder={"نام مشتری"}
+                formik={formik}
               />
             </label>
             <label className="flex flex-col gap-y-2 flex-1">
@@ -26,6 +43,7 @@ const AddCustomer = () => {
                 type={"text"}
                 name={"plate"}
                 placeholder={"شماره پلاک"}
+                formik={formik}
               />
             </label>
             <label className="flex flex-col gap-y-2 flex-1">
@@ -34,6 +52,7 @@ const AddCustomer = () => {
                 type={"text"}
                 name={"phone"}
                 placeholder={"شماره مشتری"}
+                formik={formik}
               />
             </label>
           </div>
@@ -45,13 +64,25 @@ const AddCustomer = () => {
                 type={"text"}
                 name={"date"}
                 placeholder={"تاریخ"}
+                formik={formik}
               />
             </label>
           </div>
           <h1 className="text-slate-600 pt-3 text-sm">شرح کالا</h1>
-          <CustomerDesc />
+          <CustomerDesc formik={formik} />
           <h1 className="text-slate-800 pt-3">جمع</h1>
-          <CustomerTotal />
+          <CustomerTotal
+            remain={remain}
+            totalPrice={totalPrice}
+            setRemain={setRemain}
+            setTotalPrice={setTotalPrice}
+            formik={formik}
+          />
+          <div className="max-w-xs mx-auto">
+            <button className="p-2 bg-violet-100    text-center rounded-lg  w-full text-sm text-slate-700 mt-5  hover:ring-2 hover:ring-offset-2 hover:ring-violet-200 transition-all ease-in-out duration-300">
+              افزودن
+            </button>
+          </div>
         </form>
       </div>
     </Layout>

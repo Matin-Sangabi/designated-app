@@ -1,19 +1,13 @@
 import { useState } from "react";
 import { HiMinus, HiPlus } from "react-icons/hi2";
 import { format } from "../../utils/formatNumber";
-const CustomerDesc = () => {
+const CustomerDesc = ({ formik }) => {
   const [child, setChild] = useState([1]);
   const AddElementHandler = (e) => {
     e.preventDefault();
     const addElement = [...child];
     addElement.push(1);
     setChild(addElement);
-  };
-  const RemoveElementHandler = (e) => {
-    e.preventDefault();
-    const removeElement = [...child];
-    removeElement.pop(1);
-    setChild(removeElement);
   };
 
   return (
@@ -27,7 +21,7 @@ const CustomerDesc = () => {
         </div>
         <div className="col-span-4 md:col-span-2 text-xs px-2 ">قیمت</div>
       </div>
-      <CustomerDescInputs child={child} />
+      <CustomerDescInputs formik={formik} child={child} />
       <div className="flex absolute  left-2 -bottom-3 items-center gap-x-2">
         <button
           onClick={AddElementHandler}
@@ -35,44 +29,39 @@ const CustomerDesc = () => {
         >
           <HiPlus />
         </button>
-        {child.length > 1 && (
-          <button
-            onClick={RemoveElementHandler}
-            className=" w-6 h-6 text-sm rounded-full bg-violet-500 text-slate-200 flex items-center justify-center"
-          >
-            <HiMinus />
-          </button>
-        )}
       </div>
     </div>
   );
 };
 
 export default CustomerDesc;
-const CustomerDescInputs = ({ child }) => {
+const CustomerDescInputs = ({ child, formik }) => {
   return child.map((item, index) => {
+    let count = index + 1;
     return (
       <div
         key={index}
         className="grid  grid-cols-12 text-slate-700 mt-3 py-1 px-2 ring-1 ring-violet-200 rounded-lg items-center justify-center "
       >
         <div className="col-span-1 text-base border-l border-slate-700 px-2 flex items-center justify-center">
-          1
+          {count}
         </div>
         <div className="col-span-7 md:col-span-9 px-2  border-l border-slate-700 flex items-center justify-center">
           <textarea
             type="text"
             placeholder="شرح کالا"
+            name={`desc[${index}].title`}
+            {...formik.getFieldProps(`desc[${index}].title`)}
             className="placeholder:text-xs  resize-none h-6 max-h-20 py-1 text-sm md:text-base rounded-md border-none outline-none w-full text-slate-700 focus:ring-1 focus:ring-violet-200 transition-all ease-in-out duration-300 px-2 "
           />
         </div>
-        <PriceHandler />
+        <PriceHandler formik={formik} index={index} />
       </div>
     );
   });
 };
 
-const PriceHandler = () => {
+const PriceHandler = ({ formik, index }) => {
   const [currency, setCurrency] = useState(false);
 
   const changeHandler = (e) => {
@@ -85,6 +74,8 @@ const PriceHandler = () => {
         type="text"
         placeholder="قیمت"
         onInput={changeHandler}
+        name={`desc[${index}].price`}
+        onChange={formik.handleChange}
         className="placeholder:text-xs text-xs sm md:text-sm rounded-md border-none outline-none w-full text-slate-700 focus:ring-1 focus:ring-violet-200 transition-all ease-in-out duration-300 px-2 py-1"
       />
       {currency && (
