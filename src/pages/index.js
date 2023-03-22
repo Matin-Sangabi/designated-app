@@ -1,6 +1,7 @@
 import Layout from "../containers/layout";
 import Link from "next/link";
 import CustomerList from "../components/customer/customerList";
+import { HiPlus, HiPlusSmall } from "react-icons/hi2";
 
 const Home = () => {
   return (
@@ -15,10 +16,10 @@ const Home = () => {
       </div>
       <div className="fixed left-52 bottom-4 ">
         <Link
-          href="/AddCustomer"
-          className="flex items-center justify-center w-10 h-10 bg-violet-500 text-slate-100 rounded-full hover:ring hover:ring-violet-500 hover:ring-offset-2 transition-all ease-in-out duration-300"
+          href="/addCustomer"
+          className="flex items-center hover:rotate-180  justify-center w-10 h-10 bg-violet-500 text-slate-100 rounded-full hover:ring hover:ring-violet-500 hover:ring-offset-2 transition-all ease-in-out duration-300"
         >
-          +
+          <HiPlusSmall className="text-xl"/>
         </Link>
       </div>
     </Layout>

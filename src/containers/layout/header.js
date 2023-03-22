@@ -18,7 +18,7 @@ const Header = () => {
   const router = useRouter();
   return (
     <>
-      <header className="fixed right-0 top-0 h-screen w-52 hidden md:flex items-center justify-center max-w-5">
+      <header className="fixed right-0 z-20 top-0 h-screen w-52 hidden md:flex items-center justify-center max-w-5">
         <div className="w-full h-full bg-slate-800 text-slate-100 flex flex-col justify-between">
           <div className="flex flex-col items-center gap-y-4">
             <div className="mt-10 flex flex-col items-center">
@@ -44,7 +44,7 @@ const Header = () => {
           </div>
         </div>
       </header>
-      <div className="fixed top-0 left-0 p-2  border-b-[1px] -z-10 border-slate-400 w-full">
+      <div className="fixed top-0 left-0 p-2  border-b-[1px] z-10  border-slate-400 w-full">
         <div className="container max-w-screen-xl mx-auto  flex items-center justify-between relative">
           <div className="flex-1 items-center flex">
             <div className="flex items-center relative w-full">
