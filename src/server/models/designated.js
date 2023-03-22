@@ -1,14 +1,7 @@
 import mongoose from "mongoose";
 
 const designatedSchema = new mongoose.Schema({
-  author: [
-    {
-      name: { type: String, required: true },
-      userName: { type: String, required: true },
-      email: { type: String, required: true },
-      password: { type: String, required: true },
-    },
-  ],
+  
   name: {
     type: String,
     required: true,
@@ -45,3 +38,13 @@ const designatedSchema = new mongoose.Schema({
 });
 
 export default mongoose.models.Des || mongoose.model("Des", designatedSchema);
+/**
+ * author: [
+    {
+      name: { type: String, required: true },
+      userName: { type: String, required: true },
+      email: { type: String, required: true },
+      password: { type: String, required: true },
+    },
+  ],
+ */
