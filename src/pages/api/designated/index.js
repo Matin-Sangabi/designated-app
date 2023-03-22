@@ -16,7 +16,7 @@ export default async function handler(req, res) {
           payment: [
             {
               createdAt: new Date().toISOString(),
-              pay: data.payment ? data.payment :  0,
+              pay: data.payment ? data.payment : 0,
             },
           ],
         },
@@ -26,6 +26,13 @@ export default async function handler(req, res) {
     };
     await designated.create(des);
     return res.status(201).json({ message: "کاربر با موفقیت اضافه شد" });
+  } else if (method === "GET") {
+    const Customers = await getAllDesignated();
+    return res.status(200).json({ Customers });
   }
 }
 
+export async function getAllDesignated() {
+  const customers = await designated.find({});
+  return customers;
+}
