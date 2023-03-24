@@ -7,12 +7,12 @@ import axios from "axios";
 const CustomerTable = ({ customer, onDelete }) => {
   const [deletePopup, setDeletePopup] = useState(false);
   const deleteHandler = (sale) => {
-    // if (sale.remaining !== 0) {
-    //   toast.error("شما نمیتوانید این آیتم را حذف کنید زیرا بدهکار میباشد", {
-    //     position: toast.POSITION.TOP_CENTER,
-    //   });
-    //   return;
-    // }
+    if (sale.remaining !== 0) {
+      toast.warning("شما نمیتوانید این آیتم را حذف کنید زیرا بدهکار میباشد", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      return;
+    }
     setDeletePopup(true);
   };
   return (
@@ -88,7 +88,7 @@ const CustomerTable = ({ customer, onDelete }) => {
                   </td>
                   <td className="px-6 py-4  text-slate-700 text-center">
                     <Link
-                      href={"/"}
+                      href={`/invoices/${customer._id}?invoice=${sale._id}`}
                       className="text-xl text-center mx-auto flex items-center justify-center  w-full  hover:text-cyan-900"
                     >
                       <RiSlideshowLine />
@@ -109,7 +109,7 @@ export default CustomerTable;
 const DeleteInvoice = ({ deletePopup, setDeletePopup, sale, id, onDelete }) => {
   if (deletePopup) {
     return (
-      <div className="w-full h-screen bg-gray-600 bg-opacity-80 z-50 fixed top-0 left-0 flex items-center justify-center">
+      <div className="w-full h-screen bg-gray-600 bg-opacity-50 z-50 fixed top-0 left-0 flex items-center justify-center">
         <div className="flex px-2 py-4 bg-white rounded-lg shadow-xl flex-col gap-y-2">
           <h1 className="text-slate-800">
             {" "}
