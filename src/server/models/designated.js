@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 const designatedSchema = new mongoose.Schema({
-  
   name: {
     type: String,
     required: true,
@@ -9,6 +8,7 @@ const designatedSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
+    required: true,
     unique: true,
   },
   plate: {
@@ -20,7 +20,8 @@ const designatedSchema = new mongoose.Schema({
   salesInvoices: [
     {
       createdAt: { type: String, required: true },
-
+      totalPrice: { type: Number },
+      remaining: { type: Number },
       desc: [
         {
           title: { type: String, required: true },

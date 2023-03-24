@@ -20,8 +20,10 @@ const AddCustomer = () => {
   const [remain, setRemain] = useState(0);
   const onSubmit = async (values) => {
     const value = { ...values, totalPrice, remain };
-    const { data } = await axios.post("/api/designated", { value });
-    toast.success(data.message);
+    const { data } = await axios.post("http://localhost:3000/api/designated", { value });
+    toast.success(data.message, {
+      position: toast.POSITION.TOP_CENTER,
+    });
     router.push("/");
   };
   const formik = useFormik({
@@ -86,7 +88,10 @@ const AddCustomer = () => {
             formik={formik}
           />
           <div className="max-w-xs mx-auto">
-            <button className="p-2 bg-violet-100    text-center rounded-lg  w-full text-sm text-slate-700 mt-5  hover:ring-2 hover:ring-offset-2 hover:ring-violet-200 transition-all ease-in-out duration-300">
+            <button
+              type="submit"
+              className="p-2 bg-violet-100    text-center rounded-lg  w-full text-sm text-slate-700 mt-5  hover:ring-2 hover:ring-offset-2 hover:ring-violet-200 transition-all ease-in-out duration-300"
+            >
               افزودن
             </button>
           </div>

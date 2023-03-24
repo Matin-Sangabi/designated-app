@@ -32,7 +32,7 @@ const CustomerList = ({ customer }) => {
           <span className="text-primary text-xl">
             <HiCurrencyDollar />
           </span>
-          <span className="text-xs md:text-sm text-primary font-semibold">
+          <span className="text-xs md:text-sm text-violet-500 font-semibold">
             {Number(customer.remaining).toLocaleString()}
             ريال
           </span>

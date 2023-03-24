@@ -12,6 +12,8 @@ export default async function handler(req, res) {
       salesInvoices: [
         {
           createdAt: new Date().toISOString(),
+          totalPrice: data.totalPrice,
+          remaining: data.remain,
           desc: data.desc,
           payment: [
             {

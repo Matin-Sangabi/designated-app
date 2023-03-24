@@ -2,8 +2,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+*{
+    font-family: IRANSansX;
+    direction: rtl;
+}
 body{
     background-color: #f3f4f6;
     direction: rtl;
-    font-family: IRANSansX;
+    
 }
