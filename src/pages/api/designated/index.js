@@ -16,15 +16,19 @@ export default async function handler(req, res) {
           remaining: data.remain,
           desc: data.desc,
           payment: [
-            {
-              createdAt: new Date().toISOString(),
-              pay: data.payment ? data.payment : 0,
-            },
+            data.payment
+              ? {
+                  createdAt: new Date().toISOString(),
+                  pay: data.payment,
+                }
+              : null,
           ],
+          status: data.remain > 0 ? "بدهکار" : "تسویه",
         },
       ],
       totalPrice: data.totalPrice,
       remaining: data.remain,
+      status: data.remain > 0 ? "بدهکار" : "تسویه",
     };
     await designated.create(des);
     return res.status(201).json({ message: "کاربر با موفقیت اضافه شد" });

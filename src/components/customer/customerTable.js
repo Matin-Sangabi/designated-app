@@ -37,6 +37,9 @@ const CustomerTable = ({ customer, onDelete }) => {
                 باقی مانده
               </th>
               <th scope="col" className="px-6 py-3">
+                وضعیت 
+              </th>
+              <th scope="col" className="px-6 py-3">
                 عملیات
               </th>
               <th scope="col" className="px-6 py-3 text-center">
@@ -47,24 +50,27 @@ const CustomerTable = ({ customer, onDelete }) => {
           <tbody>
             {customer.salesInvoices.map((sale) => {
               return (
-                <tr key={sale._id} className="bg-violet-50 border-b ">
+                <tr key={sale._id} className="bg-violet-50 border-b whitespace-nowrap ">
                   <th
                     scope="row"
                     className="px-6 py-4 font-medium text-slate-800 text-xs md:text-sm whitespace-nowrap"
                   >
                     {new Date(sale.createdAt).toLocaleDateString("fa")}
                   </th>
-                  <td className="px-6  text-slate-800">
+                  <td className="px-6 text-xs  text-slate-800">
                     {sale.desc[0].title} ...
                   </td>
                   <td className="px-6  text-xs md:text-sm text-slate-800">
                     {Number(sale.totalPrice).toLocaleString()} ريال
                   </td>
                   <td className="px-6  text-xs md:text-sm text-slate-800">
-                    {sale.payment[sale.payment.length - 1].pay} ريال
+                    {sale.payment.pay && sale.payment[sale.payment.length - 1].pay} ريال
                   </td>
                   <td className="px-6  text-xs md:text-sm text-slate-800">
                     {Number(sale.remaining).toLocaleString()} ريال
+                  </td>
+                  <td className="px-6  text-xs md:text-sm text-slate-800">
+                    {sale.status} 
                   </td>
                   <td className="px-6 py-4 flex items-center gap-x-2  text-slate-800">
                     {deletePopup && (

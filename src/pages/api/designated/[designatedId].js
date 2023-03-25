@@ -13,10 +13,11 @@ export default async function handler(req, res) {
     );
     const totalPrice = customer.totalPrice - customerInvoice.totalPrice;
     const remaining = customer.remaining - customerInvoice.remaining;
+    const status = customer.remaining > 0 ? "بدهکار" : "تسویه";
     await designated.updateOne(
       { _id: query.designatedId },
       {
-        $set: { totalPrice, remaining },
+        $set: { totalPrice, remaining, status },
         $pull: {
           salesInvoices: { _id: query.delete },
         },
@@ -29,22 +30,26 @@ export default async function handler(req, res) {
   } else if (method === "POST") {
     const { value } = body;
     const customer = await designated.findById(query.designatedId);
-
+    const status = value.remain > 0 ? "بدهکار" : "تسویه";
     const salesInvoices = {
       createdAt: new Date().toISOString(),
       totalPrice: value.totalPrice,
       remaining: value.remain,
       desc: value.desc,
       payment: [
-        {
-          createdAt: new Date().toISOString(),
-          pay: value.payment ? value.payment : 0,
-        },
+        value.payment
+          ? {
+              createdAt: new Date().toISOString(),
+              pay: value.payment,
+            }
+          : null,
       ],
+      status,
     };
     customer.salesInvoices.push(salesInvoices);
     customer.totalPrice += value.totalPrice;
     customer.remaining += value.remain;
+    customer.status = status;
     await customer.save();
     const customerList = await designated.find({});
     return res

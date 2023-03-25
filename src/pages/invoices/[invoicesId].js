@@ -22,19 +22,16 @@ const InvoiceId = ({ customerList, sales }) => {
   return (
     <Layout>
       <h1 className="text-slate-800 text-lg">فاکتور فروش</h1>
-      <div className="max-w-screen-xl rounded-xl shadow-xl bg-white p-2 mt-5">
-        {/* <div className="w-full py-[18px] bg-violet-500 flex items-center relative rounded-md ">
-          <img
-            src="/images/Logo.png"
-            className="absolute right-[15%] bg-white px-4 rounded-xl "
-          />
-        </div> */}
+      <div className="max-w-screen-xl rounded-xl shadow-xl bg-white p-2 mt-5 relative">
         <InvoiceDesc customer={customer} date={salesInvoices.createdAt} />
         <InvoiceTable salesInvoices={salesInvoices} />
         <InvoicePayment
           salesInvoices={salesInvoices}
           onClick={paymentHandler}
         />
+        <span className="absolute -left-[0.9rem] top-10 text-slate-700  bg-violet-200 rounded-r-md w-16  text-xs px-1 py-[3px] after:absolute after:bg-violet-200 after:left-[0.5px] after:-top-[4px] after:p-2 after:-skew-y-[30deg] after:-z-10">
+          {salesInvoices.status}
+        </span>
       </div>
     </Layout>
   );

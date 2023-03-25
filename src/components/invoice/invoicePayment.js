@@ -52,24 +52,25 @@ const InvoicePayment = ({ salesInvoices, onClick }) => {
         </span>
       </div>
       <h1 className="text-slate-700 text-sm">پرداختی ها</h1>
-      <div className="grid grid-cols-12 gap-4">
-        {salesInvoices.payment.map((pay) => {
-          return (
-            <div
-              key={pay._id}
-              className="col-span-12 md:col-span-4 lg:col-span-3 p-2 ring-2 shadow-lg bg-violet-50 ring-violet-200 rounded-lg  max-w-sm flex items-center px-2 justify-between flex-1"
-            >
-              <span className="text-slate-800 text-sm">{pay.pay} ريال </span>
-              <span className="text-xs text-slate-400">
-                {new Date(pay.createdAt).toLocaleDateString("fa")}
-              </span>
-            </div>
-          );
-        })}
+      <div className="grid grid-cols-12 gap-2 md:gap-4 justify-center ">
+        {salesInvoices.payment[0] !== null ?
+          salesInvoices.payment.map((pay) => {
+            return (
+              <div
+                key={pay._id}
+                className="col-span-12   print:col-span-4 md:col-span-4 lg:col-span-3 p-2 ring-2 shadow-lg bg-violet-50 ring-violet-200 rounded-lg  max-w-sm flex items-center px-2 justify-between flex-1"
+              >
+                <span className="text-slate-800 text-xs md:text-sm">{pay.pay} ريال </span>
+                <span className="text-xs text-slate-400">
+                  {new Date(pay.createdAt).toLocaleDateString("fa")}
+                </span>
+              </div>
+            );
+          }) : <span className="col-span-12 md:col-span-4 text-sm font-semibold text-slate-700">پرداختی تا حالا نداشیتد !</span>}
       </div>
-      <div className="max-w-xs">
+      <div className="max-w-xs print:hidden">
         <h1>پرداختی جدید : </h1>
-        <div className="flex items-center  gap-x-2 pt-3">
+        <div className="flex  items-center  gap-x-2 pt-3">
           <div className="flex items-center gap-x-2 relative">
             <input
               type="text"
@@ -79,6 +80,7 @@ const InvoicePayment = ({ salesInvoices, onClick }) => {
               onKeyUp={keyupHandler}
               onChange={(e) => setPayment(e.target.value)}
               value={payment}
+              disabled={salesInvoices.status == 'تسویه ' ? true : false}
               className="placeholder:text-xs w-full disabled:bg-gray-300  focus:ring-2 focus:ring-offset-2 focus:ring-violet-200 transition-all ease-in-out duration-300 text-sm border-none outline-none ring-1 ring-violet-200 rounded-md py-1 px-2"
             />
             {currency && (

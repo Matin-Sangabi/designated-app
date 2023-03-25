@@ -18,7 +18,10 @@ const InvoiceTable = ({ salesInvoices }) => {
         <tbody className="bg-violet-50 print:bg-slate-200 print:text-slate-800">
           {salesInvoices.desc.map((sale, index) => {
             return (
-              <tr key={sale._id} className="text-gray-800 border-b border-gray-700">
+              <tr
+                key={sale._id}
+                className="text-gray-800 border-b border-gray-700 whitespace-nowrap"
+              >
                 <th
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-800 whitespace-nowrap "

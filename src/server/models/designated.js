@@ -17,11 +17,13 @@ const designatedSchema = new mongoose.Schema({
   },
   totalPrice: { type: Number, required: true },
   remaining: { type: Number, required: true },
+  status: { type: String, required: true },
   salesInvoices: [
     {
       createdAt: { type: String, required: true },
       totalPrice: { type: Number },
       remaining: { type: Number },
+      status: { type: String, required: true },
       desc: [
         {
           title: { type: String, required: true },
@@ -30,8 +32,8 @@ const designatedSchema = new mongoose.Schema({
       ],
       payment: [
         {
-          createdAt: { type: String, required: true },
-          pay: { type: String, required: true },
+          createdAt: { type: String , required :false},
+          pay: { type: String  ,required :false},
         },
       ],
     },
