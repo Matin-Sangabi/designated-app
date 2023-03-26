@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { HiTrash } from "react-icons/hi";
 import { HiWrench } from "react-icons/hi2";
+import CustomerPlate from "../customer/customerPlate";
 
 const UserTable = ({ customers }) => {
   return (
@@ -40,7 +41,9 @@ const UserTable = ({ customers }) => {
                   scope="row"
                   className="px-6 py-4 font-medium  whitespace-nowrap flex items-center  "
                 >
-                    <span className="w-8 h-8 bg-violet-600 flex items-center justify-center text-xs rounded-full text-slate-50">{customer.name.charAt(0)}</span>
+                  <span className="w-8 h-8 bg-violet-600 flex items-center justify-center text-xs rounded-full text-slate-50">
+                    {customer.name.charAt(0)}
+                  </span>
                 </th>
                 <th
                   scope="row"
@@ -50,7 +53,7 @@ const UserTable = ({ customers }) => {
                 </th>
                 <td className="px-6 py-4">{customer.phone}</td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  {customer.plate}
+                  <CustomerPlate plate={JSON.parse(customer.plate)} />
                 </td>
                 <td className="px-6 py-4">{customer.status}</td>
                 <td className="px-6 py-4 flex items-center gap-x-2">
@@ -60,12 +63,9 @@ const UserTable = ({ customers }) => {
                   >
                     <HiTrash />
                   </button>
-                  <button className="text-lg text-slate-700 hover:text-blue-600">
-                    <HiWrench />
-                  </button>
                 </td>
                 <td className="px-6 py-4 text-right">
-                  <Link href={`/users/${customer._id}`}>مشاهده</Link>
+                  <Link href={`/users/${customer._id}`}>ویرایش</Link>
                 </td>
               </tr>
             );

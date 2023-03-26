@@ -5,6 +5,7 @@ import {
   HiRectangleGroup,
 } from "react-icons/hi2";
 import CustomerName from "./customerName";
+import CustomerPlate from "./customerPlate";
 
 const CustomerList = ({ customer }) => {
   return (
@@ -28,7 +29,9 @@ const CustomerList = ({ customer }) => {
             <span className="block text-xl stroke-2">
               <HiRectangleGroup />
             </span>
-            <span className="text-xs block">{customer.plate}</span>
+            <span className="text-xs block">
+              <SmallPlate plate={JSON.parse(customer.plate)} />
+            </span>
           </div>
         </div>
         <div className="flex items-center gap-x-4 px-2 ">
@@ -46,3 +49,14 @@ const CustomerList = ({ customer }) => {
 };
 
 export default CustomerList;
+
+const SmallPlate = ({plate}) => {
+  return (
+    <div className="flex items-center gap-x-[2px]">
+      <span>{plate.ssn4}</span>
+      <span>{plate.ssn3}</span>
+      <span>{plate.ssn2}</span>
+      <span>{plate.ssn1}</span>
+    </div>
+  )
+}

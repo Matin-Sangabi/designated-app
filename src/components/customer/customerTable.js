@@ -88,9 +88,7 @@ const CustomerTable = ({ customer, onDelete }) => {
                     >
                       <HiTrash />
                     </button>
-                    <button className="text-lg text-slate-700 hover:text-blue-600">
-                      <HiWrench />
-                    </button>
+                    
                   </td>
                   <td className="px-6 py-4  text-slate-700 text-center">
                     <Link

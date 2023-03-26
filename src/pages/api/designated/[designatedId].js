@@ -55,5 +55,13 @@ export default async function handler(req, res) {
     return res
       .status(200)
       .json({ message: "فاکتور با موفقیت ثبت شد", customer: customerList });
+  } else if (method === "PUT") {
+    const { value } = body;
+    const customer = await designated.findById(query.designatedId);
+    customer.name = value.name;
+    customer.phone = value.phone;
+    customer.plate = value.plate;
+    await customer.save();
+    return res.status(201).json({ message: "کاربر با موفقیت ویرایش شد " });
   }
 }
