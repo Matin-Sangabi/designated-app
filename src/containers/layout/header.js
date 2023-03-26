@@ -44,7 +44,7 @@ const Header = () => {
           </div>
         </div>
       </header>
-      <div className="fixed top-0 left-0 p-2  border-b-[1px] z-10  border-slate-400 w-full bg-gray-100">
+      <div className="fixed print:hidden top-0 left-0 p-2  border-b-[1px] z-10  border-slate-400 w-full bg-gray-100">
         <div className="container max-w-screen-xl mx-auto  flex items-center justify-between relative">
           <div className="flex-1 items-center flex">
             <div className="flex items-center relative w-full">

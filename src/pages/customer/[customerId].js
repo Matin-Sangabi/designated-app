@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import CustomerName from "../../components/customer/customerName";
+import CustomerPlate from "../../components/customer/customerPlate";
 import CustomerTable from "../../components/customer/customerTable";
 import Layout from "../../containers/layout";
 const Customer = ({ customerList }) => {
@@ -30,6 +31,10 @@ const Customer = ({ customerList }) => {
               <span className="text-xs text-slate-600 font-semibold">
                 {customer.phone}
               </span>
+            </div>
+            <div className="flex items-center gap-x-2 justify-center  flex-1">
+              <h1 className="text-sm text-slate-800">شماره پلاک: </h1>
+              <CustomerPlate plate={JSON.parse(customer.plate)} />
             </div>
             <div className="flex items-center gap-x-2 justify-center  flex-1">
               <h1 className="text-sm text-slate-800">مبلغ بدهی : </h1>

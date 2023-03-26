@@ -3,11 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 *{
-    font-family: IRANSansX;
+    font-family:IRANSansXNum ,  IRANSansX  !important;
     direction: rtl;
+    print-color-adjust: exact;
 }
 body{
     background-color: #f3f4f6;
-    direction: rtl;
-    
+
 }
