@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 
-const PlateForm = ({ formik, plate }) => {
-  const [ssnValues, setValue] = useState(plate || {
-    ssn1: "",
-    ssn2: "",
-    ssn3: "",
-    ssn4: "",
-  });
+const PlateForm = ({ formik, plate = null }) => {
+  const [ssnValues, setValue] = useState(
+    plate || {
+      ssn1: "",
+      ssn2: "",
+      ssn3: "",
+      ssn4: "",
+    }
+  );
   const numOfFields = 4;
   const changeHandler = (e) => {
     const { maxLength, value, name } = e.target;

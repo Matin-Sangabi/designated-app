@@ -60,9 +60,7 @@ const InvoiceId = ({ customerList, sales }) => {
           <div className="flex items-center justify-end">
             <div className="flex flex-col gap-2">
               <h1 className="text-slate-800 text-sm">مهر و امضاء</h1>
-              <h1 className="text-slate-700 text-sm">
-                تاریخ : {new Date().toLocaleDateString("fa")}
-              </h1>
+              
             </div>
           </div>
           <div className="flex items-center gap-x-2">
@@ -86,7 +84,7 @@ const InvoiceId = ({ customerList, sales }) => {
           </div>
 
           <h1 className="text-slate-800 text-sm">
-            !مهم : لطفا بعد از واریزی وجه هماهنگ کنید
+            !مهم : لطفا بعد از واریزی وجه با شماره بالا هماهنگ کنید
           </h1>
         </div>
       </div>

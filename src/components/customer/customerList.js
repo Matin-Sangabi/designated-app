@@ -11,7 +11,7 @@ const CustomerList = ({ customer }) => {
   return (
     <Link
       href={`/customer/${customer._id}`}
-      className="relative pb-6 col-span-12 md:col-span-4 text-slate-700 lg:col-span-3 py-4  px-3 gap-x-2 hover:ring hover:ring-offset-2 cursor-pointer hover:ring-violet-200 transition-all ease-in-out duration-300 bg-white rounded-md shadow-xl gap-y-4 flex flex-col"
+      className="relative pb-6 col-span-12 md:col-span-6 text-slate-700 lg:col-span-4 xl:col-span-3 py-4  px-3 gap-x-2 hover:ring hover:ring-offset-2 cursor-pointer hover:ring-violet-200 transition-all ease-in-out duration-300 bg-white rounded-md shadow-xl gap-y-4 flex flex-col"
     >
       <div className=" flex flex-col  gap-y-4 justify-between">
         <CustomerName customer={customer} />

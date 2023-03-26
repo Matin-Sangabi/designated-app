@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import CustomerDetail from "../../components/customer/customerDetail";
+import CustomerPlate from "../../components/customer/customerPlate";
 const initialValues = {
   desc: [],
   payment: "",
@@ -36,19 +37,19 @@ const AddCustomerId = ({ customer }) => {
   return (
     <Layout>
       <h1 className="text-lg text-slate-700 font-semibold p-2">افزودن مشتری</h1>
-      <div className="pt-5 mx-auto max-w-screen-xl bg-white shadow-md rounded-xl flex flex-col gap-y-4 px-2 py-4 mb-5">
+      <div className="pt-5 mx-auto  bg-white shadow-md rounded-xl px-2 py-4 mb-5">
         <form onSubmit={formik.handleSubmit}>
           <h1 className="text-slate-800  ">مشخصات مشتری</h1>
-          <div className="flex flex-col md:flex-row md:items-center p-2 text-slate-600 md:gap-x-8 gap-y-4">
+          <div className="flex flex-col flex-wrap md:flex-row md:items-center p-2 text-slate-600 md:gap-x-8 gap-y-4">
             <label className="flex flex-col gap-y-2 flex-1">
               <span className="text-sm">نام مشتری</span>
               <CustomerDetail name={customer.name} />
             </label>
             <label className="flex flex-col gap-y-2 flex-1">
               <span className="text-sm">شماره پلاک</span>
-              <CustomerDetail name={customer.plate} />
+              <CustomerPlate plate={JSON.parse(customer.plate)} />
             </label>
-            <label className="flex flex-col gap-y-2 flex-1">
+            <label className="flex flex-col gap-y-2 flex-1 ">
               <span className="text-sm">شماره تماس</span>
               <CustomerDetail name={customer.phone} />
             </label>

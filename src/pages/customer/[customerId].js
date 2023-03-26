@@ -21,11 +21,11 @@ const Customer = ({ customerList }) => {
     return (
       <Layout>
         <h1 className="text-slate-800">فاکتور های مشتری</h1>
-        <div className="mt-20 max-w-screen-xl rounded-xl shadow-2xl py-10 pb-20 px-2 relative">
+        <div className="mt-20 bg-white  rounded-xl shadow-2xl py-10 pb-20 px-2 relative">
           <div className="absolute right-0 -top-2 flex items-center gap-x-2 p-2 ">
             <CustomerName customer={customer} isSmall={true} />
           </div>
-          <div className="flex flex-col items-start gap-y-3 md:flex-row md:items-center px-5 py-5  mt-5">
+          <div className="flex flex-col items-start gap-y-3 xl:flex-row xl:items-center px-5 py-5  mt-5">
             <div className="flex items-center gap-x-2">
               <span className="text-sm">شماره تماس : </span>
               <span className="text-xs text-slate-600 font-semibold">
