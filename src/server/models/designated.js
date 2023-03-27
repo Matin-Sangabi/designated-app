@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+const mongoosePaginate = require("mongoose-paginate-v2");
 const designatedSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -32,15 +32,20 @@ const designatedSchema = new mongoose.Schema({
       ],
       payment: [
         {
-          createdAt: { type: String , required :false},
-          pay: { type: String  ,required :false},
+          createdAt: { type: String, required: false },
+          pay: { type: String, required: false },
         },
       ],
     },
   ],
 });
+designatedSchema.plugin(mongoosePaginate);
+const designated =
+  mongoose.models.Des || mongoose.model("Des", designatedSchema);
 
-export default mongoose.models.Des || mongoose.model("Des", designatedSchema);
+
+
+export default designated;
 /**
  * author: [
     {

@@ -2,7 +2,7 @@ import dbConnect from "../../../server/utils/db_connet";
 import designated from "../../../server/models/designated";
 dbConnect();
 export default async function handler(req, res) {
-  const { method, body } = req;
+  const { method, body, query } = req;
   if (method === "POST") {
     const { value: data } = body;
     const des = {
@@ -33,7 +33,22 @@ export default async function handler(req, res) {
     await designated.create(des);
     return res.status(201).json({ message: "کاربر با موفقیت اضافه شد" });
   } else if (method === "GET") {
-    const Customers = await designated.find({});
-    return res.status(200).json({ Customers });
+    const { page, size } = query;
+  const { limit, offset } = getPagination(page, size);
+    await designated
+      .paginate({}, { offset, limit })
+      .then((result) => {
+        return res.status(200).json({ customers :result });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }
+
+const getPagination = (page, size) => {
+  const limit = size ? +size : 3;
+  const offset = page ? page * limit : 0;
+
+  return { limit, offset };
+};
