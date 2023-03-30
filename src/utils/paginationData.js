@@ -8,10 +8,12 @@ export async function pagintionData(query, data) {
     { _id: query.designatedId },
     { _id: 0, salesInvoices: { $slice: [offset, limit] } }
   );
-  const totalPages = Math.round(totalDocs / limit) ;
+    const documnet = JSON.parse(JSON.stringify(allCustomers))
+  const cust = { ...documnet , salesInvoices : customer[0].salesInvoices};
+  const totalPages = Math.round(totalDocs / limit);
   let pagingCounter = offset + 1;
   const result = {
-    docs : customer,
+    docs: cust,
     offset,
     totalDocs,
     limit,
@@ -20,10 +22,10 @@ export async function pagintionData(query, data) {
     totalPages,
     pagingCounter,
     hasPrevPage:
-        pagingCounter !== 1 && pagingCounter <= totalDocs ? true : false,
-hasNextPage: totalPages === 1 ||  pagingCounter >= totalDocs ? false : true,
+      pagingCounter !== 1 && pagingCounter <= totalDocs ? true : false,
+    hasNextPage: totalPages === 1 || pagingCounter >= totalDocs ? false : true,
   };
-  return result; 
+  return result;
 }
 
 const getPagination = (page, size) => {

@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   const { method, query, body } = req;
   if (method === "GET") {
     const data = await pagintionData(query, designated);
-    return res.status(200).json({ data });
+    return res.status(200).json({ customer : data ,message : 'fetch data success' });
   } else if (method === "DELETE") {
     const customer = await designated.findById(query.designatedId);
     const customerInvoice = customer.salesInvoices.find(

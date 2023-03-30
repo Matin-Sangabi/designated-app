@@ -1,13 +1,17 @@
 import axios from "axios";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import CustomerName from "../../components/customer/customerName";
 import CustomerPlate from "../../components/customer/customerPlate";
 import CustomerTable from "../../components/customer/customerTable";
+import Pagination from "../../components/pagination/pagination";
 import Layout from "../../containers/layout";
 const Customer = ({ customerList }) => {
-  const [customer, setCustomer] = useState(customerList);
+  const [customer, setCustomer] = useState(null);
+  useEffect(() => {
+    setCustomer(customerList.docs);
+  }, [customerList]);
   const deleteHandler = async (id, saleId) => {
     const { data } = await axios.delete(
       `/api/designated/${id}?delete=${saleId}`
@@ -46,24 +50,32 @@ const Customer = ({ customerList }) => {
               </span>
             </div>
           </div>
-          <CustomerTable onDelete={deleteHandler} customer={customer} />
-          <div className="absolute left-2 bottom-1 ">
-            <Link
-              href={`/addCustomer/${customer._id}`}
-              className="p-1 group  relative w-11 h-11 aspect-10  text-xs bg-violet-200 text-violet-700 rounded-full hover:shadow-md gap-x-2 transition-all ease-in-out duration-300 flex items-center justify-center"
-            >
-              <img
-                src="/images/createOrder.png"
-                alt="createOrder"
-                className="w-full h-full"
+          <div className="w-full h-[45vh] flex flex-col justify-between ">
+            <CustomerTable onDelete={deleteHandler} customer={customer} />
+            <div className="flex relative items-center justify-between">
+              <Pagination
+                customer={customerList}
+                path={`/customer/${customer._id}`}
               />
-              <span
-                className="group-hover:opacity-100 transition-opacity bg-gray-800 px-2  text-gray-100 rounded-md absolute left-1/2 
+              <div className="absolute left-2 bottom-1 ">
+                <Link
+                  href={`/addCustomer/${customer._id}`}
+                  className="p-1 group  relative w-11 h-11 aspect-10  text-xs bg-violet-200 text-violet-700 rounded-full hover:shadow-md gap-x-2 transition-all ease-in-out duration-300 flex items-center justify-center"
+                >
+                  <img
+                    src="/images/createOrder.png"
+                    alt="createOrder"
+                    className="w-full h-full"
+                  />
+                  <span
+                    className="group-hover:opacity-100 transition-opacity bg-gray-800 px-2  text-gray-100 rounded-md absolute left-1/2 
     -translate-x-1/2 translate-y-full opacity-0 m-4 text-xs  mx-auto"
-              >
-                افزودن فاکتور
-              </span>
-            </Link>
+                  >
+                    افزودن فاکتور
+                  </span>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </Layout>
@@ -75,8 +87,9 @@ export default Customer;
 
 export async function getServerSideProps(ctx) {
   const { query } = ctx;
+  const page = query.page ? query.page : 0;
   const { data } = await axios.get(
-    `http://localhost:3000/api/designated/${query.customerId}`
+    `http://localhost:3000/api/designated/${query.customerId}?page=${page}`
   );
   const { customer: customerList } = data;
   return {

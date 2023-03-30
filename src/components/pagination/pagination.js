@@ -2,18 +2,16 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 
-const Pagination = ({ customer }) => {
-  // console.log(customer);
+const Pagination = ({ customer , path }) => {
   const router = useRouter();
   const paginateArray = Array.from(
     { length: customer.totalPages },
     (_, i) => i + 1
   );
-
   const onPagination = (id) => {
     router.push(
       {
-        pathname: "/",
+        pathname: path,
         query: { page: id },
       },
       undefined,
@@ -26,14 +24,14 @@ const Pagination = ({ customer }) => {
     switch (params) {
       case "next": {
         const nextPage = currentQuery ? Number(currentQuery) + 1 : 1;
-        router.push(`/?page=${String(nextPage)}`);
+        router.push(`${path}?page=${String(nextPage)}`);
         break;
       }
       case "prev": {
         const prevPage = currentQuery - 1;
         router.push(
           {
-            pathname: "/",
+            pathname: path,
             query: { page: prevPage },
           },
           undefined,

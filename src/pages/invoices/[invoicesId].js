@@ -28,7 +28,7 @@ const InvoiceId = ({ customerList, sales }) => {
         <div className="max-w-screen-xl rounded-xl shadow-xl  bg-white p-2 mt-5 print:mt-0 relative">
           <div className="max-w-screen-xl p-1 hidden print:flex rounded-md bg-violet-200 relative   items-start flex-col ">
             <img src="/images/Logo.png" className="object-cover" />
-            <h1 className="text-slate-800 text-xs p-2">
+            <h1 className="text-slate-800 text-xs print:text-xs p-2">
               نمایندگی رسمی شرکت بهروش
             </h1>
           </div>
