@@ -1,31 +1,11 @@
 import dbConnect from "../../../server/utils/db_connet";
 import designated from "../../../server/models/designated";
+import { pagintionData } from "../../../utils/paginationData";
 dbConnect();
 export default async function handler(req, res) {
   const { method, query, body } = req;
   if (method === "GET") {
-    const { page, size } = query;
-    const { limit, offset } = getPagination(page, size);
-    const allCustomers = await designated.findById(query.designatedId);
-    const totalDocs = allCustomers.salesInvoices.length;
-    const currentPage = page !== "0" ? Number(page) + 1 : 1;
-    const customer = await designated.find(
-      { _id: query.designatedId },
-      { _id: 0, salesInvoices: { $slice: [offset, limit] } }
-    );
-    let pagingCounter = offset + 1;
-    const data = {
-      customer,
-      offset,
-      totalDocs,
-      limit,
-      page: currentPage,
-      currentPage,
-      totalPages: Math.round(totalDocs / limit),
-      pagingCounter,
-      hasPrevPage: pagingCounter !== 1 &&  pagingCounter <= totalDocs ? true : false,
-      hasNextPage: pagingCounter >= totalDocs ? false : true,
-    };
+    const data = await pagintionData(query, designated);
     return res.status(200).json({ data });
   } else if (method === "DELETE") {
     const customer = await designated.findById(query.designatedId);
@@ -86,9 +66,3 @@ export default async function handler(req, res) {
     return res.status(201).json({ message: "کاربر با موفقیت ویرایش شد " });
   }
 }
-const getPagination = (page, size) => {
-  const limit = size ? +size : 2;
-  const offset = page ? page * limit : 0;
-
-  return { limit, offset };
-};
