@@ -13,7 +13,7 @@ const initialValues = {
   desc: [],
   payment: "",
 };
-const AddCustomerId = ({ customer }) => {
+const AddCustomerId = ({ customer }) => { 
   const router = useRouter();
   const [totalPrice, setTotalPrice] = useState(0);
   const [remain, setRemain] = useState(0);
@@ -100,7 +100,7 @@ export async function getServerSideProps(ctx) {
   const { customer } = data;
   return {
     props: {
-      customer,
+      customer : customer.docs,
     },
   };
 }

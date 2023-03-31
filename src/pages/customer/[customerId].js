@@ -25,7 +25,7 @@ const Customer = ({ customerList }) => {
     return (
       <Layout>
         <h1 className="text-slate-800">فاکتور های مشتری</h1>
-        <div className="mt-20 bg-white  rounded-xl shadow-2xl py-10 pb-20 px-2 relative">
+        <div className="mt-5 mb-5 md:mt-20 bg-white  rounded-xl shadow-2xl py-10 pb-20 px-2 relative">
           <div className="absolute right-0 -top-2 flex items-center gap-x-2 p-2 ">
             <CustomerName customer={customer} isSmall={true} />
           </div>
@@ -50,7 +50,7 @@ const Customer = ({ customerList }) => {
               </span>
             </div>
           </div>
-          <div className="w-full h-[45vh] flex flex-col justify-between ">
+          <div className="w-full h-[40vh] mb-5 flex flex-col justify-between ">
             <CustomerTable onDelete={deleteHandler} customer={customer} />
             <div className="flex relative items-center justify-between">
               <Pagination
