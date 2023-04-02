@@ -20,7 +20,7 @@ const designatedSchema = new mongoose.Schema({
   status: { type: String, required: true },
   salesInvoices: [
     {
-      createdAt: { type: String, required: true },
+      createdAt: { type: Date, required: true, default: Date.now() },
       totalPrice: { type: Number },
       remaining: { type: Number },
       status: { type: String, required: true },
@@ -32,7 +32,7 @@ const designatedSchema = new mongoose.Schema({
       ],
       payment: [
         {
-          createdAt: { type: String, required: false },
+          createdAt: { type: Date, required: false, default: Date.now() },
           pay: { type: String, required: false },
         },
       ],
@@ -42,8 +42,6 @@ const designatedSchema = new mongoose.Schema({
 designatedSchema.plugin(mongoosePaginate);
 const designated =
   mongoose.models.Des || mongoose.model("Des", designatedSchema);
-
-
 
 export default designated;
 /**

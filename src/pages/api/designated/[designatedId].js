@@ -24,7 +24,7 @@ export default async function handler(req, res) {
         },
       }
     );
-    const oneCustomer = await designated.findById(query.designatedId);
+    const oneCustomer = await pagintionData(query, designated);
     return res
       .status(200)
       .json({ message: "فاکتور با موفقیت حذف شد", customer: oneCustomer });
@@ -50,7 +50,7 @@ export default async function handler(req, res) {
     customer.salesInvoices.push(salesInvoices);
     customer.totalPrice += value.totalPrice;
     customer.remaining += value.remain;
-    customer.status = status;
+    customer.status = customer.remaining > 0 ? 'بدهکار' : 'تسویه';
     await customer.save();
     const customerList = await designated.find({});
     return res

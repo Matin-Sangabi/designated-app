@@ -1,5 +1,5 @@
 import { HiTrash, HiWrench, HiSwatch } from "react-icons/hi2";
-import { RiSlideshowLine } from "react-icons/ri";
+import { RiCollageLine, RiSlideshowLine } from "react-icons/ri";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -49,6 +49,7 @@ const CustomerTable = ({ customer, onDelete }) => {
           </thead>
           <tbody>
             {customer.salesInvoices.map((sale) => {
+              console.log()
               return (
                 <tr key={sale._id} className="bg-violet-50 border-b whitespace-nowrap ">
                   <th
@@ -64,7 +65,7 @@ const CustomerTable = ({ customer, onDelete }) => {
                     {Number(sale.totalPrice).toLocaleString()} ريال
                   </td>
                   <td className="px-6  text-xs md:text-sm text-slate-800">
-                    {sale.payment.pay && sale.payment[sale.payment.length - 1].pay} ريال
+                    {sale.payment.pay !== null ? sale.payment[sale.payment.length -1].pay : ""} ريال
                   </td>
                   <td className="px-6  text-xs md:text-sm text-slate-800">
                     {Number(sale.remaining).toLocaleString()} ريال

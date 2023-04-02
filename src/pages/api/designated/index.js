@@ -34,11 +34,11 @@ export default async function handler(req, res) {
     return res.status(201).json({ message: "کاربر با موفقیت اضافه شد" });
   } else if (method === "GET") {
     const { page, size } = query;
-  const { limit, offset } = getPagination(page, size);
+    const { limit, offset } = getPagination(page, size);
     await designated
       .paginate({}, { offset, limit })
       .then((result) => {
-        return res.status(200).json({ customers :result });
+        return res.status(200).json({ customers: result });
       })
       .catch((err) => {
         console.log(err);

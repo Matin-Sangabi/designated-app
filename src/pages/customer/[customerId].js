@@ -1,5 +1,6 @@
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import CustomerName from "../../components/customer/customerName";
@@ -8,6 +9,7 @@ import CustomerTable from "../../components/customer/customerTable";
 import Pagination from "../../components/pagination/pagination";
 import Layout from "../../containers/layout";
 const Customer = ({ customerList }) => {
+  const router = useRouter();
   const [customer, setCustomer] = useState(null);
   useEffect(() => {
     setCustomer(customerList.docs);
@@ -16,7 +18,8 @@ const Customer = ({ customerList }) => {
     const { data } = await axios.delete(
       `/api/designated/${id}?delete=${saleId}`
     );
-    setCustomer(data.customer);
+    setCustomer(data.customer.docs);
+    router.push(`/customer/${customer._id}?page=0`);
     toast.success(data.message, {
       position: toast.POSITION.TOP_CENTER,
     });
