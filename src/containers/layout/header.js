@@ -24,11 +24,12 @@ const Header = ({ openMenu, setOpenMenu }) => {
       >
         <div className="w-full h-full bg-slate-800 text-slate-100 flex flex-col justify-between ">
           <div className="flex flex-col items-center gap-y-4">
-            <div
+            <Link
+              href={"/"}
               className={`mt-10 flex flex-col items-center w-14 transition-all ease-in-out delay-300`}
             >
               <img src="/images/Logo.png" />
-            </div>
+            </Link>
             <ListGroup openMenu={openMenu} />
           </div>
           <div className="relative flex-1 flex justify-center items-end">
@@ -75,8 +76,14 @@ const Header = ({ openMenu, setOpenMenu }) => {
           <Profile />
         </div>
         <div className="w-full relative mt-3 px-4">
-          <input type="text" className="p-[3px] w-full px-7 rounded-lg bg-slate-600 text-sm placeholder:tex-xs placeholder:text-slate-400  outline-none focus:shadow-md focus:shadow-slate-500 transition-all ease-in-out duration-300 border-none text-slate-300" placeholder="جستجو ... " />
-          <span className="absolute right-5 bottom-1 text-slate-200 text-xl stroke-2  "><HiMagnifyingGlass /></span>
+          <input
+            type="text"
+            className="p-[3px] w-full px-7 rounded-lg bg-slate-600 text-sm placeholder:tex-xs placeholder:text-slate-400  outline-none focus:shadow-md focus:shadow-slate-500 transition-all ease-in-out duration-300 border-none text-slate-300"
+            placeholder="جستجو ... "
+          />
+          <span className="absolute right-5 bottom-1 text-slate-200 text-xl stroke-2  ">
+            <HiMagnifyingGlass />
+          </span>
         </div>
       </div>
       <div className="fixed bottom-0 md:hidden block left-0 p-2 w-full z-50">
