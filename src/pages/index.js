@@ -35,7 +35,7 @@ export async function getServerSideProps(context) {
   const { query } = context;
   const page = query.page ? query.page : 0;
   const { data } = await axios.get(
-    `http://localhost:3000/api/designated?page=${page}`
+    `${process.env.BASE_URL}/designated?page=${page}`
   );
   const { customers } = data;
   return {
