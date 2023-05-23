@@ -1,4 +1,3 @@
-import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -8,6 +7,7 @@ import CustomerPlate from "../../components/customer/customerPlate";
 import CustomerTable from "../../components/customer/customerTable";
 import Pagination from "../../components/pagination/pagination";
 import Layout from "../../containers/layout";
+import http from "../../services/httpServices";
 const Customer = ({ customerList }) => {
   const router = useRouter();
   const [customer, setCustomer] = useState(null);
@@ -15,9 +15,7 @@ const Customer = ({ customerList }) => {
     setCustomer(customerList.docs);
   }, [customerList]);
   const deleteHandler = async (id, saleId) => {
-    const { data } = await axios.delete(
-      `/api/designated/${id}?delete=${saleId}`
-    );
+    const { data } = await http.delete(`/designated/${id}?delete=${saleId}`);
     setCustomer(data.customer.docs);
     router.push(`/customer/${customer._id}?page=0`);
     toast.success(data.message, {
@@ -91,8 +89,8 @@ export default Customer;
 export async function getServerSideProps(ctx) {
   const { query } = ctx;
   const page = query.page ? query.page : 0;
-  const { data } = await axios.get(
-    `http://localhost:3000/api/designated/${query.customerId}?page=${page}`
+  const { data } = await http.get(
+    `/designated/${query.customerId}?page=${page}`
   );
   const { customer: customerList } = data;
   return {

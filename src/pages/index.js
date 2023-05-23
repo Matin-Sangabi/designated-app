@@ -2,8 +2,8 @@ import Layout from "../containers/layout";
 import Link from "next/link";
 import CustomerList from "../components/customer/customerList";
 import { HiPlusSmall } from "react-icons/hi2";
-import axios from "axios";
 import Pagination from "../components/pagination/pagination";
+import http from "../services/httpServices";
 
 const Home = ({ Customers }) => {
   return (
@@ -34,9 +34,7 @@ export default Home;
 export async function getServerSideProps(context) {
   const { query } = context;
   const page = query.page ? query.page : 0;
-  const { data } = await axios.get(
-    `${process.env.BASE_URL}/designated?page=${page}`
-  );
+  const { data } = await http.get(`/designated?page=${page}`);
   const { customers } = data;
   return {
     props: {

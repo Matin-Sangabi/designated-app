@@ -1,10 +1,10 @@
 import Layout from "../../containers/layout";
 import { useFormik } from "formik";
 import CustomersInputs from "../../components/customer/customerForms";
-import axios from "axios";
 import { toast } from "react-toastify";
 import PlateForm from "../../components/plateForm/Plateform";
 import { useRouter } from "next/router";
+import http from "../../services/httpServices";
 
 const UsersId = ({ customer }) => {
   const router = useRouter();
@@ -15,12 +15,9 @@ const UsersId = ({ customer }) => {
   };
   const onSubmit = async (values) => {
     const value = { ...values };
-    const { data } = await axios.put(
-      `http://localhost:3000/api/designated/${customer._id}`,
-      {
-        value,
-      }
-    );
+    const { data } = await http.put(`/designated/${customer._id}`, {
+      value,
+    });
     toast.success(data.message, {
       position: toast.POSITION.TOP_CENTER,
     });
@@ -82,9 +79,7 @@ export default UsersId;
 
 export async function getServerSideProps(ctx) {
   const { query } = ctx;
-  const { data } = await axios.get(
-    `http://localhost:3000/api/designated/${query.usersId}`
-  );
+  const { data } = await http.get(`/designated/${query.usersId}`);
   return {
     props: {
       customer: data.customer,

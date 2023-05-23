@@ -1,20 +1,19 @@
-import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
 import { HiPrinter } from "react-icons/hi2";
 import { toast } from "react-toastify";
-
 import InvoiceDesc from "../../components/invoice/invoiceDes";
 import InvoicePayment from "../../components/invoice/invoicePayment";
 import InvoiceTable from "../../components/invoice/invoiceTable";
 import Layout from "../../containers/layout";
+import http from "../../services/httpServices";
 
 const InvoiceId = ({ customerList, sales }) => {
   const [customer, setCustomer] = useState(customerList);
   const [salesInvoices, setSalesInvoices] = useState(sales);
   const paymentHandler = async (id, remain, payment) => {
-    const { data } = await axios.put(
-      `http://localhost:3000/api/designated/invoice/${customer._id}?invoice=${id}`,
+    const { data } = await http.put(
+      `/designated/invoice/${customer._id}?invoice=${id}`,
       { remain, payment }
     );
     setCustomer(data.customer);
@@ -60,7 +59,6 @@ const InvoiceId = ({ customerList, sales }) => {
           <div className="flex items-center justify-end">
             <div className="flex flex-col gap-2">
               <h1 className="text-slate-800 text-sm">مهر و امضاء</h1>
-              
             </div>
           </div>
           <div className="flex items-center gap-x-2">
@@ -96,8 +94,8 @@ export default InvoiceId;
 
 export async function getServerSideProps(ctx) {
   const { query } = ctx;
-  const { data } = await axios.get(
-    `http://localhost:3000/api/designated/invoice/${query.invoicesId}?invoice=${query.invoice}`
+  const { data } = await http.get(
+    `/designated/invoice/${query.invoicesId}?invoice=${query.invoice}`
   );
   const { customer: customerList, salesInvoices: sales } = data;
   return {

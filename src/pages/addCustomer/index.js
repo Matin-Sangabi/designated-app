@@ -4,10 +4,11 @@ import CustomersInputs from "../../components/customer/customerForms";
 import CustomerTotal from "../../components/customer/customerTotla";
 import Layout from "../../containers/layout";
 import { useFormik } from "formik";
-import axios from "axios";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import PlateForm from "../../components/plateForm/Plateform";
+import http from "../../services/httpServices";
+
 const initialValues = {
   name: "",
   plate: "",
@@ -15,13 +16,14 @@ const initialValues = {
   desc: [],
   payment: "",
 };
+
 const AddCustomer = () => {
   const router = useRouter();
   const [totalPrice, setTotalPrice] = useState(0);
   const [remain, setRemain] = useState(0);
   const onSubmit = async (values) => {
     const value = { ...values, totalPrice, remain };
-    const { data } = await axios.post("http://localhost:3000/api/designated", { value });
+    const { data } = await http.post("/designated", { value });
     toast.success(data.message, {
       position: toast.POSITION.TOP_CENTER,
     });

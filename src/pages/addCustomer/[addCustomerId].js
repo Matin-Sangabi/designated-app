@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import Layout from "../../containers/layout";
 import { useState } from "react";
 import CustomerDesc from "../../components/customer/customerDesc";
@@ -9,22 +9,20 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import CustomerDetail from "../../components/customer/customerDetail";
 import CustomerPlate from "../../components/customer/customerPlate";
+import http from "../../services/httpServices";
 const initialValues = {
   desc: [],
   payment: "",
 };
-const AddCustomerId = ({ customer }) => { 
+const AddCustomerId = ({ customer }) => {
   const router = useRouter();
   const [totalPrice, setTotalPrice] = useState(0);
   const [remain, setRemain] = useState(0);
   const onSubmit = async (values) => {
     const value = { ...values, totalPrice, remain };
-    const { data } = await axios.post(
-      `http://localhost:3000/api/designated/${customer._id}`,
-      {
-        value,
-      }
-    );
+    const { data } = await http.post(`/designated/${customer._id}`, {
+      value,
+    });
     toast.success(data.message, {
       position: toast.POSITION.TOP_CENTER,
     });
@@ -94,13 +92,11 @@ export default AddCustomerId;
 
 export async function getServerSideProps(ctx) {
   const { query } = ctx;
-  const { data } = await axios.get(
-    `http://localhost:3000/api/designated/${query.addCustomerId}`
-  );
+  const { data } = await http.get(`/designated/${query.addCustomerId}`);
   const { customer } = data;
   return {
     props: {
-      customer : customer.docs,
+      customer: customer.docs,
     },
   };
 }
