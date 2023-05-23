@@ -82,7 +82,7 @@ export async function getServerSideProps(ctx) {
   const { data } = await http.get(`/designated/${query.usersId}`);
   return {
     props: {
-      customer: data.customer,
+      customer: data.customer.docs,
     },
   };
 }
